@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Expedição 2026</title>
+    <style>
+        :root {
+            --primary: #1f4e78;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #111827;
+            --success: #10b981;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 100px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 40px 20px 15px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container { padding: 16px; max-width: 480px; margin: 0 auto; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e5e7eb;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Formulários Intuitivos */
+        h2 { font-size: 20px; margin-top: 0; color: var(--primary); }
+        label { display: block; margin: 12px 0 4px; font-size: 12px; font-weight: 600; color: #6b7280; }
+        input, select {
+            width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px;
+            background: #f9fafb; font-size: 15px; box-sizing: border-box;
+        }
+        button {
+            background: var(--primary); color: white; border: none; padding: 14px;
+            width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold;
+            margin-top: 15px; box-shadow: 0 4px 8px rgba(31,78,120,0.2);
+        }
+        
+        /* Lista de Gastos */
+        .gasto-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #f3f4f6;
+        }
+        .gasto-item:last-child { border: none; }
+        .val-brl { font-weight: bold; color: var(--success); }
+
+        /* Barra de Navegação iOS */
+        nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid #e5e7eb; padding: 10px 0 30px; display: flex;
+            justify-content: space-around; z-index: 100;
+        }
+        .nav-btn {
+            background: none; border: none; color: #9ca3af; font-size: 11px;
+            font-weight: 500; display: flex; flex-col; flex-direction: column;
+            align-items: center; margin: 0; padding: 0; box-shadow: none; width: auto;
+        }
+        .nav-btn.active { color: var(--primary); font-weight: 700; }
+        .nav-icon { font-size: 22px; margin-bottom: 2px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <span style="font-size: 11px; font-weight: bold; color: #9ca3af; uppercase">Setembro 2026</span>
+            <h1 style="margin: 0; font-size: 22px; font-weight: 800;">Expedição MP</h1>
+        </div>
+        <div style="text-align: right">
+            <span style="font-size: 11px; color: #6b7280">Total Gasto</span>
+            <div id="total-geral" style="font-weight: 800; color: var(--success); font-size: 18px;">R$ 0,00</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="tab-roteiro" class="tab-content active">
+            <h2>📅 Roteiro & Check-in</h2>
+            <div class="card">
+                <h3 style="margin:0 0 5px; font-size:16px;">Dia 1 - Santiago 🇨🇱</h3>
+                <p style="margin:0; font-size:13px; color:#6b7280;">Voo do Brasil ➔ Chegada e Câmbio</p>
+                <label class="flex" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    <input type="checkbox" style="width:20px; height:20px;" id="p1" onchange="salvarCheck(this.id)"> 
+                    <span>Passeio Concluído</span>
+                </label>
+            </div>
+            <div class="card">
+                <h3 style="margin:0 0 5px; font-size:16px;">Dia 2 - Farellones 🇨🇱</h3>
+                <p style="margin:0; font-size:13px; color:#6b7280;">Dia completo na neve e tubing</p>
+                <label class="flex" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    <input type="checkbox" style="width:20px; height:20px;" id="p2" onchange="salvarCheck(this.id)"> 
+                    <span>Passeio Concluído</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="tab-hoteis" class="tab-content">
+            <h2>🏨 Minhas Hospedagens</h2>
+            <div class="card">
+                <label>Cidade / Hotel</label>
+                <input type="text" id="hotel-nome" placeholder="Ex: Hotel Aubrey Santiago">
+                <label>Código da Reserva</label>
+                <input type="text" id="hotel-reserva" placeholder="Ex: BK-987123">
+                <button onclick="salvarHotel()">Confirmar Reserva</button>
+            </div>
+            <div id="lista-hoteis"></div>
+        </div>
+
+        <div id="tab-gastos" class="tab-content">
+            <h2>💰 Adicionar Despesa</h2>
+            <div class="card">
+                <label>Descrição</label>
+                <input type="text" id="gasto-desc" placeholder="Ex: Almoço no La Mar">
+                
+                <label>Valor na Moeda Local</label>
+                <input type="number" id="gasto-valor" placeholder="0.00">
+                
+                <label>Moeda</label>
+                <select id="gasto-moeda">
+                    <option value="1">Real (R$)</option>
+                    <option value="0.0062">Peso Chileno (CLP)</option>
+                    <option value="0.78">Boliviano (BOB)</option>
+                    <option value="1.48">Sol Peruano (PEN)</option>
+                    <option value="5.50">Dólar (USD)</option>
+                </select>
+                
+                <button onclick="adicionarGasto()">➕ Registrar Gasto</button>
+            </div>
+
+            <div class="card">
+                <h3 style="margin:0 0 10px; font-size:16px;">Extrato de Viagem</h3>
+                <div id="historico-gastos"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <button class="nav-btn active" id="nav-roteiro" onclick="mudarAba('roteiro')">
+            <span class="nav-icon">📅</span><span>Roteiro</span>
+        </button>
+        <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')">
+            <span class="nav-icon">🏨</span><span>Hotéis</span>
+        </button>
+        <button class="nav-btn" id="nav-gastos" onclick="mudarAba('gastos')">
+            <span class="nav-icon">💰</span><span>Finanças</span>
+        </button>
+    </nav>
+
+    <script>
+        // Mudar Abas de forma nativa e fluida
+        function mudarAba(aba) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + aba).classList.add('active');
+            document.getElementById('nav-' + aba).classList.add('active');
+        }
+
+        // Sistema Lógico de Persistência de Gastos e Câmbio Automático
+        let gastos = JSON.parse(localStorage.getItem('gastos_viagem')) || [];
+
+        function adicionarGasto() {
+            const desc = document.getElementById('gasto-desc').value;
+            const valorLocal = parseFloat(document.getElementById('gasto-valor').value);
+            const cotacao = parseFloat(document.getElementById('gasto-moeda').value);
+
+            if (!desc || !valorLocal) return;
+
+            const valorBrl = valorLocal * cotacao;
+            gastos.push({ desc, valorBrl });
+            localStorage.setItem('gastos_viagem', JSON.stringify(gastos));
+            
+            document.getElementById('gasto-desc').value = '';
+            document.getElementById('gasto-valor').value = '';
+            
+            renderizarGastos();
+        }
+
+        function renderizarGastos() {
+            const hist = document.getElementById('historico-gastos');
+            hist.innerHTML = '';
+            let total = 0;
+            
+            gastos.forEach(g => {
+                total += g.valorBrl;
+                hist.innerHTML += `<div class="gasto-item"><span>${g.desc}</span><span class="val-brl">R$ ${g.valorBrl.toFixed(2)}</span></div>`;
+            });
+            
+            document.getElementById('total-geral').innerText = `R$ ${total.toFixed(2)}`;
+        }
+
+        // Salvar Checkboxes dos passeios
+        function salvarCheck(id) {
+            const chk = document.getElementById(id).checked;
+            localStorage.setItem(id, chk);
+        }
+
+        // Recuperar dados ao abrir
+        window.onload = function() {
+            renderizarGastos();
+            document.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+                chk.checked = localStorage.getItem(chk.id) === 'true';
+            });
+        }
+    </script>
+</body>
+</html>
