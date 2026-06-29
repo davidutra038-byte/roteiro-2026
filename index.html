@@ -3,141 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Expedição 2026</title>
+    <title>Expedição América do Sul 2026</title>
     <style>
         :root {
             --primary: #1f4e78;
+            --primary-light: #eff6ff;
             --bg: #f4f6f9;
             --card-bg: #ffffff;
             --text: #111827;
+            --text-muted: #6b7280;
             --success: #10b981;
+            --danger: #ef4444;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             -webkit-tap-highlight-color: transparent;
         }
         header {
             position: sticky;
             top: 0;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid #e5e7eb;
-            padding: 40px 20px 15px;
+            padding: 45px 20px 15px;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .container { padding: 16px; max-width: 480px; margin: 0 auto; }
+        .container { padding: 16px; max-w: 480px; margin: 0 auto; }
         .card {
             background: var(--card-bg);
             border-radius: 18px;
             padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             border: 1px solid #e5e7eb;
         }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Formulários Intuitivos */
-        h2 { font-size: 20px; margin-top: 0; color: var(--primary); }
-        label { display: block; margin: 12px 0 4px; font-size: 12px; font-weight: 600; color: #6b7280; }
-        input, select {
+        h2 { font-size: 20px; margin-top: 0; color: var(--primary); font-weight: 800; }
+        h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+        label { display: block; margin: 12px 0 4px; font-size: 12px; font-weight: 600; color: var(--text-muted); }
+        
+        input, select, textarea {
             width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px;
-            background: #f9fafb; font-size: 15px; box-sizing: border-box;
+            background: #f9fafb; font-size: 15px; box-sizing: border-box; color: var(--text);
+            -webkit-appearance: none;
+        }
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'><path stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>");
+            background-repeat: no-repeat; background-position: right 12px center; background-size: 10px;
         }
         button {
             background: var(--primary); color: white; border: none; padding: 14px;
             width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold;
-            margin-top: 15px; box-shadow: 0 4px 8px rgba(31,78,120,0.2);
+            margin-top: 15px; cursor: pointer;
         }
         
-        /* Lista de Gastos */
-        .gasto-item {
+        /* Checkbox customizado estilo iOS */
+        .check-container { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 14px; font-weight: 500; }
+        .ios-check { width: 22px; height: 22px; border-radius: 6px; border: 1px solid #ccc; -webkit-appearance: checkbox; }
+        
+        /* Badges de estilo */
+        .log-line { font-size: 13px; color: #4b5563; font-weight: 600; margin: 4px 0 8px; }
+        .look-box { background: #f9fafb; padding: 8px 12px; border-radius: 10px; font-size: 12px; color: #4b5563; border: 1px solid #f3f4f6; }
+        
+        /* Lista de Itens Dinâmicos */
+        .dynamic-item {
             display: flex; justify-content: space-between; align-items: center;
             padding: 12px 0; border-bottom: 1px solid #f3f4f6;
         }
-        .gasto-item:last-child { border: none; }
-        .val-brl { font-weight: bold; color: var(--success); }
-
-        /* Barra de Navegação iOS */
+        .dynamic-item:last-child { border: none; }
+        .btn-del { background: none; color: var(--danger); width: auto; margin: 0; padding: 4px 8px; font-size: 13px; box-shadow: none; font-weight: 500; }
+        
+        /* Bottom Nav iOS */
         nav {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92);
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.94);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid #e5e7eb; padding: 10px 0 30px; display: flex;
+            border-top: 1px solid #e5e7eb; padding: 8px 0 32px; display: flex;
             justify-content: space-around; z-index: 100;
         }
         .nav-btn {
-            background: none; border: none; color: #9ca3af; font-size: 11px;
-            font-weight: 500; display: flex; flex-col; flex-direction: column;
+            background: none; border: none; color: #9ca3af; font-size: 10px;
+            font-weight: 600; display: flex; flex-direction: column;
             align-items: center; margin: 0; padding: 0; box-shadow: none; width: auto;
         }
-        .nav-btn.active { color: var(--primary); font-weight: 700; }
-        .nav-icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-btn.active { color: var(--primary); }
+        .nav-icon { font-size: 22px; margin-bottom: 3px; }
     </style>
 </head>
 <body>
 
     <header>
         <div>
-            <span style="font-size: 11px; font-weight: bold; color: #9ca3af; uppercase">Setembro 2026</span>
-            <h1 style="margin: 0; font-size: 22px; font-weight: 800;">Expedição MP</h1>
+            <span style="font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase;">Setembro 2026</span>
+            <h1 style="margin: 0; font-size: 20px; font-weight: 800;">Expedição 2026</h1>
         </div>
         <div style="text-align: right">
-            <span style="font-size: 11px; color: #6b7280">Total Gasto</span>
+            <span style="font-size: 11px; color: var(--text-muted)">Gastos Totais</span>
             <div id="total-geral" style="font-weight: 800; color: var(--success); font-size: 18px;">R$ 0,00</div>
         </div>
     </header>
 
     <div class="container">
         <div id="tab-roteiro" class="tab-content active">
-            <h2>📅 Roteiro & Check-in</h2>
-            <div class="card">
-                <h3 style="margin:0 0 5px; font-size:16px;">Dia 1 - Santiago 🇨🇱</h3>
-                <p style="margin:0; font-size:13px; color:#6b7280;">Voo do Brasil ➔ Chegada e Câmbio</p>
-                <label class="flex" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
-                    <input type="checkbox" style="width:20px; height:20px;" id="p1" onchange="salvarCheck(this.id)"> 
-                    <span>Passeio Concluído</span>
-                </label>
-            </div>
-            <div class="card">
-                <h3 style="margin:0 0 5px; font-size:16px;">Dia 2 - Farellones 🇨🇱</h3>
-                <p style="margin:0; font-size:13px; color:#6b7280;">Dia completo na neve e tubing</p>
-                <label class="flex" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
-                    <input type="checkbox" style="width:20px; height:20px;" id="p2" onchange="salvarCheck(this.id)"> 
-                    <span>Passeio Concluído</span>
-                </label>
-            </div>
+            <h2>📅 Cronograma de Viagem</h2>
+            <div id="container-roteiro"></div>
         </div>
 
         <div id="tab-hoteis" class="tab-content">
-            <h2>🏨 Minhas Hospedagens</h2>
+            <h2>🏨 Registro de Hospedagens</h2>
             <div class="card">
-                <label>Cidade / Hotel</label>
-                <input type="text" id="hotel-nome" placeholder="Ex: Hotel Aubrey Santiago">
-                <label>Código da Reserva</label>
-                <input type="text" id="hotel-reserva" placeholder="Ex: BK-987123">
-                <button onclick="salvarHotel()">Confirmar Reserva</button>
+                <label>Cidade de Destino</label>
+                <select id="hotel-cidade">
+                    <option value="Santiago">Santiago</option>
+                    <option value="Atacama">San Pedro de Atacama</option>
+                    <option value="Uyuni">Salar de Uyuni</option>
+                    <option value="La Paz">La Paz</option>
+                    <option value="Cusco">Cusco</option>
+                    <option value="Lima">Lima</option>
+                </select>
+                <label>Nome do Hotel / Airbnb</label>
+                <input type="text" id="hotel-nome" placeholder="Ex: Aubrey Lastarria Hotel">
+                <label>Código do Local ou Reserva</label>
+                <input type="text" id="hotel-reserva" placeholder="Ex: Booking AX-9831">
+                <button onclick="adicionarHotel()">Confirmar Reserva</button>
             </div>
-            <div id="lista-hoteis"></div>
+            <div class="card">
+                <h3 style="margin-bottom:12px;">Meus Hotéis</h3>
+                <div id="lista-hoteis"></div>
+            </div>
         </div>
 
         <div id="tab-gastos" class="tab-content">
-            <h2>💰 Adicionar Despesa</h2>
+            <h2>💰 Lançamento de Gastos</h2>
             <div class="card">
-                <label>Descrição</label>
-                <input type="text" id="gasto-desc" placeholder="Ex: Almoço no La Mar">
-                
-                <label>Valor na Moeda Local</label>
-                <input type="number" id="gasto-valor" placeholder="0.00">
-                
-                <label>Moeda</label>
+                <label>Descrição da Despesa</label>
+                <input type="text" id="gasto-desc" placeholder="Ex: Jantar no Morena Peruvian Kitchen">
+                <label>Valor Pago</label>
+                <input type="number" step="0.01" id="gasto-valor" placeholder="0.00">
+                <label>Moeda Utilizada</label>
                 <select id="gasto-moeda">
                     <option value="1">Real (R$)</option>
                     <option value="0.0062">Peso Chileno (CLP)</option>
@@ -145,31 +157,49 @@
                     <option value="1.48">Sol Peruano (PEN)</option>
                     <option value="5.50">Dólar (USD)</option>
                 </select>
-                
-                <button onclick="adicionarGasto()">➕ Registrar Gasto</button>
+                <button onclick="adicionarGasto()">➕ Inserir no Extrato</button>
             </div>
-
             <div class="card">
-                <h3 style="margin:0 0 10px; font-size:16px;">Extrato de Viagem</h3>
+                <h3 style="margin-bottom:12px;">Histórico de Transações</h3>
                 <div id="historico-gastos"></div>
             </div>
         </div>
     </div>
 
     <nav>
-        <button class="nav-btn active" id="nav-roteiro" onclick="mudarAba('roteiro')">
-            <span class="nav-icon">📅</span><span>Roteiro</span>
-        </button>
-        <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')">
-            <span class="nav-icon">🏨</span><span>Hotéis</span>
-        </button>
-        <button class="nav-btn" id="nav-gastos" onclick="mudarAba('gastos')">
-            <span class="nav-icon">💰</span><span>Finanças</span>
-        </button>
+        <button class="nav-btn active" id="nav-roteiro" onclick="mudarAba('roteiro')"><span class="nav-icon">📅</span><span>Roteiro</span></button>
+        <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')"><span class="nav-icon">🏨</span><span>Hotéis</span></button>
+        <button class="nav-btn" id="nav-gastos" onclick="mudarAba('gastos')"><span class="nav-icon">💰</span><span>Finanças</span></button>
     </nav>
 
     <script>
-        // Mudar Abas de forma nativa e fluida
+        const dadosRoteiro = [
+            { dia: 1, data: "08/09 (TER)", local: "Santiago 🇨🇱", log: "✈️ Voo do Brasil ➔ Santiago", desc: "Chegada, transfer ao hotel, câmbio de papel-moeda e passeio leve na região.", look: "Camiseta Preta, Jogger, Tênis (16-22°C)" },
+            { dia: 2, data: "09/09 (QUA)", local: "Santiago 🇨🇱", log: "🚌 Bate-volta Farellones (~2h)", desc: "Dia na Neve: Tubing, teleférico e mirantes na cordilheira. Retorno fim da tarde.", look: "Segunda Pele, Fleece, Anorak, Calça Trekking (-5-6°C)" },
+            { dia: 3, data: "10/09 (QUI)", local: "Atacama 🇨🇱", log: "✈️ Voo Santiago ➔ Calama + Transfer", desc: "Aclimatização de altitude em San Pedro. À noite: Tour Astronômico no deserto.", look: "Camiseta Bege, Bermuda, Tênis (14-24°C)" },
+            { dia: 4, data: "11/09 (SEX)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 no Deserto", desc: "Manhã no Vale de la Luna. Tarde no Vale de la Muerte e pôr do sol nas dunas.", look: "Camiseta Branca, Bermuda Preta, Tênis (10-24°C)" },
+            { dia: 5, data: "12/09 (SÁB)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Completo (~10h)", desc: "Lagunas Altiplânicas (Miscanti/Miñiques), Piedras Rojas e Salar de Talar.", look: "Camiseta Preta, Puffer, Calça Cinza (0-15°C)" },
+            { dia: 6, data: "13/09 (DOM)", local: "Atacama 🇨🇱", log: "🚗 Saída Madrugada (04h) | 4x4", desc: "Geysers del Tatio no amanhecer e banho termal. Tarde livre para descanso.", look: "Segunda Pele, Fleece, Puffer, Luvas/Gorro (-5-10°C)" },
+            { dia: 7, data: "14/09 (SEG)", local: "Uyuni 🇧🇴", log: "🚌 Van/4x4 Atacama ➔ Uyuni", desc: "Início do Tour 3D/2N pelo Altiplano Boliviano. Laguna Blanca e Deserto de Dalí.", look: "Camiseta Preta, Jogger, Bota Trekking (-2-15°C)" },
+            { dia: 8, data: "15/09 (TER)", local: "Salar de Uyuni 🇧🇴", log: "🚗 Travessia 4x4", desc: "Salar de Uyuni o dia inteiro, Ilha Incahuasi (cactos) e pôr do sol clássico.", look: "Camiseta Branca, Jogger, Bota Trekking (0-18°C)" },
+            { dia: 9, data: "16/09 (QUA)", local: "La Paz 🇧🇴", log: "🚌 4x4 + Ônibus Noturno (~11h)", desc: "Manhã livre em Uyuni para fotos. Embarque no ônibus leito sentido La Paz.", look: "Hoodie Preto, Jogger, Tênis (5-17°C)" },
+            { dia: 10, data: "17/09 (QUI)", local: "La Paz 🇧🇴", log: "🚶 Chegada pela manhã", desc: "City Tour completo: Linhas de Teleférico, Mercado das Bruxas e Calle Jaén.", look: "Camiseta Verde, Jeans, Tênis (5-15°C)" },
+            { dia: 11, data: "18/09 (SEX)", local: "La Paz 🇧🇴", log: "🚲 Van de suporte até o topo", desc: "Death Road: Descida insana de bike (~60km) dos Andes até a selva tropical.", look: "Segunda Pele Superior, Hoodie, Jogger (10-20°C)" },
+            { dia: 12, data: "19/09 (SÁB)", local: "Cusco 🇵🇪", log: "🚌 Ônibus Direto Cênico (~15h)", desc: "Viagem cruzando os Andes e as margens do Lago Titicaca. Chegada à noite.", look: "Hoodie Preto, Jogger, Tênis (8-18°C)" },
+            { dia: 13, data: "20/09 (DOM)", local: "Cusco 🇵🇪", log: "🚶 Descanso e Aclimação", desc: "Caminhada leve na Plaza de Armas, San Blas e compras no Mercado San Pedro.", look: "Camiseta Preta, Jeans, Tênis (6-18°C)" },
+            { dia: 14, data: "21/09 (SEG)", local: "Cusco (Humantay) 🇵🇪", log: "🥾 Tour Van (4h trecho)", desc: "Trilha pesada de subida andina até a fantástica Lagoa Humantay.", look: "Segunda Pele, Puffer, Calça Trekking (0-10°C)" },
+            { dia: 15, data: "22/09 (TER)", local: "Machu Picchu 🇵🇪", log: "🚂 Trem Ollantaytambo ➔ Aguas Calientes", desc: "Visita guiada na Cidade Sagrada dos Incas no primeiro horário da manhã.", look: "Camiseta Verde, Calça Trekking, Bota (10-20°C)" },
+            { dia: 16, data: "23/09 (QUA)", local: "Rainbow Mountain 🇵🇪", log: "🥾 Tour Van (3h trecho)", desc: "Montanha Colorida (Vinicunca). Caminhada em altitude extrema acima de 5.000m.", look: "Segunda Pele, Fleece, Puffer, Luvas (-3-8°C)" },
+            { dia: 17, data: "24/09 (QUI)", local: "Vale Sagrado 🇵🇪", log: "🏛️ Tour Arqueológico", desc: "Exploração guiada das ruínas de Pisac, Ollantaytambo e Chinchero.", look: "Camiseta Bege, Jeans, Bota Trekking (8-22°C)" },
+            { dia: 18, data: "25/09 (SEX)", local: "Lima 🇵🇪", log: "✈️ Voo Cusco ➔ Lima (1h20)", desc: "Chegada na costa. Tarde no Malecón de Miraflores e boemia de Barranco.", look: "Camiseta Preta, Bermuda Bege, Tênis (16-24°C)" },
+            { dia: 19, data: "26/09 (SÁB)", local: "Paracas / Huacachina 🇵🇪", log: "⛵ Bate-volta Rodoviário (~4h)", desc: "Barco nas Islas Ballestas e adrenalina com buggy/sandboard no Oásis de Huacachina.", look: "Camiseta Branca, Bermuda Preta, Tênis (18-28°C)" },
+            { dia: 20, data: "27/09 (DOM)", local: "Lima 🇵🇪", log: "🍽️ Imersão Cultural", desc: "Circuito Mágico das Águas, compras de última hora e tour gastronômico (Ceviche).", look: "Camiseta Cinza, Bermuda Cinza, Tênis (16-24°C)" },
+            { dia: 21, data: "28/09 (SEG)", local: "Retorno 🇧🇷", log: "✈️ Voo Lima ➔ Brasil", desc: "Traslado ao aeroporto e embarque internacional de retorno para casa.", look: "Moletom confortável de avião." }
+        ];
+
+        let gastos = JSON.parse(localStorage.getItem('gastos_v2')) || [];
+        let hoteis = JSON.parse(localStorage.getItem('hoteis_v2')) || [];
+
         function mudarAba(aba) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -177,23 +207,42 @@
             document.getElementById('nav-' + aba).classList.add('active');
         }
 
-        // Sistema Lógico de Persistência de Gastos e Câmbio Automático
-        let gastos = JSON.parse(localStorage.getItem('gastos_viagem')) || [];
+        function renderizarRoteiro() {
+            const container = document.getElementById('container-roteiro');
+            container.innerHTML = '';
+            dadosRoteiro.forEach(d => {
+                container.innerHTML += `
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between;"><span class="card-dia">DIA ${d.dia}</span><span class="card-data">${d.data}</span></div>
+                        <div class="card-title">${d.local}</div>
+                        <div class="log-line">${d.log}</div>
+                        <div class="card-desc">${d.desc}</div>
+                        <div class="look-box">👕 <b>Look:</b> ${d.look}</div>
+                        <label class="check-container">
+                            <input type="checkbox" class="ios-check" id="check-dia-${d.dia}" onchange="atualizarCheck(${d.dia})">
+                            <span>Concluído / Realizado</span>
+                        </label>
+                    </div>`;
+            });
+        }
 
         function adicionarGasto() {
             const desc = document.getElementById('gasto-desc').value;
             const valorLocal = parseFloat(document.getElementById('gasto-valor').value);
             const cotacao = parseFloat(document.getElementById('gasto-moeda').value);
-
             if (!desc || !valorLocal) return;
 
             const valorBrl = valorLocal * cotacao;
-            gastos.push({ desc, valorBrl });
-            localStorage.setItem('gastos_viagem', JSON.stringify(gastos));
-            
+            gastos.push({ id: Date.now(), desc, valorBrl });
+            localStorage.setItem('gastos_v2', JSON.stringify(gastos));
             document.getElementById('gasto-desc').value = '';
             document.getElementById('gasto-valor').value = '';
-            
+            renderizarGastos();
+        }
+
+        function deletarGasto(id) {
+            gastos = gastos.filter(g => g.id !== id);
+            localStorage.setItem('gastos_v2', JSON.stringify(gastos));
             renderizarGastos();
         }
 
@@ -201,26 +250,68 @@
             const hist = document.getElementById('historico-gastos');
             hist.innerHTML = '';
             let total = 0;
-            
             gastos.forEach(g => {
                 total += g.valorBrl;
-                hist.innerHTML += `<div class="gasto-item"><span>${g.desc}</span><span class="val-brl">R$ ${g.valorBrl.toFixed(2)}</span></div>`;
+                hist.innerHTML += `
+                    <div class="dynamic-item">
+                        <div><b>${g.desc}</b></div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="val-brl">R$ ${g.valorBrl.toFixed(2)}</span>
+                            <button class="btn-del" onclick="deletarGasto(${g.id})">❌</button>
+                        </div>
+                    </div>`;
             });
-            
             document.getElementById('total-geral').innerText = `R$ ${total.toFixed(2)}`;
         }
 
-        // Salvar Checkboxes dos passeios
-        function salvarCheck(id) {
-            const chk = document.getElementById(id).checked;
-            localStorage.setItem(id, chk);
+        function adicionarHotel() {
+            const cidade = document.getElementById('hotel-cidade').value;
+            const nome = document.getElementById('hotel-nome').value;
+            const reserva = document.getElementById('hotel-reserva').value;
+            if (!nome) return;
+
+            hoteis.push({ id: Date.now(), cidade, nome, reserva });
+            localStorage.setItem('hoteis_v2', JSON.stringify(hoteis));
+            document.getElementById('hotel-nome').value = '';
+            document.getElementById('hotel-reserva').value = '';
+            renderizarHoteis();
         }
 
-        // Recuperar dados ao abrir
+        function deletarHotel(id) {
+            hoteis = hoteis.filter(h => h.id !== id);
+            localStorage.setItem('hoteis_v2', JSON.stringify(hoteis));
+            renderizarHoteis();
+        }
+
+        function renderizarHoteis() {
+            const lista = document.getElementById('lista-hoteis');
+            lista.innerHTML = '';
+            if (hoteis.length === 0) lista.innerHTML = '<p style="color:#9ca3af; font-size:14px; text-align:center;">Nenhum hotel cadastrado.</p>';
+            hoteis.forEach(h => {
+                lista.innerHTML += `
+                    <div class="dynamic-item">
+                        <div>
+                            <span style="font-size:11px; font-weight:bold; color:var(--primary); text-transform:uppercase;">${h.cidade}</span>
+                            <div style="font-weight:700; font-size:15px; margin:2px 0;">${h.nome}</div>
+                            <span style="font-size:12px; color:var(--text-muted)">Reserva: ${h.reserva || 'Não informada'}</span>
+                        </div>
+                        <button class="btn-del" onclick="deletarHotel(${h.id})">❌</button>
+                    </div>`;
+            });
+        }
+
+        function atualizarCheck(dia) {
+            const status = document.getElementById(`check-dia-${dia}`).checked;
+            localStorage.setItem(`check_dia_v2_${dia}`, status);
+        }
+
         window.onload = function() {
+            renderizarRoteiro();
             renderizarGastos();
-            document.querySelectorAll('input[type="checkbox"]').forEach(chk => {
-                chk.checked = localStorage.getItem(chk.id) === 'true';
+            renderizarHoteis();
+            dadosRoteiro.forEach(d => {
+                const salvo = localStorage.getItem(`check_dia_v2_${d.dia}`) === 'true';
+                document.getElementById(`check-dia-${d.dia}`).checked = salvo;
             });
         }
     </script>
