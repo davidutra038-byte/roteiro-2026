@@ -1,395 +1,967 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Trip App Premium</title>
-    <style>
-        :root {
-            --dark-bg: #07101f;
-            --primary: #143d73;
-            --secondary: #2563eb;
-            --accent: #f59e0b;
-            --success: #067647;
-            --danger: #b42318;
-            --bg-light: #f3f6fb;
-            --text-main: #111827;
-            --text-sub: #667085;
-            --card-bg: #ffffff;
-            --border: #e4e7ec;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            padding-bottom: 120px;
-        }
-        header {
-            background-color: var(--dark-bg);
-            color: white;
-            padding: 50px 20px 20px;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-container { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 500px; margin: 0 auto; padding: 16px; }
-        .card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 14px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
-        }
-        .card-clickable:active { background: #f9fafb; transform: scale(0.99); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        h2 { font-size: 20px; color: var(--primary); margin-bottom: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
-        h3 { font-size: 16px; font-weight: 700; color: var(--text-main); }
-        p { font-size: 14px; color: var(--text-sub); line-height: 1.4; }
-        label { display: block; margin: 10px 0 4px; font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; }
-        
-        input, select {
-            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
-            background: #f9fafb; font-size: 15px; color: var(--text-main); outline: none; margin-bottom: 8px;
-        }
-        button {
-            background: var(--primary); color: white; border: none; padding: 14px;
-            border-radius: 12px; font-size: 15px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer;
-        }
-        .btn-maps { background: var(--accent); font-size: 13px; padding: 6px 12px; width: auto; margin: 0; border-radius: 8px; }
-        
-        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .stat-box { background: var(--card-bg); padding: 14px; border-radius: 16px; text-align: center; border: 1px solid var(--border); }
-        .stat-val { font-size: 18px; font-weight: 800; color: var(--primary); }
-        .stat-lbl { font-size: 11px; color: var(--text-sub); font-weight: 600; }
-        
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f2f4f7; }
-        .list-item:last-child { border: none; }
-        
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: flex-end; }
-        .modal.active { display: flex; }
-        .modal-content { background: white; width: 100%; max-height: 80vh; border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 24px; overflow-y: auto; }
-        .modal-close { float: right; font-size: 24px; font-weight: bold; color: var(--text-sub); }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#07101f" />
+<title>Trip App 2026 — Chile • Bolívia • Peru</title>
 
-        /* Bottom Nav fixed iOS */
-        nav {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border); padding: 10px 0 34px 0; display: flex; justify-content: space-around; z-index: 1000;
-        }
-        .nav-btn {
-            background: none; border: none; color: var(--text-sub); font-size: 10px;
-            font-weight: 600; display: flex; flex-direction: column; align-items: center; width: 60px;
-        }
-        .nav-btn.active { color: var(--primary); }
-        .nav-icon { font-size: 20px; margin-bottom: 2px; }
-        
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .menu-box { background: white; padding: 20px; border-radius: 14px; border: 1px solid var(--border); text-align: center; font-weight: 700; font-size: 13px; }
-    </style>
+<style>
+:root{
+  --bg:#07101f;--bg2:#102a4d;--card:#fff;--soft:#f3f6fb;--line:#e5e7eb;
+  --text:#111827;--muted:#667085;--blue:#143d73;--gold:#f59e0b;
+  --green:#067647;--red:#b42318;--shadow:0 12px 34px rgba(16,24,40,.10);
+  --r:22px;--safeBottom:env(safe-area-inset-bottom);--safeTop:env(safe-area-inset-top);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;background:var(--soft);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;
+  padding-bottom:96px;
+}
+button,input,select,textarea{font:inherit}
+button{border:0;cursor:pointer}
+a{color:inherit}
+.app{max-width:620px;margin:0 auto;min-height:100vh}
+.hero{
+  position:sticky;top:0;z-index:10;
+  background:radial-gradient(circle at 90% 5%,rgba(245,158,11,.25),transparent 26%),
+  linear-gradient(155deg,var(--bg),var(--bg2) 70%,#183b68);
+  color:#fff;padding:calc(18px + var(--safeTop)) 16px 18px;
+  border-radius:0 0 32px 32px;box-shadow:0 18px 50px rgba(7,16,31,.28);
+}
+.heroTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+h1{font-size:31px;line-height:1;margin:0;letter-spacing:-.8px}
+.sub{font-size:15px;font-weight:800;color:#d6e6ff;margin:8px 0 0}
+.badge{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:950;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:10px;min-height:70px}
+.stat b{font-size:20px;display:block}.stat span{font-size:10px;color:#d6e6ff;font-weight:850}
+.search{display:flex;gap:8px;margin-top:12px}
+.search input{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:16px;color:#fff;padding:12px;outline:0;width:100%}
+.search input::placeholder{color:#d2dced}
+.search button{background:#fff;color:var(--blue);border-radius:16px;font-weight:950;padding:0 13px}
+main{padding:14px 12px 6px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.kicker{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--muted);font-weight:950;margin-bottom:6px}
+h2{font-size:22px;line-height:1.1;margin:0 0 10px}
+h3{font-size:17px;margin:0 0 6px}
+p{margin:8px 0}.muted{color:var(--muted)}.small{font-size:12px}
+.grid{display:grid;gap:10px}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.quick button{background:#fff;color:var(--blue);border-radius:18px;padding:12px 7px;font-size:12px;font-weight:950;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.quick .ico{display:block;font-size:24px;margin-bottom:4px}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;margin:2px;background:#eef4ff;color:#1849a9}
+.chile{background:#fff1f3;color:#a1102a}.bolivia{background:#ecfdf3;color:#067647}.peru{background:#fff6ed;color:#b93815}.gold{background:#fffaeb;color:#b54708}.green{background:#ecfdf3;color:#067647}.red{background:#fee4e2;color:#b42318}.gray{background:#f2f4f7;color:#344054}.dark{background:#111827;color:white}
+.btn{display:inline-flex;justify-content:center;align-items:center;text-decoration:none;border-radius:15px;background:var(--blue);color:white;font-weight:950;padding:11px 13px;gap:7px}
+.btn.light{background:#eef4ff;color:#1849a9}.btn.gray{background:#f2f4f7;color:#344054}.btn.red{background:#fee4e2;color:#b42318}.btn.gold{background:#fffaeb;color:#b54708}.btn.full{width:100%}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:12px;background:#fff;margin-top:8px}
+.dayButton{text-align:left;width:100%;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:14px;display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center;margin-bottom:10px}
+.date{background:#f3f6fb;border:1px solid var(--line);border-radius:18px;text-align:center;padding:10px 5px;color:var(--blue);font-weight:950}
+.date span{display:block;color:#667085;font-size:11px;margin-top:2px;line-height:1.25}
+.chev{font-size:24px;color:#98a2b3;font-weight:900}
+.timeline{display:grid;gap:8px;margin-top:12px}
+.event{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:17px;padding:10px;background:#fff}
+.etime{font-weight:950;color:var(--blue);font-size:13px}
+.etype{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#667085;font-weight:900}
+input,select,textarea{border:1px solid #d0d5dd;background:#fff;border-radius:15px;padding:12px;width:100%;outline:0}
+textarea{min-height:90px;resize:vertical}
+.form{display:grid;gap:8px}
+.money{font-size:32px;font-weight:950;letter-spacing:-.8px}
+.total{background:linear-gradient(160deg,var(--blue),var(--bg));color:white}
+.note{background:#fffaeb;border:1px solid #fedf89;color:#7a2e0e;border-radius:16px;padding:12px;font-size:13px}
+.empty{text-align:center;color:#667085;padding:22px}
+.progress{height:12px;background:#eef2f7;border-radius:999px;overflow:hidden}
+.progress div{height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#f59e0b)}
+.checkrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:11px;background:#fff;margin-top:8px}
+.checkrow input{width:22px;height:22px;accent-color:var(--blue)}
+details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:10px;box-shadow:0 6px 16px rgba(16,24,40,.05)}
+summary{font-weight:950;cursor:pointer}
+.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 7px calc(8px + var(--safeBottom));z-index:20}
+.navInner{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.nav button{background:transparent;color:#667085;border-radius:15px;padding:7px 3px;font-size:10px;font-weight:950}
+.nav button.active{background:#eef4ff;color:var(--blue)}
+.nicon{display:block;font-size:20px;margin-bottom:2px}
+.modalWrap{position:fixed;inset:0;background:rgba(7,16,31,.54);display:none;align-items:flex-end;z-index:40;backdrop-filter:blur(4px)}
+.modalWrap.show{display:flex}
+.modal{background:#fff;border-radius:26px 26px 0 0;padding:16px 14px calc(16px + var(--safeBottom));width:100%;max-width:620px;margin:0 auto;max-height:88vh;overflow:auto;box-shadow:0 -20px 50px rgba(0,0,0,.18)}
+.modalHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.close{background:#f2f4f7;border-radius:50%;width:38px;height:38px;font-size:22px;color:#344054}
+.fab{position:fixed;right:18px;bottom:calc(92px + var(--safeBottom));z-index:18;background:var(--gold);color:#111827;border-radius:20px;padding:14px 16px;font-weight:950;box-shadow:0 14px 28px rgba(245,158,11,.32)}
+@media(max-width:440px){.stats{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.dayButton{grid-template-columns:62px 1fr auto}}
+</style>
 </head>
+
 <body>
-
-    <header>
-        <div class="header-container">
-            <div>
-                <span style="font-size: 11px; font-weight: bold; opacity: 0.7; text-transform: uppercase;">Trip App Premium</span>
-                <h1 style="margin: 0; font-size: 22px; font-weight: 800;">Expedição 2026</h1>
-            </div>
-            <div style="text-align: right">
-                <span style="font-size: 11px; opacity: 0.7;">Total de Gastos</span>
-                <div id="total-header" style="font-weight: 800; font-size: 18px; color: #34d399;">R$ 0,00</div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- ABA: INÍCIO -->
-        <div id="tab-inicio" class="tab-content active">
-            <h2>🏠 Central Geral</h2>
-            <div class="grid-stats">
-                <div class="stat-box"><div class="stat-val">21</div><div class="stat-lbl">Dias Totais</div></div>
-                <div class="stat-box"><div class="stat-val" id="dash-pagos">R$ 0</div><div class="stat-lbl">Total Pago</div></div>
-                <div class="stat-box"><div class="stat-val">13</div><div class="stat-lbl">Passeios</div></div>
-                <div class="stat-box"><div class="stat-val">6</div><div class="stat-lbl">Bases/Hoteis</div></div>
-            </div>
-            <div class="card">
-                <h3>📌 Avisos Críticos</h3>
-                <p style="color: var(--danger); font-weight: 600; margin-top:5px;">• Atualizar códigos e agências na aba de Passeios.</p>
-                <p style="color: var(--danger); font-weight: 600;">• Câmbio físico necessário para a Bolívia (Salar/Uyuni).</p>
-            </div>
-        </div>
-
-        <!-- ABA: ROTEIRO -->
-        <div id="tab-agenda" class="tab-content">
-            <h2>📅 Roteiro Diário Completo</h2>
-            <div id="lista-agenda"></div>
-        </div>
-
-        <!-- ABA: PASSEIOS -->
-        <div id="tab-passeios" class="tab-content">
-            <h2>🚗 Gestão de Passeios</h2>
-            <div id="lista-passeios"></div>
-        </div>
-
-        <!-- ABA: HOSPEDAGENS -->
-        <div id="tab-hoteis" class="tab-content">
-            <h2>🏨 Minhas Hospedagens</h2>
-            <div id="lista-hoteis"></div>
-        </div>
-
-        <!-- ABA: GASTOS -->
-        <div id="tab-gastos" class="tab-content">
-            <h2>💰 Controle de Custos</h2>
-            <div class="card">
-                <h3>Adicionar Despesa</h3>
-                <label>Descrição</label><input type="text" id="g-desc" placeholder="Ex: Almoço no La Mar">
-                <label>Valor Original</label><input type="number" id="g-val" placeholder="0.00">
-                <label>Moeda</label>
-                <select id="g-moeda">
-                    <option value="1">Real (BRL)</option>
-                    <option value="0.0062">Peso Chileno (CLP)</option>
-                    <option value="0.78">Boliviano (BOB)</option>
-                    <option value="1.48">Sol Peruano (PEN)</option>
-                    <option value="5.50">Dólar (USD)</option>
-                </select>
-                <button onclick="adicionarGasto()">Salvar Gasto</button>
-            </div>
-            <div class="card"><h3>Extrato</h3><div id="lista-gastos"></div></div>
-        </div>
-
-        <!-- ABA: RECURSOS EXTRAS (MAPAS E RECURSOS) -->
-        <div id="tab-mais" class="tab-content">
-            <h2>⚙️ Recursos e Utilidades</h2>
-            <div class="menu-grid" style="margin-bottom:20px;">
-                <div class="menu-box" onclick="abrirSecao('sub-mapas')">🗺️ Mapas Rodoviários</div>
-                <div class="menu-box" onclick="abrirSecao('sub-config')">💾 Base de Dados</div>
-            </div>
-
-            <div id="sub-mapas" class="card" style="display:none;">
-                <h3>🗺️ Links Rápidos do Google Maps</h3>
-                <div class="list-item"><span>Santiago - Lastarria</span><button class="btn-maps" onclick="window.open('https://maps.google.com/?q=Lastarria+Santiago')">Abrir</button></div>
-                <div class="list-item"><span>Atacama - Caracoles</span><button class="btn-maps" onclick="window.open('https://maps.google.com/?q=Calle+Caracoles+San+Pedro+de+Atacama')">Abrir</button></div>
-                <div class="list-item"><span>Cusco - Plaza de Armas</span><button class="btn-maps" onclick="window.open('https://maps.google.com/?q=Plaza+de+Armas+Cusco')">Abrir</button></div>
-                <div class="list-item"><span>Lima - Miraflores</span><button class="btn-maps" onclick="window.open('https://maps.google.com/?q=Miraflores+Lima')">Abrir</button></div>
-            </div>
-
-            <div id="sub-config" class="card" style="display:none;">
-                <h3>💾 Gerenciar Dados</h3>
-                <button onclick="exportarJSON()" style="background:var(--success)">Exportar Backup JSON</button>
-                <button onclick="resetarBase()" style="background:var(--danger); margin-top:10px;">Resetar para o Padrão</button>
-            </div>
-        </div>
+<div class="app">
+<header class="hero">
+  <div class="heroTop">
+    <div>
+      <h1>Trip App 2026</h1>
+      <p class="sub">Chile • Bolívia • Peru<br>Agenda diária + mapas + gastos</p>
     </div>
+    <div class="badge">GitHub Pages</div>
+  </div>
 
-    <!-- MODAL DETALHES -->
-    <div id="detalheModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="fecharModal()">&times;</span>
-            <h2 id="modal-titulo"></h2>
-            <div id="modal-corpo"></div>
-        </div>
+  <div class="stats">
+    <div class="stat"><b>21</b><span>dias</span></div>
+    <div class="stat"><b id="hTours">0</b><span>passeios</span></div>
+    <div class="stat"><b id="hTotal">R$ 0</b><span>previsto</span></div>
+    <div class="stat"><b id="hPack">0%</b><span>mala</span></div>
+  </div>
+
+  <div class="search">
+    <input id="search" placeholder="Buscar: voo, check-in, Machu Picchu, café..." oninput="state.search=this.value; render()">
+    <button onclick="state.search='';document.getElementById('search').value='';render()">Limpar</button>
+  </div>
+</header>
+
+<main id="view"></main>
+</div>
+
+<button class="fab" id="fab" onclick="quickAdd()">➕ Adicionar</button>
+
+<nav class="nav">
+  <div class="navInner" id="nav"></div>
+</nav>
+
+<div class="modalWrap" id="modalWrap" onclick="if(event.target.id==='modalWrap') closeModal()">
+  <div class="modal">
+    <div class="modalHead">
+      <h2 id="modalTitle">Editar</h2>
+      <button class="close" onclick="closeModal()">×</button>
     </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
-    <nav>
-        <button class="nav-btn active" id="nav-inicio" onclick="mudarAba('inicio')"><span class="nav-icon">🏠</span><span>Início</span></button>
-        <button class="nav-btn" id="nav-agenda" onclick="mudarAba('agenda')"><span class="nav-icon">📅</span><span>Roteiro</span></button>
-        <button class="nav-btn" id="nav-passeios" onclick="mudarAba('passeios')"><span class="nav-icon">🚗</span><span>Passeios</span></button>
-        <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')"><span class="nav-icon">🏨</span><span>Hotéis</span></button>
-        <button class="nav-btn" id="nav-gastos" onclick="mudarAba('gastos')"><span class="nav-icon">💰</span><span>Gastos</span></button>
-        <button class="nav-btn" id="nav-mais" onclick="mudarAba('mais')"><span class="nav-icon">⚙️</span><span>Mais</span></button>
-    </nav>
+<script>
+const LS='trip_app_davi_setembro_2026_v1';
 
-    <script>
-        // CRONOGRAMA INTEGRAL DE 21 DIAS DO BRIEFING
-        const roteiroCompleto = [
-            { dia: 1, data: "08/09 (TER)", local: "Santiago 🇨🇱", log: "✈️ Voo do Brasil ➔ Santiago", desc: "Chegada, transfer ao hotel, câmbio de papel-moeda e passeio leve na região.", look: "Camiseta Preta, Jogger, Tênis (16-22°C)", noite: "Santiago", clima: "16-22°C" },
-            { dia: 2, data: "09/09 (QUA)", local: "Santiago 🇨🇱", log: "🚌 Bate-volta Farellones (~2h)", desc: "Dia na Neve: Tubing, teleféricos e mirantes andinos nas montanhas.", look: "Segunda Pele, Fleece, Anorak, Calça Trekking (-5-6°C)", noite: "Santiago", clima: "-5 a 6°C" },
-            { dia: 3, data: "10/09 (QUI)", local: "Atacama 🇨🇱", log: "✈️ Voo Santiago ➔ Calama + Transfer", desc: "Aclimatização de altitude em San Pedro de Atacama. À noite: Tour Astronômico.", look: "Camiseta Bege, Bermuda, Tênis (14-24°C)", noite: "San Pedro de Atacama", clima: "14-24°C" },
-            { dia: 4, data: "11/09 (SEX)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Valle de la Luna", desc: "Exploração do Vale da Lua, Vale da Morte e pôr do sol espetacular nas dunas.", look: "Camiseta Branca, Bermuda Preta, Tênis (10-24°C)", noite: "San Pedro de Atacama", clima: "10-24°C" },
-            { dia: 5, data: "12/09 (SÁB)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Lagunas Altiplânicas", desc: "Visita às Lagoas Miscanti e Miñiques, Piedras Rojas e Salar de Talar.", look: "Camiseta Preta, Puffer, Calça Cinza (0-15°C)", noite: "San Pedro de Atacama", clima: "0-15°C" },
-            { dia: 6, data: "13/09 (DOM)", local: "Atacama 🇨🇱", log: "🚗 Saída 4h: Geysers del Tatio", desc: "Campos geotérmicos no amanhecer e banho termal opcional. Tarde livre.", look: "Segunda Pele, Fleece, Puffer, Luvas/Gorro (-5-10°C)", noite: "San Pedro de Atacama", clima: "-5 a 10°C" },
-            { dia: 7, data: "14/09 (SEG)", local: "Uyuni 🇧🇴", log: "🚌 Travessia Atacama ➔ Uyuni 3D/2N", desc: "Início do tour altiplânico: Laguna Blanca, Laguna Verde e Deserto de Dalí.", look: "Camiseta Preta, Jogger, Bota Trekking (-2-15°C)", noite: "San Juan / Área do Tour", clima: "-2 a 15°C" },
-            { dia: 8, data: "15/09 (TER)", local: "Salar de Uyuni 🇧🇴", log: "🚗 Tour 4x4 no Salar", desc: "Travessia completa do maior deserto de sal do mundo, Ilha Incahuasi e pôr do sol.", look: "Camiseta Branca, Jogger, Bota Trekking (0-18°C)", noite: "Colchani / Uyuni", clima: "0-18°C" },
-            { dia: 9, data: "16/09 (QUA)", local: "La Paz 🇧🇴", log: "🚌 Tour até Uyuni + Ônibus Noturno", desc: "Manhã livre em Uyuni para feiras e fotos. Embarque no ônibus leito à noite (~11h).", look: "Hoodie Preto, Jogger, Tênis (5-17°C)", noite: "Ônibus Noturno", clima: "5-17°C" },
-            { dia: 10, data: "17/09 (QUI)", local: "La Paz 🇧🇴", log: "🚶 Chegada pela manhã", desc: "Descanso inicial. City tour: Redes de Teleférico, Mercado das Bruxas e Killi Killi.", look: "Camiseta Verde, Jeans, Tênis (5-15°C)", noite: "La Paz", clima: "5-15°C" },
-            { dia: 11, data: "18/09 (SEX)", local: "La Paz 🇧🇴", log: "🚲 Estrada da Morte (Bike)", desc: "Descida épica e técnica de mountain bike por ~60km até a base da selva tropical.", look: "Segunda Pele Superior, Hoodie, Jogger (10-20°C)", noite: "La Paz", clima: "10-20°C" },
-            { dia: 12, data: "19/09 (SÁB)", local: "Cusco 🇵🇪", log: "🚌 Ônibus Direto Internacional", desc: "Viagem de dia inteiro de ônibus cruzando as montanhas e as margens do Lago Titicaca.", look: "Hoodie Preto, Jogger, Tênis (8-18°C)", noite: "Cusco", clima: "8-18°C" },
-            { dia: 13, data: "20/09 (DOM)", local: "Cusco 🇵🇪", log: "🚶 Aclimatização e Centro", desc: "Caminhada leve pela Plaza de Armas, bairro de San Blas e Mercado San Pedro.", look: "Camiseta Preta, Jeans, Tênis (6-18°C)", noite: "Cusco", clima: "6-18°C" },
-            { dia: 14, data: "21/09 (SEG)", local: "Cusco (Humantay) 🇵🇪", log: "🥾 Tour Van (4h trecho)", desc: "Caminhada de subida andina até as águas azul-turquesa da maravilhosa Lagoa Humantay.", look: "Segunda Pele, Puffer, Calça Trekking (0-10°C)", noite: "Cusco", clima: "0-10°C" },
-            { dia: 15, data: "22/09 (TER)", local: "Machu Picchu 🇵🇪", log: "🚂 Trem + Ônibus Oficial", desc: "Visita guiada oficial completa pela Cidade Sagrada dos Incas pela manhã. Retorno à noite.", look: "Camiseta Verde, Calça Trekking, Bota (10-20°C)", noite: "Cusco", clima: "10-20°C" },
-            { dia: 16, data: "23/09 (QUA)", local: "Rainbow Mountain 🇵🇪", log: "🥾 Tour Van (3h trecho)", desc: "Trilha desafiadora de alta altitude na Montanha Colorida (Vinicunca) acima de 5.000m.", look: "Segunda Pele, Fleece, Puffer, Luvas (-3-8°C)", noite: "Cusco", clima: "-3 a 8°C" },
-            { dia: 17, data: "24/09 (QUI)", local: "Vale Sagrado 🇵🇪", log: "🏛️ Tour Arqueológico Completo", desc: "Exploração guiada das feiras e sítios históricos de Pisac, Ollantaytambo e Chinchero.", look: "Camiseta Bege, Jeans, Bota Trekking (8-22°C)", noite: "Cusco", clima: "8-22°C" },
-            { dia: 18, data: "25/09 (SEX)", local: "Lima 🇵🇪", log: "✈️ Voo Cusco ➔ Lima (1h20)", desc: "Chegada à costa. Tarde livre pelo Malecón de Miraflores e o bairro de Barranco.", look: "Camiseta Preta, Bermuda Bege, Tênis (16-24°C)", noite: "Lima", clima: "16-24°C" },
-            { dia: 19, data: "26/09 (SÁB)", local: "Paracas / Huacachina 🇵🇪", log: "⛵ Bate-volta Rodoviário", desc: "Navegação nas Islas Ballestas e adrenalina com buggies/sandboard no Oásis no deserto.", look: "Camiseta Branca, Bermuda Preta, Tênis (18-28°C)", noite: "Lima", clima: "18-28°C" },
-            { dia: 20, data: "27/09 (DOM)", local: "Lima 🇵🇪", log: "🍽️ Circuito das Águas e Ceviche", desc: "Dia voltado à culinária de Lima, Praia Waikiki e espetáculo das fontes iluminadas.", look: "Camiseta Cinza, Bermuda Cinza, Tênis (16-24°C)", noite: "Lima", clima: "16-24°C" },
-            { dia: 21, data: "28/09 (SEG)", local: "Retorno 🇧🇷", log: "✈️ Voo Lima ➔ Brasil", desc: "Check-out, transfer ao aeroporto internacional de Lima e voo de retorno.", look: "Moletom confortável de viagem.", noite: "Voo", clima: "Variável" }
-        ];
+let active='home';
+let currentDayId='d1';
+let state={search:''};
 
-        const passeiosIniciais = [
-            { id: 1, nome: "Farellones (Neve)", data: "09/09", cidade: "Santiago", agenda: "A preencher", valor: 0 },
-            { id: 2, nome: "Tour Astronômico", data: "10/09", cidade: "Atacama", agenda: "A preencher", valor: 0 },
-            { id: 3, nome: "Valle de la Luna", data: "11/09", cidade: "Atacama", agenda: "A preencher", valor: 0 },
-            { id: 4, nome: "Lagunas Altiplânicas", data: "12/09", cidade: "Atacama", agenda: "A preencher", valor: 0 },
-            { id: 5, nome: "Geysers del Tatio", data: "13/09", cidade: "Atacama", agenda: "A preencher", valor: 0 },
-            { id: 6, nome: "Salar de Uyuni 3D/2N", data: "14/09 a 16/09", cidade: "Uyuni", agenda: "A preencher", valor: 0 },
-            { id: 7, nome: "Death Road (Bike)", data: "18/09", cidade: "La Paz", agenda: "A preencher", valor: 0 },
-            { id: 8, nome: "Humantay Lagoon", data: "21/09", cidade: "Cusco", agenda: "A preencher", valor: 0 },
-            { id: 9, nome: "Machu Picchu", data: "22/09", cidade: "Cusco", agenda: "A preencher", valor: 0 },
-            { id: 10, nome: "Rainbow Mountain", data: "23/09", cidade: "Cusco", agenda: "A preencher", valor: 0 }
-        ];
+const tabs=[
+  ['home','🏠','Início'],
+  ['days','🗓️','Dias'],
+  ['flights','✈️','Voos'],
+  ['stays','🛏️','Hotéis'],
+  ['tours','🎫','Tours'],
+  ['expenses','💰','Gastos'],
+  ['food','🍽️','Comer'],
+  ['packing','🎒','Mala'],
+  ['maps','📍','Mapas'],
+  ['backup','💾','Backup']
+];
 
-        const hoteisIniciais = [
-            { id: 1, cidade: "Santiago 🇨🇱", nome: "A preencher", data: "08/09 a 10/09" },
-            { id: 2, cidade: "San Pedro de Atacama 🇨🇱", nome: "A preencher", data: "10/09 a 14/09" },
-            { id: 3, cidade: "La Paz 🇧🇴", nome: "A preencher", data: "17/09 a 19/09" },
-            { id: 4, cidade: "Cusco 🇵🇪", nome: "A preencher", data: "19/09 a 25/09" },
-            { id: 5, cidade: "Lima 🇵🇪", nome: "A preencher", data: "25/09 a 28/09" }
-        ];
+const bottom=['home','days','flights','stays','tours'];
 
-        let appData = JSON.parse(localStorage.getItem('trip_v4_data')) || {
-            gastos: [{ id: 1, desc: "Passagens Aéreas Iniciais", cat: "Voos", valorBrl: 2545.00 }],
-            passeios: passeiosIniciais,
-            hoteis: hoteisIniciais
-        };
+function map(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
+function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function money(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function num(v){return Number(String(v||0).replace(',','.'))||0}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function opt(x,val){return `<option ${x===val?'selected':''}>${x}</option>`}
+function val(id){return document.getElementById(id).value.trim()}
+function countryClass(c){return c==='Chile'?'chile':c==='Bolívia'?'bolivia':c==='Peru'?'peru':'dark'}
+function statusClass(s){return ['Reservado','Pago','Agendado','Concluído','OK','Fui','Favorito'].includes(s)?'green':s==='Cancelado'||s==='Descartado'?'red':'gold'}
+function match(o){return !state.search || JSON.stringify(o).toLowerCase().includes(state.search.toLowerCase())}
 
-        function mudarAba(aba) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + aba).classList.add('active');
-            document.getElementById('nav-' + aba).classList.add('active');
-        }
+function makeEvent(time,type,title,place,notes,maps,ref=''){
+  return {id:uid('ev'),time,type,title,place,notes,maps,ref};
+}
 
-        function abrirSecao(id) {
-            const el = document.getElementById(id);
-            el.style.display = el.style.display === 'none' ? 'block' : 'none';
-        }
+const baseData={
+  flights:[
+    {id:'fl1',title:'Brasil → Santiago',date:'08/09',airline:'A preencher',flightNo:'',from:'Brasil',to:'Santiago',depart:'A preencher',arrive:'A preencher',terminal:'',gate:'',locator:'',status:'A preencher',maps:map('Santiago Airport Chile'),notes:'Preencher horário real quando tiver o bilhete.'},
+    {id:'fl2',title:'Santiago → Calama',date:'10/09',airline:'A preencher',flightNo:'',from:'Santiago',to:'Calama',depart:'A preencher',arrive:'A preencher',terminal:'',gate:'',locator:'',status:'A preencher',maps:map('Calama Airport Chile'),notes:'Depois transfer Calama → San Pedro de Atacama (~1h30).'},
+    {id:'fl3',title:'Cusco → Lima',date:'25/09',airline:'A preencher',flightNo:'',from:'Cusco',to:'Lima',depart:'A preencher',arrive:'A preencher',terminal:'',gate:'',locator:'',status:'A preencher',maps:map('Lima Airport Peru'),notes:'Voo interno de aproximadamente 1h20.'},
+    {id:'fl4',title:'Lima → Brasil',date:'28/09',airline:'A preencher',flightNo:'',from:'Lima',to:'Brasil',depart:'A preencher',arrive:'A preencher',terminal:'',gate:'',locator:'',status:'A preencher',maps:map('Jorge Chavez International Airport Lima'),notes:'Chegar ao aeroporto com antecedência.'}
+  ],
 
-        function salvar() {
-            localStorage.setItem('trip_v4_data', JSON.stringify(appData));
-            render();
-        }
+  stays:[
+    {id:'h1',city:'Santiago',country:'Chile',name:'A preencher',checkinDate:'08/09',checkoutDate:'10/09',checkinTime:'A preencher',checkoutTime:'A preencher',area:'Lastarria / Bellavista / Centro',address:'',maps:map('hotel Lastarria Santiago Chile'),code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'Perto de metrô, cafés e restaurantes.'},
+    {id:'h2',city:'San Pedro de Atacama',country:'Chile',name:'A preencher',checkinDate:'10/09',checkoutDate:'14/09',checkinTime:'A preencher',checkoutTime:'A preencher',area:'Centro / Caracoles',address:'',maps:map('hotel Caracoles San Pedro de Atacama'),code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'Prioridade: banho quente e saída fácil para tours cedo.'},
+    {id:'h3',city:'Tour Uyuni',country:'Bolívia',name:'Incluso no tour',checkinDate:'14/09',checkoutDate:'16/09',checkinTime:'A confirmar',checkoutTime:'A confirmar',area:'San Juan / Colchani / Uyuni',address:'',maps:map('Uyuni Bolivia'),code:'',platform:'Agência',contact:'',total:0,paid:0,status:'Pendente',notes:'Confirmar banho quente, hospedagens, alimentação e saco de dormir.'},
+    {id:'h4',city:'La Paz',country:'Bolívia',name:'A preencher',checkinDate:'17/09',checkoutDate:'19/09',checkinTime:'A preencher',checkoutTime:'A preencher',area:'Sopocachi / Centro',address:'',maps:map('hotel Sopocachi La Paz Bolivia'),code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'Boa localização para teleféricos, cafés e saída da Death Road.'},
+    {id:'h5',city:'Cusco',country:'Peru',name:'A preencher',checkinDate:'19/09',checkoutDate:'25/09',checkinTime:'A preencher',checkoutTime:'A preencher',area:'Centro Histórico / San Blas',address:'',maps:map('hotel San Blas Cusco Peru'),code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'Base para Humantay, Machu Picchu, Rainbow Mountain e Vale Sagrado.'},
+    {id:'h6',city:'Lima',country:'Peru',name:'A preencher',checkinDate:'25/09',checkoutDate:'28/09',checkinTime:'A preencher',checkoutTime:'A preencher',area:'Miraflores / Barranco',address:'',maps:map('hotel Miraflores Lima Peru'),code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'Foco em segurança, gastronomia e saída para Paracas/Huacachina.'}
+  ],
 
-        function verDetalhesDia(diaNum) {
-            const d = roteiroCompleto.find(o => o.dia === diaNum);
-            if(!d) return;
-            document.getElementById('modal-titulo').innerText = `Dia ${d.dia} - ${d.local}`;
-            document.getElementById('modal-corpo').innerHTML = `
-                <p style="margin-bottom:8px;"><b>📆 Data:</b> ${d.data}</p>
-                <p style="margin-bottom:8px;"><b>🚗 Deslocamento:</b> ${d.log}</p>
-                <p style="margin-bottom:8px;"><b>🎯 Programação:</b> ${d.desc}</p>
-                <p style="margin-bottom:8px;"><b>👕 Look Sugerido:</b> ${d.look}</p>
-                <p style="margin-bottom:8px;"><b>🏨 Pernoite:</b> ${d.noite}</p>
-                <p><b>🌤️ Clima Médio:</b> ${d.clima}</p>
-            `;
-            document.getElementById('detalheModal').classList.add('active');
-        }
+  tours:[
+    {id:'t1',name:'Farellones — neve',date:'09/09',city:'Santiago / Farellones',country:'Chile',time:'Manhã cedo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Farellones Chile'),bring:'Segunda pele, puffer, gorro, luvas, bota impermeável.',notes:'Neve, tubing, teleférico, mirantes e brincadeiras.'},
+    {id:'t2',name:'Tour astronômico',date:'10/09',city:'San Pedro de Atacama',country:'Chile',time:'Noite',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Média',maps:map('tour astronomico San Pedro de Atacama'),bring:'Casaco, gorro, celular/câmera carregados.',notes:'Fazer nos primeiros dias para ter plano B se o céu fechar.'},
+    {id:'t3',name:'Valle de la Luna',date:'11/09',city:'San Pedro de Atacama',country:'Chile',time:'Manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve/Médio',altitude:'Média',maps:map('Valle de la Luna Atacama'),bring:'Água, óculos, protetor solar, boné.',notes:'Paisagens do deserto.'},
+    {id:'t4',name:'Valle de la Muerte + pôr do sol',date:'11/09',city:'San Pedro de Atacama',country:'Chile',time:'Tarde / fim da tarde',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve/Médio',altitude:'Média',maps:map('Valle de la Muerte Atacama'),bring:'Corta-vento, água, óculos.',notes:'Pôr do sol nas dunas.'},
+    {id:'t5',name:'Lagunas Altiplânicas — Miscanti e Miñiques',date:'12/09',city:'Atacama',country:'Chile',time:'Manhã cedo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Lagunas Altiplanicas Miscanti Miniques'),bring:'Camadas, água, lanche, protetor, óculos.',notes:'Tour longo e frio.'},
+    {id:'t6',name:'Piedras Rojas + Salar de Talar',date:'12/09',city:'Atacama',country:'Chile',time:'Dia todo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Piedras Rojas Salar de Talar Atacama'),bring:'Camadas, água, lanche, protetor.',notes:'Combina com Lagunas Altiplânicas.'},
+    {id:'t7',name:'Geysers del Tatio',date:'13/09',city:'Atacama',country:'Chile',time:'Madrugada / amanhecer',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Geysers del Tatio'),bring:'Roupa térmica, puffer, gorro, luvas.',notes:'Frio intenso ao amanhecer.'},
+    {id:'t8',name:'Banho termal opcional',date:'13/09',city:'Atacama',country:'Chile',time:'Manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Termas de Puritama Atacama'),bring:'Roupa de banho, toalha, chinelo.',notes:'Opcional após Geysers.'},
+    {id:'t9',name:'Tour Atacama → Uyuni 3D/2N',date:'14–16/09',city:'San Pedro / Uyuni',country:'Bolívia',time:'Manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Salar de Uyuni tour 3 days'),bring:'Óculos, protetor, camadas, dinheiro físico, power bank.',notes:'Confirmar imigração, alimentação, hospedagens e banho quente.'},
+    {id:'t10',name:'Laguna Blanca, Laguna Verde e Deserto de Dalí',date:'14/09',city:'Altiplano Boliviano',country:'Bolívia',time:'Dia todo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Laguna Verde Laguna Blanca Desierto de Dali Bolivia'),bring:'Camadas, protetor, óculos.',notes:'Primeiro dia do tour Uyuni.'},
+    {id:'t11',name:'Salar de Uyuni',date:'15/09',city:'Uyuni',country:'Bolívia',time:'Dia todo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve/Médio',altitude:'Alta',maps:map('Salar de Uyuni'),bring:'Óculos, protetor, água, câmera, roupa clara/contrastante.',notes:'Fotos no salar.'},
+    {id:'t12',name:'Isla Incahuasi',date:'15/09',city:'Salar de Uyuni',country:'Bolívia',time:'Meio do dia',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Isla Incahuasi Uyuni'),bring:'Água, protetor, óculos.',notes:'Cactos gigantes.'},
+    {id:'t13',name:'Pôr do sol no Salar',date:'15/09',city:'Salar de Uyuni',country:'Bolívia',time:'Fim da tarde',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Salar de Uyuni sunset'),bring:'Casaco para frio.',notes:'Fechamento do dia no Salar.'},
+    {id:'t14',name:'City tour La Paz — teleféricos',date:'17/09',city:'La Paz',country:'Bolívia',time:'Tarde',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Mi Teleferico La Paz'),bring:'Casaco, água, dinheiro físico.',notes:'Sistema de teleféricos.'},
+    {id:'t15',name:'Mirador Killi Killi',date:'17/09',city:'La Paz',country:'Bolívia',time:'Tarde',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Mirador Killi Killi La Paz'),bring:'Casaco e câmera.',notes:'Vista panorâmica.'},
+    {id:'t16',name:'Mercado de las Brujas + Calle Jaén',date:'17/09',city:'La Paz',country:'Bolívia',time:'Fim da tarde',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Mercado de las Brujas Calle Jaen La Paz'),bring:'Dinheiro físico.',notes:'Caminhada leve.'},
+    {id:'t17',name:'Death Road',date:'18/09',city:'La Paz',country:'Bolívia',time:'Manhã cedo / dia todo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Alto',altitude:'Alta',maps:map('Death Road Bolivia'),bring:'Seguro, documentos, roupa confortável, corta-vento.',notes:'Ver reputação da agência, equipamentos e seguro viagem.'},
+    {id:'t18',name:'Plaza de Armas + San Blas + Mercado San Pedro',date:'20/09',city:'Cusco',country:'Peru',time:'Tarde',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Alta',maps:map('Plaza de Armas San Blas Mercado San Pedro Cusco'),bring:'Água e casaco leve.',notes:'Dia leve para aclimatação.'},
+    {id:'t19',name:'Humantay Lagoon',date:'21/09',city:'Cusco',country:'Peru',time:'Madrugada / manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Alto',altitude:'Alta',maps:map('Humantay Lagoon Peru'),bring:'Camadas, água, lanche, bastão opcional.',notes:'Trilha em altitude.'},
+    {id:'t20',name:'Machu Picchu',date:'22/09',city:'Cusco / Aguas Calientes',country:'Peru',time:'Manhã',agency:'A preencher',contact:'',value:1650,status:'Pendente',effort:'Médio',altitude:'Média',maps:map('Machu Picchu'),bring:'Passaporte/RG, ingresso, água, capa de chuva leve.',notes:'Confirmar circuito, trem, ônibus, guia e horário de entrada. Circuito 2/3 cotado em R$ 1.650. Circuito 5 como alternativa.'},
+    {id:'t21',name:'Rainbow Mountain / Vinicunca',date:'23/09',city:'Cusco',country:'Peru',time:'Madrugada / manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Alto',altitude:'Muito alta',maps:map('Vinicunca Rainbow Mountain Peru'),bring:'Roupa térmica, luvas, gorro, água, lanche.',notes:'Palccoyo pode ser alternativa mais leve.'},
+    {id:'t22',name:'Vale Sagrado — Pisac, Ollantaytambo e Chinchero',date:'24/09',city:'Cusco',country:'Peru',time:'Dia todo',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Alta',maps:map('Sacred Valley Pisac Ollantaytambo Chinchero Peru'),bring:'Água, protetor, dinheiro para mercados.',notes:'Mercados locais e sítios arqueológicos.'},
+    {id:'t23',name:'Miraflores, Barranco e Malecón',date:'25/09',city:'Lima',country:'Peru',time:'Tarde/noite',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Miraflores Barranco Malecon Lima Peru'),bring:'Casaco leve.',notes:'Primeiro contato com Lima.'},
+    {id:'t24',name:'Islas Ballestas',date:'26/09',city:'Paracas',country:'Peru',time:'Manhã',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Islas Ballestas Paracas'),bring:'Óculos, protetor, corta-vento.',notes:'Mini Galápagos.'},
+    {id:'t25',name:'Huacachina — buggy e sandboard',date:'26/09',city:'Huacachina',country:'Peru',time:'Tarde / pôr do sol',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Leve/Médio',altitude:'Baixa',maps:map('Huacachina buggy sandboard'),bring:'Óculos, protetor, roupa leve, corta-vento.',notes:'Pôr do sol no oásis.'},
+    {id:'t26',name:'Dia gastronômico em Lima',date:'27/09',city:'Lima',country:'Peru',time:'Dia todo',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Miraflores Lima restaurants'),bring:'Apetite e reserva se necessário.',notes:'Ceviche, Pisco Sour, sobremesas peruanas.'},
+    {id:'t27',name:'Circuito Mágico das Águas',date:'27/09',city:'Lima',country:'Peru',time:'Noite',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Circuito Magico del Agua Lima'),bring:'Casaco leve.',notes:'Opcional na última noite.'},
+    {id:'t28',name:'Praia Waikiki / Costa Verde',date:'27/09',city:'Lima',country:'Peru',time:'Opcional',agency:'Livre',contact:'',value:0,status:'Pendente',effort:'Leve',altitude:'Baixa',maps:map('Waikiki Beach Lima Peru'),bring:'Roupa leve.',notes:'Opcional.'}
+  ],
 
-        function fecharModal() { document.getElementById('detalheModal').classList.remove('active'); }
+  expenses:[
+    {id:'g1',name:'Voos principais',cat:'Voos',country:'Geral',city:'Geral',currency:'BRL',localValue:2545,brlValue:2545,status:'Previsto',paid:false,notes:'Valor informado anteriormente.'},
+    {id:'g2',name:'Machu Picchu — circuito 2/3',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1650,brlValue:1650,status:'Previsto',paid:false,notes:'Cotação da agência. Circuito 5 apareceu como alternativa de R$ 1.850.'}
+  ],
 
-        function adicionarGasto() {
-            const desc = document.getElementById('g-desc').value;
-            const val = parseFloat(document.getElementById('g-val').value);
-            const cot = parseFloat(document.getElementById('g-moeda').value);
-            if(!desc || !val) return;
-            appData.gastos.push({ id: Date.now(), desc, cat: document.getElementById('g-cat').value, valorBrl: val * cot });
-            document.getElementById('g-desc').value = '';
-            document.getElementById('g-val').value = '';
-            salvar();
-        }
+  food:[
+    {id:'f1',name:'Montana Gelato — Lastarria',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Montana Gelato Lastarria Santiago'),notes:''},
+    {id:'f2',name:'Emporio La Rosa',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Emporio La Rosa Santiago'),notes:''},
+    {id:'f3',name:'Wonderland Café',city:'Santiago',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Wonderland Cafe Santiago'),notes:''},
+    {id:'f4',name:'Bocanáriz',city:'Santiago',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Bocanariz Santiago'),notes:''},
+    {id:'f5',name:'La Picada Del Indio',city:'San Pedro de Atacama',country:'Chile',cat:'Barato e bom',status:'Favorito',price:'Baixo/Médio',maps:map('La Picada Del Indio San Pedro de Atacama'),notes:'Quase unanimidade entre mochileiros.'},
+    {id:'f6',name:'Memos Coffee Bistro',city:'Uyuni',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Memos Coffee Bistro Uyuni'),notes:''},
+    {id:'f7',name:'Café del Mundo',city:'La Paz',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Cafe del Mundo La Paz Bolivia'),notes:'Combina com frio de La Paz.'},
+    {id:'f8',name:'Qucharitas',city:'Cusco',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Qucharitas Cusco'),notes:''},
+    {id:'f9',name:'Organika Bakery & Coffee',city:'Cusco',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Organika Bakery Coffee Cusco'),notes:''},
+    {id:'f10',name:'Limbus Restobar',city:'Cusco',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Limbus Restobar Cusco'),notes:''},
+    {id:'f11',name:'Morena Peruvian Kitchen',city:'Cusco',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Morena Peruvian Kitchen Cusco'),notes:''},
+    {id:'f12',name:'Mercado San Pedro',city:'Cusco',country:'Peru',cat:'Barato e bom',status:'Quero ir',price:'Baixo',maps:map('Mercado San Pedro Cusco'),notes:'Menus executivos, empanadas e pollo a la brasa.'},
+    {id:'f13',name:'Blu Gelateria',city:'Lima',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Blu Gelateria Lima'),notes:''},
+    {id:'f14',name:'El Pan de la Chola',city:'Lima',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('El Pan de la Chola Lima'),notes:''},
+    {id:'f15',name:'Maido',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Alto',maps:map('Maido Lima'),notes:'Lima é o auge gastronômico.'},
+    {id:'f16',name:'La Mar',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('La Mar Lima'),notes:'Ceviche.'},
+    {id:'f17',name:'Panchita',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Panchita Lima'),notes:''},
+    {id:'f18',name:'Puerto Café',city:'Paracas',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Puerto Cafe Paracas'),notes:''},
+    {id:'f19',name:'Misk’i',city:'Paracas',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Miski Paracas'),notes:''},
+    {id:'f20',name:'Wild Olive Trattoria & Guest House',city:'Huacachina',country:'Peru',cat:'Sunset',status:'Quero ir',price:'Médio',maps:map('Wild Olive Trattoria Huacachina'),notes:'Vibe do oásis.'}
+  ],
 
-        function deletarGasto(id) {
-            appData.gastos = appData.gastos.filter(g => g.id !== id);
-            salvar();
-        }
+  packing:[
+    {group:'Camisetas',items:['3 dry-fit pretas','1 dry-fit branca','1 bege','1 verde militar','1 preta premium']},
+    {group:'Frio e camadas',items:['2 segundas peles','1 hoodie preto','1 fleece térmico cinza','1 jaqueta impermeável leve','1 jaqueta puffer compacta','Gorro térmico','Luvas térmicas','Buff proteção solar/frio']},
+    {group:'Calças e bermudas',items:['1 jogger preta','1 calça trekking cinza','1 jeans escura','1 bermuda preta esportiva','1 bermuda bege','1 bermuda cinza']},
+    {group:'Calçados',items:['1 tênis confortável','1 bota trekking impermeável','1 chinelo slide']},
+    {group:'Mochila do dia',items:['Passaporte/RG','Seguro viagem','Dinheiro e cartões','Power bank e cabos','Óculos de sol','Protetor solar','Hidratante labial','Garrafa de água','Remédios pessoais','Câmera/celular/fones']}
+  ],
 
-        function render() {
-            // Roteiro
-            const divAgenda = document.getElementById('lista-agenda');
-            divAgenda.innerHTML = '';
-            roteiroCompleto.forEach(d => {
-                divAgenda.innerHTML += `
-                    <div class="card card-clickable" onclick="verDetalhesDia(${d.dia})" style="padding:12px; cursor:pointer;">
-                        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold; color:var(--secondary)">
-                            <span>DIA ${d.dia}</span><span>${d.data}</span>
-                        </div>
-                        <h3 style="font-size:15px; margin:2px 0;">${d.local}</h3>
-                        <p style="font-size:12px; color:var(--text-main); font-weight:600;">${d.log}</p>
-                    </div>`;
-            });
+  packState:{},
+  notes:'Horários reais dos voos e check-in/check-out estão como “A preencher”. Atualize quando tiver bilhetes e reservas.'
+};
 
-            // Passeios
-            const divPasseios = document.getElementById('lista-passeios');
-            divPasseios.innerHTML = '';
-            appData.passeios.forEach(p => {
-                divPasseios.innerHTML += `
-                    <div class="card">
-                        <h3 style="color:var(--primary)">${p.nome}</h3>
-                        <p style="font-size:12px; margin-bottom:8px;">📍 ${p.cidade} (${p.data})</p>
-                        <label>Operadora / Empresa</label>
-                        <input type="text" value="${p.agenda || ''}" onchange="const x=appData.passeios.find(o=>o.id===${p.id}); x.agenda=this.value; localStorage.setItem('trip_v4_data', JSON.stringify(appData));">
-                        <label>Preço Planejado (R$)</label>
-                        <input type="number" value="${p.valor || ''}" onchange="const x=appData.passeios.find(o=>o.id===${p.id}); x.valor=parseFloat(this.value); localStorage.setItem('trip_v4_data', JSON.stringify(appData));">
-                    </div>`;
-            });
+baseData.days=[
+  day('d1',1,'08/09','TER','Santiago','Chile','Santiago','16–22°C','Chegada a Santiago, traslado, hotel, câmbio, chip e descanso.',[
+    makeEvent('A preencher','Voo','Voo Brasil → Santiago','Aeroporto','Preencher saída e chegada reais no módulo Voos.',map('Santiago Airport Chile'),'fl1'),
+    makeEvent('Após chegada','Transporte','Traslado aeroporto → hotel','Santiago','Salvar endereço da hospedagem.',map('Santiago Airport to Lastarria Santiago')),
+    makeEvent('A preencher','Hospedagem','Check-in em Santiago','Hotel Santiago','Horário de check-in a preencher.',baseData.stays[0].maps,'h1'),
+    makeEvent('Tarde/noite','Livre','Câmbio, chip e passeio leve','Região do hotel','Jantar e descanso.',map('Lastarria Santiago Chile'))
+  ]),
+  day('d2',2,'09/09','QUA','Santiago / Farellones','Chile','Santiago','-5–6°C','Bate-volta para neve em Farellones.',[
+    makeEvent('Manhã cedo','Passeio','Saída para Farellones','Hotel / ponto de encontro','Levar roupas de neve.',map('Farellones Chile'),'t1'),
+    makeEvent('Dia todo','Passeio','Farellones: neve, tubing, teleférico e mirantes','Farellones','Passeio principal do dia.',map('Farellones Chile'),'t1'),
+    makeEvent('Fim da tarde','Transporte','Retorno para Santiago','Santiago','Jantar e descanso.',map('Santiago Chile'))
+  ]),
+  day('d3',3,'10/09','QUI','San Pedro de Atacama','Chile','San Pedro de Atacama','14–24°C','Voo Santiago → Calama, transfer para San Pedro e tour astronômico.',[
+    makeEvent('A preencher','Hospedagem','Check-out Santiago','Hotel Santiago','Confirmar horário.',baseData.stays[0].maps,'h1'),
+    makeEvent('A preencher','Voo','Voo Santiago → Calama','Aeroporto Santiago / Calama','Preencher horários reais.',map('Calama Airport Chile'),'fl2'),
+    makeEvent('Após chegada','Transporte','Transfer Calama → San Pedro','Calama / San Pedro','~1h30.',map('Calama Airport to San Pedro de Atacama')),
+    makeEvent('A preencher','Hospedagem','Check-in San Pedro','Hotel San Pedro','Confirmar horário.',baseData.stays[1].maps,'h2'),
+    makeEvent('Noite','Passeio','Tour astronômico','Atacama','Fazer nos primeiros dias.',map('tour astronomico San Pedro de Atacama'),'t2')
+  ]),
+  day('d4',4,'11/09','SEX','Atacama','Chile','San Pedro de Atacama','10–24°C','Valle de la Luna, Valle de la Muerte e pôr do sol.',[
+    makeEvent('Manhã','Passeio','Valle de la Luna','Atacama','Água, óculos e protetor.',map('Valle de la Luna Atacama'),'t3'),
+    makeEvent('Tarde','Passeio','Valle de la Muerte','Atacama','Caminhada e paisagens.',map('Valle de la Muerte Atacama'),'t4'),
+    makeEvent('Fim da tarde','Passeio','Pôr do sol nas dunas','Atacama','Levar corta-vento.',map('Valle de la Muerte sunset Atacama'),'t4')
+  ]),
+  day('d5',5,'12/09','SÁB','Atacama','Chile','San Pedro de Atacama','0–15°C','Lagunas Altiplânicas, Piedras Rojas e Salar de Talar.',[
+    makeEvent('Manhã cedo','Passeio','Lagunas Altiplânicas — Miscanti e Miñiques','Atacama','Tour longo e frio.',map('Lagunas Altiplanicas Miscanti Miniques'),'t5'),
+    makeEvent('Dia todo','Passeio','Piedras Rojas + Salar de Talar','Atacama','Levar camadas, lanche e água.',map('Piedras Rojas Salar de Talar Atacama'),'t6')
+  ]),
+  day('d6',6,'13/09','DOM','Atacama','Chile','San Pedro de Atacama','-5–10°C','Geysers del Tatio e tarde livre.',[
+    makeEvent('Madrugada','Passeio','Saída para Geysers del Tatio','Hotel / ponto de encontro','Frio intenso.',map('Geysers del Tatio'),'t7'),
+    makeEvent('Amanhecer','Passeio','Geysers del Tatio','Geysers','Roupa térmica, puffer, gorro e luvas.',map('Geysers del Tatio'),'t7'),
+    makeEvent('Manhã','Passeio','Banho termal opcional','Atacama','Opcional após Geysers.',map('Termas de Puritama Atacama'),'t8'),
+    makeEvent('Tarde','Livre','Descanso em San Pedro','San Pedro','Arrumar mala para Uyuni.',map('San Pedro de Atacama'))
+  ]),
+  day('d7',7,'14/09','SEG','Uyuni — início do tour','Bolívia','San Juan / área do tour','-2–15°C','Início do tour Atacama → Uyuni 3D/2N.',[
+    makeEvent('A preencher','Hospedagem','Check-out San Pedro','Hotel San Pedro','Confirmar horário.',baseData.stays[1].maps,'h2'),
+    makeEvent('Manhã','Passeio','Início do tour Atacama → Uyuni 3D/2N','San Pedro','Imigração e troca para 4x4.',map('San Pedro de Atacama to Uyuni'),'t9'),
+    makeEvent('Dia todo','Passeio','Laguna Blanca, Laguna Verde e Deserto de Dalí','Altiplano Boliviano','Primeiro dia do tour.',map('Laguna Verde Bolivia Desierto de Dali'),'t10'),
+    makeEvent('Noite','Hospedagem','Noite em San Juan / área do tour','Bolívia','Confirmar banho quente.',baseData.stays[2].maps,'h3')
+  ]),
+  day('d8',8,'15/09','TER','Salar de Uyuni','Bolívia','Colchani / Uyuni','0–18°C','Salar de Uyuni, Isla Incahuasi e pôr do sol.',[
+    makeEvent('Manhã','Passeio','Salar de Uyuni','Salar','Fotos no salar.',map('Salar de Uyuni'),'t11'),
+    makeEvent('Meio do dia','Passeio','Isla Incahuasi','Salar de Uyuni','Cactos gigantes.',map('Isla Incahuasi Uyuni'),'t12'),
+    makeEvent('Fim da tarde','Passeio','Pôr do sol no Salar','Salar de Uyuni','Levar casaco.',map('Salar de Uyuni sunset'),'t13'),
+    makeEvent('Noite','Hospedagem','Noite em Colchani / Uyuni','Uyuni','Confirmar hospedagem do tour.',map('Colchani Uyuni Bolivia'),'h3')
+  ]),
+  day('d9',9,'16/09','QUA','Uyuni → La Paz','Bolívia','Ônibus noturno','5–17°C','Fim do tour e ônibus noturno para La Paz.',[
+    makeEvent('Manhã','Livre','Manhã livre em Uyuni','Uyuni','Mercado e fotos.',map('Uyuni Bolivia')),
+    makeEvent('Início da tarde','Passeio','Fim do tour 3D/2N','Uyuni','Confirmar horário de chegada.',map('Uyuni Bolivia'),'t9'),
+    makeEvent('Noite','Transporte','Ônibus Uyuni → La Paz','Rodoviária Uyuni','Comprar semi-cama/cama.',map('Uyuni bus terminal to La Paz Bolivia'))
+  ]),
+  day('d10',10,'17/09','QUI','La Paz','Bolívia','La Paz','5–15°C','Chegada, check-in, teleféricos e centro histórico.',[
+    makeEvent('Manhã','Transporte','Chegada em La Paz','La Paz','Ir para hospedagem e descansar.',map('La Paz Bolivia')),
+    makeEvent('A preencher','Hospedagem','Check-in La Paz','Hotel La Paz','Confirmar horário.',baseData.stays[3].maps,'h4'),
+    makeEvent('Tarde','Passeio','Teleféricos de La Paz','La Paz','Caminhar devagar por causa da altitude.',map('Mi Teleferico La Paz'),'t14'),
+    makeEvent('Tarde','Passeio','Mirador Killi Killi','La Paz','Vista panorâmica.',map('Mirador Killi Killi La Paz'),'t15'),
+    makeEvent('Fim da tarde','Passeio','Mercado de las Brujas + Calle Jaén','La Paz','Café/chocolate quente.',map('Mercado de las Brujas Calle Jaen La Paz'),'t16')
+  ]),
+  day('d11',11,'18/09','SEX','La Paz — Death Road','Bolívia','La Paz','10–20°C','Death Road de bike.',[
+    makeEvent('Manhã cedo','Passeio','Saída para Death Road','Ponto de encontro','Conferir seguro e equipamentos.',map('Death Road Bolivia'),'t17'),
+    makeEvent('Dia todo','Passeio','Descida de bike pela Death Road','Death Road','~60 km dos Andes à selva tropical.',map('Death Road Bolivia'),'t17'),
+    makeEvent('Fim da tarde','Transporte','Retorno a La Paz','La Paz','Descanso.',map('La Paz Bolivia'))
+  ]),
+  day('d12',12,'19/09','SÁB','La Paz → Cusco','Peru','Cusco','8–18°C','Ônibus direto La Paz → Cusco.',[
+    makeEvent('A preencher','Hospedagem','Check-out La Paz','Hotel La Paz','Confirmar horário.',baseData.stays[3].maps,'h4'),
+    makeEvent('Dia todo','Transporte','Ônibus La Paz → Cusco','Estrada / Lago Titicaca','Viagem 14–16h.',map('La Paz to Cusco bus')),
+    makeEvent('22h aprox.','Transporte','Chegada em Cusco','Cusco','Horário estimado do roteiro.',map('Cusco Peru')),
+    makeEvent('Noite','Hospedagem','Check-in Cusco','Hotel Cusco','Avisar chegada tarde.',baseData.stays[4].maps,'h5')
+  ]),
+  day('d13',13,'20/09','DOM','Cusco','Peru','Cusco','6–18°C','Dia leve para aclimatação.',[
+    makeEvent('Manhã','Livre','Descanso e aclimatação','Cusco','Caminhar devagar.',map('Cusco Peru')),
+    makeEvent('Tarde','Passeio','Plaza de Armas, San Blas e Mercado San Pedro','Cusco','Almoço leve e caminhada.',map('Plaza de Armas San Blas Mercado San Pedro Cusco'),'t18')
+  ]),
+  day('d14',14,'21/09','SEG','Humantay Lagoon','Peru','Cusco','0–10°C','Tour para Humantay Lagoon.',[
+    makeEvent('Madrugada/manhã','Passeio','Saída para Humantay','Cusco','Confirmar horário com agência.',map('Humantay Lagoon Peru'),'t19'),
+    makeEvent('Manhã','Passeio','Trilha até Humantay Lagoon','Humantay','Altitude: levar camadas, água e lanche.',map('Humantay Lagoon Peru'),'t19'),
+    makeEvent('Fim da tarde','Transporte','Retorno a Cusco','Cusco','Descanso.',map('Cusco Peru'))
+  ]),
+  day('d15',15,'22/09','TER','Machu Picchu','Peru','Cusco','10–20°C','Machu Picchu pela manhã e retorno a Cusco.',[
+    makeEvent('A preencher','Transporte','Saída Cusco/Ollantaytambo','Cusco / Ollantaytambo','Preencher horário do transfer.',map('Cusco to Ollantaytambo')),
+    makeEvent('A preencher','Transporte','Trem → Aguas Calientes','Ollantaytambo','Preencher companhia e horário do trem.',map('Ollantaytambo train station')),
+    makeEvent('Manhã','Passeio','Visita guiada a Machu Picchu','Machu Picchu','Confirmar circuito, guia e horário de entrada.',map('Machu Picchu'),'t20'),
+    makeEvent('Tarde/noite','Transporte','Retorno a Cusco','Cusco','Preencher horário do trem de volta.',map('Aguas Calientes to Cusco'))
+  ]),
+  day('d16',16,'23/09','QUA','Rainbow Mountain','Peru','Cusco','-3–8°C','Vinicunca / Rainbow Mountain.',[
+    makeEvent('Madrugada/manhã','Passeio','Saída para Rainbow Mountain','Cusco','Confirmar horário.',map('Rainbow Mountain Vinicunca Peru'),'t21'),
+    makeEvent('Manhã','Passeio','Trilha Vinicunca','Rainbow Mountain','Frio e altitude. Palccoyo pode ser alternativa.',map('Vinicunca Rainbow Mountain Peru'),'t21'),
+    makeEvent('Fim da tarde','Transporte','Retorno a Cusco','Cusco','Descanso.',map('Cusco Peru'))
+  ]),
+  day('d17',17,'24/09','QUI','Vale Sagrado','Peru','Cusco','8–22°C','Pisac, Ollantaytambo e Chinchero.',[
+    makeEvent('Manhã','Passeio','Saída para Vale Sagrado','Cusco','Confirmar agência.',map('Sacred Valley Peru'),'t22'),
+    makeEvent('Dia todo','Passeio','Pisac, Ollantaytambo e Chinchero','Vale Sagrado','Mercados locais e sítios arqueológicos.',map('Pisac Ollantaytambo Chinchero Peru'),'t22'),
+    makeEvent('Fim da tarde','Transporte','Retorno a Cusco','Cusco','Arrumar mala para Lima.',map('Cusco Peru'))
+  ]),
+  day('d18',18,'25/09','SEX','Lima','Peru','Lima','16–24°C','Voo Cusco → Lima, check-in e Miraflores/Barranco.',[
+    makeEvent('A preencher','Hospedagem','Check-out Cusco','Hotel Cusco','Confirmar horário.',baseData.stays[4].maps,'h5'),
+    makeEvent('A preencher','Voo','Voo Cusco → Lima','Aeroporto Cusco','Preencher horário real.',map('Cusco Airport Peru'),'fl3'),
+    makeEvent('A preencher','Hospedagem','Check-in Lima','Hotel Lima','Confirmar horário.',baseData.stays[5].maps,'h6'),
+    makeEvent('Tarde/noite','Passeio','Miraflores, Barranco e Malecón','Lima','Jantar e descanso.',map('Miraflores Barranco Malecon Lima Peru'),'t23')
+  ]),
+  day('d19',19,'26/09','SÁB','Paracas + Huacachina','Peru','Lima','18–28°C','Islas Ballestas, buggy, sandboard e pôr do sol no oásis.',[
+    makeEvent('Manhã cedo','Passeio','Saída Lima → Paracas','Lima','Confirmar horário com agência.',map('Lima to Paracas Peru')),
+    makeEvent('Manhã','Passeio','Islas Ballestas','Paracas','Mini Galápagos.',map('Islas Ballestas Paracas'),'t24'),
+    makeEvent('Tarde','Passeio','Huacachina: buggy e sandboard','Huacachina','Óculos, protetor e roupa leve.',map('Huacachina buggy sandboard'),'t25'),
+    makeEvent('Noite','Transporte','Retorno a Lima','Lima','Chegada à noite.',map('Huacachina to Lima Peru'))
+  ]),
+  day('d20',20,'27/09','DOM','Lima gastronômica','Peru','Lima','16–24°C','Dia gastronômico e cultural em Lima.',[
+    makeEvent('Manhã','Livre','Miraflores / compras / café','Lima','Escolher cafés/restaurantes.',map('Miraflores Lima Peru'),'t26'),
+    makeEvent('Almoço','Gastronomia','Ceviche / restaurante especial','Lima','La Mar, Maido, Panchita ou opção local.',map('La Mar Maido Panchita Lima'),'t26'),
+    makeEvent('Tarde','Passeio','Praia Waikiki / Costa Verde opcional','Lima','Opcional.',map('Waikiki Beach Lima Peru'),'t28'),
+    makeEvent('Noite','Passeio','Circuito Mágico das Águas ou Barranco','Lima','Pisco Sour e despedida.',map('Circuito Magico del Agua Lima'),'t27')
+  ]),
+  day('d21',21,'28/09','SEG','Retorno ao Brasil','Brasil','—','—','Check-out, aeroporto e retorno ao Brasil.',[
+    makeEvent('A preencher','Hospedagem','Check-out Lima','Hotel Lima','Confirmar horário.',baseData.stays[5].maps,'h6'),
+    makeEvent('A preencher','Transporte','Traslado ao aeroporto','Lima','Sair com antecedência.',map('Miraflores to Jorge Chavez Airport Lima')),
+    makeEvent('A preencher','Voo','Voo Lima → Brasil','Aeroporto Lima','Preencher horário real.',map('Jorge Chavez International Airport Lima'),'fl4')
+  ])
+];
 
-            // Hospedagens
-            const divHoteis = document.getElementById('lista-hoteis');
-            divHoteis.innerHTML = '';
-            appData.hoteis.forEach(h => {
-                divHoteis.innerHTML += `
-                    <div class="card">
-                        <h3>${h.cidade}</h3>
-                        <p style="font-size:12px; margin-bottom:8px;">📅 Período: ${h.data}</p>
-                        <label>Nome da Hospedagem / Voucher</label>
-                        <input type="text" value="${h.nome || ''}" onchange="const x=appData.hoteis.find(o=>o.id===${h.id}); x.nome=this.value; localStorage.setItem('trip_v4_data', JSON.stringify(appData));">
-                    </div>`;
-            });
+function day(id,dayNum,date,week,city,country,sleep,weather,summary,events){
+  return {id,day:dayNum,date,week,city,country,sleep,weather,summary,events};
+}
 
-            // Finanças
-            const divGastos = document.getElementById('lista-gastos');
-            divGastos.innerHTML = '';
-            let total = 0;
-            appData.gastos.forEach(g => {
-                total += g.valorBrl;
-                divGastos.innerHTML += `
-                    <div class="list-item">
-                        <div><b>${g.desc}</b><br><small>${g.cat}</small></div>
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span style="font-weight:700; color:var(--danger)">R$ ${g.valorBrl.toFixed(2)}</span>
-                            <span onclick="deletarGasto(${g.id})" style="cursor:pointer;">❌</span>
-                        </div>
-                    </div>`;
-            });
-            document.getElementById('total-header').innerText = `R$ ${total.toFixed(2)}`;
-            document.getElementById('dash-pagos').innerText = `R$ ${total.toFixed(2)}`;
-        }
+let data=loadData();
 
-        function exportarJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", "backup_trip_premium.json");
-            dlAnchor.click();
-        }
+function loadData(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(LS));
+    if(saved && saved.days && saved.tours) return saved;
+  }catch(e){}
+  return JSON.parse(JSON.stringify(baseData));
+}
 
-        function resetarBase() {
-            if(confirm("Deseja restaurar os dados padrões?")) {
-                localStorage.removeItem('trip_v4_data');
-                location.reload();
-            }
-        }
+function save(){
+  localStorage.setItem(LS,JSON.stringify(data));
+  updateHeader();
+}
 
-        window.onload = render;
-    </script>
+function updateHeader(){
+  const total = data.expenses.reduce((s,e)=>s+num(e.brlValue),0)
+    + data.stays.reduce((s,h)=>s+num(h.total),0)
+    + data.tours.reduce((s,t)=>s+num(t.value),0);
+
+  const keys=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i));
+  const done=keys.filter(k=>data.packState[k]).length;
+
+  document.getElementById('hTours').textContent=data.tours.length;
+  document.getElementById('hTotal').textContent=money(total).replace(',00','');
+  document.getElementById('hPack').textContent=keys.length?Math.round(done/keys.length*100)+'%':'0%';
+}
+
+function setTab(tab){
+  active=tab;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderNav(){
+  let items=bottom.slice();
+  if(!items.includes(active) && active!=='dayDetail') items[4]=active;
+  if(active==='dayDetail') items[1]='days';
+
+  document.getElementById('nav').innerHTML=items.map(id=>{
+    const t=tabs.find(x=>x[0]===id);
+    return `<button class="${(active===id||(active==='dayDetail'&&id==='days'))?'active':''}" onclick="setTab('${id}')">
+      <span class="nicon">${t[1]}</span>${t[2]}
+    </button>`;
+  }).join('');
+}
+
+function render(){
+  renderNav();
+  updateHeader();
+  updateFab();
+
+  const routes={
+    home:renderHome,
+    days:renderDays,
+    dayDetail:renderDayDetail,
+    flights:renderFlights,
+    stays:renderStays,
+    tours:renderTours,
+    expenses:renderExpenses,
+    food:renderFood,
+    packing:renderPacking,
+    maps:renderMaps,
+    backup:renderBackup
+  };
+
+  document.getElementById('view').innerHTML=routes[active]();
+}
+
+function updateFab(){
+  const labels={
+    dayDetail:'➕ Evento',
+    flights:'➕ Voo',
+    stays:'➕ Hotel',
+    tours:'➕ Tour',
+    expenses:'➕ Gasto',
+    food:'➕ Lugar'
+  };
+  const fab=document.getElementById('fab');
+  fab.style.display=labels[active]?'block':'none';
+  fab.textContent=labels[active]||'➕ Adicionar';
+}
+
+function quickAdd(){
+  if(active==='dayDetail') openEvent(currentDayId);
+  if(active==='flights') openFlight();
+  if(active==='stays') openStay();
+  if(active==='tours') openTour();
+  if(active==='expenses') openExpense();
+  if(active==='food') openFood();
+}
+
+function renderHome(){
+  const total=data.expenses.reduce((s,e)=>s+num(e.brlValue),0);
+  return `
+  <div class="card">
+    <div class="kicker">Projeto revisado</div>
+    <h2>Agora o app é centrado no dia da viagem</h2>
+    <p class="muted">Toque em um dia para ver tudo: voos, horários, check-in/check-out, passeios, mapas e observações.</p>
+    <div class="quick">
+      <button onclick="setTab('days')"><span class="ico">🗓️</span>Dias</button>
+      <button onclick="setTab('flights')"><span class="ico">✈️</span>Voos</button>
+      <button onclick="setTab('stays')"><span class="ico">🛏️</span>Hotéis</button>
+      <button onclick="setTab('tours')"><span class="ico">🎫</span>Tours</button>
+      <button onclick="setTab('maps')"><span class="ico">📍</span>Mapas</button>
+      <button onclick="setTab('backup')"><span class="ico">💾</span>Backup</button>
+    </div>
+  </div>
+
+  <div class="grid two">
+    <div class="card total">
+      <div class="kicker" style="color:#c7d7ef">base inicial</div>
+      <div class="money">${money(total)}</div>
+      <p>Voos + Machu Picchu já informados.</p>
+    </div>
+    <div class="card">
+      <div class="kicker">passeios cadastrados</div>
+      <div class="money">${data.tours.length}</div>
+      <p class="muted">Todos com campos para complementar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Importante</div>
+    <h2>Horários reais</h2>
+    <p class="muted">Os horários de voo, check-in e alguns passeios estão como <b>A preencher</b>, porque ainda não foram informados. O app já tem os campos prontos para você completar.</p>
+  </div>`;
+}
+
+function renderDays(){
+  const days=data.days.filter(match);
+  return `
+  <div class="card">
+    <div class="kicker">Clique no dia</div>
+    <h2>Roteiro por dia</h2>
+    <p class="muted">Toque em qualquer dia para abrir a tela completa com programação, voos, hospedagem, passeios e mapas.</p>
+  </div>
+  ${days.map(d=>`
+    <button class="dayButton" onclick="openDay('${d.id}')">
+      <div class="date">D${d.day}<span>${d.date}<br>${d.week}</span></div>
+      <div>
+        <h3>${d.city}</h3>
+        <span class="pill ${countryClass(d.country)}">${d.country}</span>
+        <span class="pill gray">🛏️ ${d.sleep}</span>
+        <span class="pill gray">${d.events.length} eventos</span>
+        <p class="small muted">${d.summary}</p>
+      </div>
+      <div class="chev">›</div>
+    </button>
+  `).join('') || '<div class="empty">Nada encontrado.</div>'}`;
+}
+
+function openDay(id){
+  currentDayId=id;
+  active='dayDetail';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderDayDetail(){
+  const d=data.days.find(x=>x.id===currentDayId)||data.days[0];
+  currentDayId=d.id;
+
+  const linkedFlights=data.flights.filter(f=>d.events.some(e=>e.ref===f.id)||f.date===d.date);
+  const linkedStay=data.stays.find(h=>d.events.some(e=>e.ref===h.id)||h.city===d.sleep);
+  const linkedTours=data.tours.filter(t=>d.events.some(e=>e.ref===t.id)||t.date.includes(d.date));
+
+  return `
+  <div class="card">
+    <button class="btn gray" onclick="setTab('days')">← Voltar aos dias</button>
+    <div style="height:10px"></div>
+    <div class="kicker">Dia ${d.day} · ${d.date} · ${d.week}</div>
+    <h2>${d.city}</h2>
+    <span class="pill ${countryClass(d.country)}">${d.country}</span>
+    <span class="pill gray">🛏️ ${d.sleep}</span>
+    <span class="pill gray">🌡️ ${d.weather}</span>
+    <p class="muted">${d.summary}</p>
+    <div class="actions">
+      <button class="btn light" onclick="openDaySummary('${d.id}')">Editar resumo</button>
+      <button class="btn" onclick="openEvent('${d.id}')">Adicionar evento</button>
+    </div>
+  </div>
+
+  ${linkedFlights.length?`
+  <div class="card">
+    <div class="kicker">Voos do dia</div>
+    <h2>✈️ Voos</h2>
+    ${linkedFlights.map(f=>`
+      <div class="row">
+        <div>
+          <b>${f.title}</b>
+          <div class="small muted">Saída: ${f.depart} · Chegada: ${f.arrive}<br>${f.airline||''} ${f.flightNo||''} · Localizador: ${f.locator||'a preencher'}</div>
+        </div>
+        <button class="btn light" onclick="openFlight('${f.id}')">Editar</button>
+      </div>
+    `).join('')}
+  </div>`:''}
+
+  ${linkedStay?`
+  <div class="card">
+    <div class="kicker">Hospedagem</div>
+    <h2>🛏️ ${linkedStay.name||linkedStay.city}</h2>
+    <p class="muted"><b>Check-in:</b> ${linkedStay.checkinDate} · ${linkedStay.checkinTime}<br>
+    <b>Check-out:</b> ${linkedStay.checkoutDate} · ${linkedStay.checkoutTime}<br>
+    <b>Área:</b> ${linkedStay.area}</p>
+    <div class="actions">
+      <button class="btn light" onclick="openStay('${linkedStay.id}')">Editar hospedagem</button>
+      <a class="btn gray" target="_blank" href="${linkedStay.maps}">Mapa</a>
+    </div>
+  </div>`:''}
+
+  <div class="card">
+    <div class="kicker">Programação do dia</div>
+    <h2>Agenda por horário</h2>
+    <div class="timeline">
+      ${d.events.map(e=>`
+        <div class="event">
+          <div class="etime">${e.time}</div>
+          <div>
+            <div class="etype">${e.type}</div>
+            <b>${e.title}</b>
+            <p class="small muted">${e.place||''}${e.notes?' · '+e.notes:''}</p>
+            <div class="actions">
+              <button class="btn light" onclick="openEvent('${d.id}','${e.id}')">Editar</button>
+              ${e.maps?`<a class="btn gray" target="_blank" href="${e.maps}">Mapa</a>`:''}
+              <button class="btn red" onclick="deleteEvent('${d.id}','${e.id}')">Excluir</button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+
+  ${linkedTours.length?`
+  <div class="card">
+    <div class="kicker">Passeios vinculados</div>
+    <h2>🎫 Detalhes dos passeios</h2>
+    ${linkedTours.map(t=>`
+      <div class="row">
+        <div>
+          <b>${t.name}</b>
+          <div class="small muted">${t.time} · ${t.agency}<br>Levar: ${t.bring}</div>
+        </div>
+        <button class="btn light" onclick="openTour('${t.id}')">Editar</button>
+      </div>
+    `).join('')}
+  </div>`:''}`;
+}
+
+function modal(title,body){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=body;
+  document.getElementById('modalWrap').classList.add('show');
+}
+function closeModal(){document.getElementById('modalWrap').classList.remove('show')}
+
+function openDaySummary(dayId){
+  const d=data.days.find(x=>x.id===dayId);
+  modal('Editar resumo do dia',`
+  <div class="form">
+    <input id="dy_city" value="${esc(d.city)}" placeholder="Cidade/título">
+    <input id="dy_sleep" value="${esc(d.sleep)}" placeholder="Onde dorme">
+    <input id="dy_weather" value="${esc(d.weather)}" placeholder="Clima">
+    <textarea id="dy_summary">${esc(d.summary)}</textarea>
+    <button class="btn full" onclick="saveDaySummary('${dayId}')">Salvar dia</button>
+  </div>`);
+}
+function saveDaySummary(id){
+  const d=data.days.find(x=>x.id===id);
+  d.city=val('dy_city');
+  d.sleep=val('dy_sleep');
+  d.weather=val('dy_weather');
+  d.summary=val('dy_summary');
+  save();closeModal();render();
+}
+
+function dayOptions(selected=''){
+  return data.days.map(d=>`<option value="${d.id}" ${d.id===selected?'selected':''}>Dia ${d.day} — ${d.date} — ${d.city}</option>`).join('');
+}
+function openEvent(dayId='',eventId=''){
+  const d=dayId?data.days.find(x=>x.id===dayId):data.days[0];
+  const e=eventId?d.events.find(x=>x.id===eventId):{id:'',time:'',type:'Passeio',title:'',place:'',notes:'',maps:'',ref:''};
+  modal(eventId?'Editar evento':'Adicionar evento',`
+  <div class="form">
+    <select id="ev_day">${dayOptions(dayId||d.id)}</select>
+    <input id="ev_time" placeholder="Horário: 08h, manhã, A preencher..." value="${esc(e.time)}">
+    <select id="ev_type">${['Voo','Transporte','Hospedagem','Passeio','Gastronomia','Livre','Documento','Outro'].map(x=>opt(x,e.type)).join('')}</select>
+    <input id="ev_title" placeholder="Título do evento" value="${esc(e.title)}">
+    <input id="ev_place" placeholder="Local" value="${esc(e.place)}">
+    <input id="ev_maps" placeholder="Link do Google Maps" value="${esc(e.maps)}">
+    <textarea id="ev_notes" placeholder="Observações">${esc(e.notes)}</textarea>
+    <button class="btn full" onclick="saveEvent('${dayId}','${eventId}')">Salvar evento</button>
+  </div>`);
+}
+function saveEvent(oldDayId,eventId){
+  const newDay=data.days.find(d=>d.id===val('ev_day'));
+  const obj={id:eventId||uid('ev'),time:val('ev_time'),type:val('ev_type'),title:val('ev_title'),place:val('ev_place'),maps:val('ev_maps'),notes:val('ev_notes'),ref:''};
+  if(!obj.title)return alert('Digite o título do evento.');
+  if(eventId&&oldDayId){
+    const old=data.days.find(d=>d.id===oldDayId);
+    old.events=old.events.filter(e=>e.id!==eventId);
+  }
+  newDay.events.push(obj);
+  currentDayId=newDay.id;
+  save();closeModal();render();
+}
+function deleteEvent(dayId,eventId){
+  if(confirm('Excluir evento?')){
+    const d=data.days.find(x=>x.id===dayId);
+    d.events=d.events.filter(e=>e.id!==eventId);
+    save();render();
+  }
+}
+
+function cardActionsEditDelete(type,id,editFn){
+  return `<div class="actions"><button class="btn light" onclick="${editFn}('${id}')">Editar</button><button class="btn red" onclick="deleteItem('${type}','${id}')">Excluir</button></div>`;
+}
+function deleteItem(collection,id){
+  if(confirm('Excluir este item?')){
+    data[collection]=data[collection].filter(x=>x.id!==id);
+    save();render();
+  }
+}
+function upsert(collection,obj){
+  const i=data[collection].findIndex(x=>x.id===obj.id);
+  if(i>=0)data[collection][i]=obj;else data[collection].push(obj);
+}
+
+function renderFlights(){
+  return `<div class="card"><div class="kicker">Voos</div><h2>Horários, chegada e localizador</h2><p class="muted">Todos os horários reais estão prontos para preenchimento.</p><button class="btn" onclick="openFlight()">➕ Adicionar voo</button></div>
+  ${data.flights.filter(match).map(f=>`
+    <div class="card">
+      <h3>✈️ ${f.title}</h3>
+      <span class="pill gold">${f.date}</span><span class="pill ${statusClass(f.status)}">${f.status}</span>
+      <div class="grid two">
+        <div class="row"><div><b>Saída</b><div class="small muted">${f.from}<br>${f.depart}</div></div></div>
+        <div class="row"><div><b>Chegada</b><div class="small muted">${f.to}<br>${f.arrive}</div></div></div>
+      </div>
+      <p class="muted"><b>Companhia:</b> ${f.airline||'-'} · <b>Voo:</b> ${f.flightNo||'-'}<br><b>Terminal/portão:</b> ${f.terminal||'-'} ${f.gate||''} · <b>Localizador:</b> ${f.locator||'a preencher'}</p>
+      ${f.notes?`<div class="note">${f.notes}</div>`:''}
+      <div class="actions"><button class="btn light" onclick="openFlight('${f.id}')">Editar</button>${f.maps?`<a class="btn gray" target="_blank" href="${f.maps}">Mapa</a>`:''}<button class="btn red" onclick="deleteItem('flights','${f.id}')">Excluir</button></div>
+    </div>
+  `).join('')}`;
+}
+function openFlight(id=''){
+  const f=id?data.flights.find(x=>x.id===id):{id:'',title:'',date:'',airline:'',flightNo:'',from:'',to:'',depart:'',arrive:'',terminal:'',gate:'',locator:'',status:'A preencher',maps:'',notes:''};
+  modal(id?'Editar voo':'Adicionar voo',`
+  <div class="form">
+    <input id="fl_title" placeholder="Trecho" value="${esc(f.title)}">
+    <input id="fl_date" placeholder="Data" value="${esc(f.date)}">
+    <div class="grid two"><input id="fl_from" placeholder="Origem" value="${esc(f.from)}"><input id="fl_to" placeholder="Destino" value="${esc(f.to)}"></div>
+    <div class="grid two"><input id="fl_depart" placeholder="Horário saída" value="${esc(f.depart)}"><input id="fl_arrive" placeholder="Horário chegada" value="${esc(f.arrive)}"></div>
+    <div class="grid two"><input id="fl_airline" placeholder="Companhia" value="${esc(f.airline)}"><input id="fl_no" placeholder="Nº do voo" value="${esc(f.flightNo)}"></div>
+    <div class="grid two"><input id="fl_terminal" placeholder="Terminal" value="${esc(f.terminal)}"><input id="fl_gate" placeholder="Portão" value="${esc(f.gate)}"></div>
+    <input id="fl_locator" placeholder="Localizador" value="${esc(f.locator)}">
+    <select id="fl_status">${['A preencher','Comprado','Check-in aberto','Check-in feito','Concluído','Cancelado'].map(x=>opt(x,f.status)).join('')}</select>
+    <input id="fl_maps" placeholder="Link do mapa" value="${esc(f.maps)}">
+    <textarea id="fl_notes">${esc(f.notes)}</textarea>
+    <button class="btn full" onclick="saveFlight('${id}')">Salvar voo</button>
+  </div>`);
+}
+function saveFlight(id){
+  const obj={id:id||uid('fl'),title:val('fl_title'),date:val('fl_date'),from:val('fl_from'),to:val('fl_to'),depart:val('fl_depart'),arrive:val('fl_arrive'),airline:val('fl_airline'),flightNo:val('fl_no'),terminal:val('fl_terminal'),gate:val('fl_gate'),locator:val('fl_locator'),status:val('fl_status'),maps:val('fl_maps'),notes:val('fl_notes')};
+  upsert('flights',obj);save();closeModal();render();
+}
+
+function renderStays(){
+  return `<div class="card"><div class="kicker">Check-in e check-out</div><h2>Hospedagens</h2><button class="btn" onclick="openStay()">➕ Adicionar hospedagem</button></div>
+  ${data.stays.filter(match).map(h=>`
+    <div class="card">
+      <h3>🛏️ ${h.name||h.city}</h3>
+      <span class="pill ${countryClass(h.country)}">${h.country}</span><span class="pill ${statusClass(h.status)}">${h.status}</span>
+      <p><b>${h.city}</b> · ${h.area}</p>
+      <div class="grid two">
+        <div class="row"><div><b>Check-in</b><div class="small muted">${h.checkinDate}<br>${h.checkinTime}</div></div></div>
+        <div class="row"><div><b>Check-out</b><div class="small muted">${h.checkoutDate}<br>${h.checkoutTime}</div></div></div>
+      </div>
+      <p class="muted"><b>Reserva:</b> ${h.code||'a preencher'} · <b>Plataforma:</b> ${h.platform||'a preencher'}<br><b>Contato:</b> ${h.contact||'a preencher'}<br><b>Total:</b> ${money(h.total)} · <b>Pago:</b> ${money(h.paid)}</p>
+      ${h.notes?`<div class="note">${h.notes}</div>`:''}
+      <div class="actions"><button class="btn light" onclick="openStay('${h.id}')">Editar</button>${h.maps?`<a class="btn gray" target="_blank" href="${h.maps}">Mapa</a>`:''}<button class="btn red" onclick="deleteItem('stays','${h.id}')">Excluir</button></div>
+    </div>
+  `).join('')}`;
+}
+function openStay(id=''){
+  const h=id?data.stays.find(x=>x.id===id):{id:'',city:'',country:'Chile',name:'',checkinDate:'',checkoutDate:'',checkinTime:'',checkoutTime:'',area:'',address:'',maps:'',code:'',platform:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:''};
+  modal(id?'Editar hospedagem':'Adicionar hospedagem',`
+  <div class="form">
+    <input id="h_name" placeholder="Nome do hotel" value="${esc(h.name)}">
+    <div class="grid two"><input id="h_city" placeholder="Cidade" value="${esc(h.city)}"><select id="h_country">${['Chile','Bolívia','Peru','Brasil','Geral'].map(x=>opt(x,h.country)).join('')}</select></div>
+    <input id="h_area" placeholder="Área/bairro" value="${esc(h.area)}">
+    <input id="h_address" placeholder="Endereço" value="${esc(h.address)}">
+    <div class="grid two"><input id="h_inDate" placeholder="Data check-in" value="${esc(h.checkinDate)}"><input id="h_inTime" placeholder="Hora check-in" value="${esc(h.checkinTime)}"></div>
+    <div class="grid two"><input id="h_outDate" placeholder="Data check-out" value="${esc(h.checkoutDate)}"><input id="h_outTime" placeholder="Hora check-out" value="${esc(h.checkoutTime)}"></div>
+    <input id="h_maps" placeholder="Link Google Maps" value="${esc(h.maps)}">
+    <div class="grid two"><input id="h_platform" placeholder="Plataforma" value="${esc(h.platform)}"><input id="h_code" placeholder="Código reserva" value="${esc(h.code)}"></div>
+    <input id="h_contact" placeholder="Contato/WhatsApp" value="${esc(h.contact)}">
+    <div class="grid two"><input id="h_total" inputmode="decimal" placeholder="Total R$" value="${h.total||''}"><input id="h_paid" inputmode="decimal" placeholder="Pago R$" value="${h.paid||''}"></div>
+    <select id="h_status">${['Pesquisando','Pendente','Reservado','Pago','Cancelado'].map(x=>opt(x,h.status)).join('')}</select>
+    <textarea id="h_notes">${esc(h.notes)}</textarea>
+    <button class="btn full" onclick="saveStay('${id}')">Salvar hospedagem</button>
+  </div>`);
+}
+function saveStay(id){
+  const obj={id:id||uid('h'),name:val('h_name'),city:val('h_city'),country:val('h_country'),area:val('h_area'),address:val('h_address'),checkinDate:val('h_inDate'),checkinTime:val('h_inTime'),checkoutDate:val('h_outDate'),checkoutTime:val('h_outTime'),maps:val('h_maps'),platform:val('h_platform'),code:val('h_code'),contact:val('h_contact'),total:num(val('h_total')),paid:num(val('h_paid')),status:val('h_status'),notes:val('h_notes')};
+  upsert('stays',obj);save();closeModal();render();
+}
+
+function renderTours(){
+  return `<div class="card"><div class="kicker">Todos os passeios cadastrados</div><h2>Passeios para completar depois</h2><p class="muted">Empresa, valor, horário, link e contato são editáveis.</p><button class="btn" onclick="openTour()">➕ Adicionar passeio</button></div>
+  ${data.tours.filter(match).map(t=>`
+    <div class="card">
+      <h3>🎫 ${t.name}</h3>
+      <span class="pill ${countryClass(t.country)}">${t.country}</span><span class="pill ${statusClass(t.status)}">${t.status}</span><span class="pill gray">${t.date}</span><span class="pill gold">${t.time}</span>
+      <p class="muted"><b>Cidade:</b> ${t.city}<br><b>Empresa:</b> ${t.agency||'A preencher'} · <b>Contato:</b> ${t.contact||'A preencher'}<br><b>Valor:</b> ${t.value?money(t.value):'A preencher'} · <b>Esforço:</b> ${t.effort} · <b>Altitude:</b> ${t.altitude}</p>
+      <div class="note"><b>Levar:</b> ${t.bring}</div>
+      ${t.notes?`<p class="small muted">${t.notes}</p>`:''}
+      <div class="actions"><button class="btn light" onclick="openTour('${t.id}')">Editar</button>${t.maps?`<a class="btn gray" target="_blank" href="${t.maps}">Mapa</a>`:''}<button class="btn red" onclick="deleteItem('tours','${t.id}')">Excluir</button></div>
+    </div>
+  `).join('')}`;
+}
+function openTour(id=''){
+  const t=id?data.tours.find(x=>x.id===id):{id:'',name:'',date:'',city:'',country:'Peru',time:'',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Média',maps:'',bring:'',notes:''};
+  modal(id?'Editar passeio':'Adicionar passeio',`
+  <div class="form">
+    <input id="t_name" placeholder="Nome do passeio" value="${esc(t.name)}">
+    <div class="grid two"><input id="t_date" placeholder="Data" value="${esc(t.date)}"><input id="t_time" placeholder="Horário" value="${esc(t.time)}"></div>
+    <div class="grid two"><input id="t_city" placeholder="Cidade" value="${esc(t.city)}"><select id="t_country">${['Chile','Bolívia','Peru','Geral'].map(x=>opt(x,t.country)).join('')}</select></div>
+    <input id="t_agency" placeholder="Empresa/agência" value="${esc(t.agency)}">
+    <input id="t_contact" placeholder="Contato/link/WhatsApp" value="${esc(t.contact)}">
+    <input id="t_value" inputmode="decimal" placeholder="Valor R$" value="${t.value||''}">
+    <div class="grid two"><select id="t_status">${['Pendente','Agendado','Pago','Concluído','Cancelado'].map(x=>opt(x,t.status)).join('')}</select><select id="t_effort">${['Leve','Leve/Médio','Médio','Alto'].map(x=>opt(x,t.effort)).join('')}</select></div>
+    <select id="t_altitude">${['Baixa','Média','Alta','Muito alta'].map(x=>opt(x,t.altitude)).join('')}</select>
+    <input id="t_maps" placeholder="Link Google Maps" value="${esc(t.maps)}">
+    <textarea id="t_bring" placeholder="O que levar">${esc(t.bring)}</textarea>
+    <textarea id="t_notes" placeholder="Observações">${esc(t.notes)}</textarea>
+    <button class="btn full" onclick="saveTour('${id}')">Salvar passeio</button>
+  </div>`);
+}
+function saveTour(id){
+  const obj={id:id||uid('t'),name:val('t_name'),date:val('t_date'),time:val('t_time'),city:val('t_city'),country:val('t_country'),agency:val('t_agency'),contact:val('t_contact'),value:num(val('t_value')),status:val('t_status'),effort:val('t_effort'),altitude:val('t_altitude'),maps:val('t_maps'),bring:val('t_bring'),notes:val('t_notes')};
+  upsert('tours',obj);save();closeModal();render();
+}
+
+function renderExpenses(){
+  const total=data.expenses.reduce((s,e)=>s+num(e.brlValue),0);
+  return `<div class="card total"><div class="kicker" style="color:#c7d7ef">gastos cadastrados</div><div class="money">${money(total)}</div></div>
+  <div class="card"><button class="btn" onclick="openExpense()">➕ Registrar gasto</button></div>
+  ${data.expenses.filter(match).map(g=>`
+    <div class="card">
+      <h3>${g.name}</h3>
+      <span class="pill">${g.cat}</span><span class="pill ${statusClass(g.status)}">${g.status}</span>${g.paid?'<span class="pill green">Pago</span>':''}
+      <p><b>${money(g.brlValue)}</b> · ${g.currency} ${g.localValue}</p>
+      ${g.notes?`<div class="note">${g.notes}</div>`:''}
+      <div class="actions"><button class="btn light" onclick="openExpense('${g.id}')">Editar</button><button class="btn red" onclick="deleteItem('expenses','${g.id}')">Excluir</button></div>
+    </div>
+  `).join('')}`;
+}
+function openExpense(id=''){
+  const g=id?data.expenses.find(x=>x.id===id):{id:'',name:'',cat:'Passeios',country:'',city:'',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:''};
+  modal(id?'Editar gasto':'Adicionar gasto',`
+  <div class="form">
+    <input id="g_name" placeholder="Nome" value="${esc(g.name)}">
+    <select id="g_cat">${['Voos','Hospedagem','Passeios','Transporte','Alimentação','Seguro','Compras','Emergência','Outros'].map(x=>opt(x,g.cat)).join('')}</select>
+    <div class="grid two"><input id="g_country" placeholder="País" value="${esc(g.country)}"><input id="g_city" placeholder="Cidade" value="${esc(g.city)}"></div>
+    <div class="grid two"><select id="g_currency">${['BRL','CLP','BOB','PEN','USD'].map(x=>opt(x,g.currency)).join('')}</select><input id="g_local" inputmode="decimal" placeholder="Valor local" value="${g.localValue||''}"></div>
+    <input id="g_brl" inputmode="decimal" placeholder="Valor em R$" value="${g.brlValue||''}">
+    <select id="g_status">${['Previsto','Reservado','Pago','Cancelado'].map(x=>opt(x,g.status)).join('')}</select>
+    <label class="checkrow"><input id="g_paid" type="checkbox" ${g.paid?'checked':''}><span>Já foi pago?</span><span class="pill gray">status</span></label>
+    <textarea id="g_notes">${esc(g.notes)}</textarea>
+    <button class="btn full" onclick="saveExpense('${id}')">Salvar gasto</button>
+  </div>`);
+}
+function saveExpense(id){
+  const obj={id:id||uid('g'),name:val('g_name'),cat:val('g_cat'),country:val('g_country'),city:val('g_city'),currency:val('g_currency'),localValue:num(val('g_local')),brlValue:num(val('g_brl')),status:val('g_status'),paid:document.getElementById('g_paid').checked,notes:val('g_notes')};
+  upsert('expenses',obj);save();closeModal();render();
+}
+
+function renderFood(){
+  return `<div class="card"><div class="kicker">Gastronomia</div><h2>Restaurantes, cafés e sorvetes</h2><button class="btn" onclick="openFood()">➕ Adicionar lugar</button></div>
+  ${data.food.filter(match).map(f=>`
+    <div class="card">
+      <h3>🍽️ ${f.name}</h3>
+      <span class="pill ${countryClass(f.country)}">${f.country}</span><span class="pill">${f.cat}</span><span class="pill ${statusClass(f.status)}">${f.status}</span><span class="pill gray">${f.price}</span>
+      <p class="muted">${f.city}</p>
+      ${f.notes?`<div class="note">${f.notes}</div>`:''}
+      <div class="actions"><button class="btn light" onclick="openFood('${f.id}')">Editar</button>${f.maps?`<a class="btn gray" target="_blank" href="${f.maps}">Mapa</a>`:''}<button class="btn red" onclick="deleteItem('food','${f.id}')">Excluir</button></div>
+    </div>
+  `).join('')}`;
+}
+function openFood(id=''){
+  const f=id?data.food.find(x=>x.id===id):{id:'',name:'',city:'',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:'',notes:''};
+  modal(id?'Editar lugar':'Adicionar lugar',`
+  <div class="form">
+    <input id="f_name" placeholder="Nome" value="${esc(f.name)}">
+    <div class="grid two"><input id="f_city" placeholder="Cidade" value="${esc(f.city)}"><select id="f_country">${['Chile','Bolívia','Peru','Geral'].map(x=>opt(x,f.country)).join('')}</select></div>
+    <select id="f_cat">${['Restaurante','Café','Sorveteria','Rooftop','Barato e bom','Sunset','Doce típico','Outro'].map(x=>opt(x,f.cat)).join('')}</select>
+    <div class="grid two"><select id="f_status">${['Quero ir','Favorito','Fui','Descartado'].map(x=>opt(x,f.status)).join('')}</select><select id="f_price">${['Baixo','Baixo/Médio','Médio','Médio/Alto','Alto'].map(x=>opt(x,f.price)).join('')}</select></div>
+    <input id="f_maps" placeholder="Link Google Maps" value="${esc(f.maps)}">
+    <textarea id="f_notes">${esc(f.notes)}</textarea>
+    <button class="btn full" onclick="saveFood('${id}')">Salvar lugar</button>
+  </div>`);
+}
+function saveFood(id){
+  const obj={id:id||uid('f'),name:val('f_name'),city:val('f_city'),country:val('f_country'),cat:val('f_cat'),status:val('f_status'),price:val('f_price'),maps:val('f_maps'),notes:val('f_notes')};
+  upsert('food',obj);save();closeModal();render();
+}
+
+function renderPacking(){
+  const keys=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i));
+  const done=keys.filter(k=>data.packState[k]).length;
+  return `<div class="card"><div class="kicker">Checklist</div><h2>${done}/${keys.length} itens conferidos</h2><div class="progress"><div style="width:${Math.round(done/keys.length*100)}%"></div></div></div>
+  ${data.packing.map(g=>`
+    <details open>
+      <summary>${g.group}</summary>
+      ${g.items.map(i=>{
+        const k=g.group+'|'+i;
+        return `<label class="checkrow"><input type="checkbox" ${data.packState[k]?'checked':''} onchange="data.packState['${esc(k)}']=this.checked;save();render()"><span>${i}</span><span class="pill gray">levar</span></label>`;
+      }).join('')}
+    </details>
+  `).join('')}`;
+}
+
+function renderMaps(){
+  const places=[
+    ...data.stays.map(h=>({name:h.name||h.city,city:h.city,country:h.country,type:'Hospedagem',maps:h.maps})),
+    ...data.tours.map(t=>({name:t.name,city:t.city,country:t.country,type:'Passeio',maps:t.maps})),
+    ...data.food.map(f=>({name:f.name,city:f.city,country:f.country,type:f.cat,maps:f.maps})),
+    ...data.flights.map(f=>({name:f.title,city:f.to,country:'',type:'Voo',maps:f.maps}))
+  ].filter(match);
+
+  return `<div class="card"><div class="kicker">Mapas de tudo</div><h2>Acesso rápido ao Google Maps</h2><p class="muted">Hotéis, voos/aeroportos, passeios e restaurantes.</p></div>
+  ${places.map(p=>`
+    <a class="row" style="text-decoration:none;color:inherit" target="_blank" href="${p.maps||map(p.name+' '+p.city)}">
+      <div><b>📍 ${p.name}</b><div class="small muted">${p.type} · ${p.city} ${p.country?('· '+p.country):''}</div></div>
+      <span class="pill">Abrir</span>
+    </a>
+  `).join('')}`;
+}
+
+function renderBackup(){
+  return `<div class="card"><div class="kicker">Backup</div><h2>Salvar e restaurar</h2><p class="muted">O app salva automaticamente no navegador. Exporte um JSON para não perder suas informações.</p>
+  <div class="actions">
+    <button class="btn" onclick="exportBackup()">Exportar JSON</button>
+    <label class="btn light">Importar JSON<input type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)"></label>
+    <button class="btn red" onclick="resetApp()">Restaurar base</button>
+  </div></div>
+  <div class="card"><h2>Anotações gerais</h2><textarea oninput="data.notes=this.value;save()">${esc(data.notes)}</textarea></div>`;
+}
+function exportBackup(){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='backup-trip-app-2026.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importBackup(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      data=JSON.parse(r.result);
+      save();render();
+      alert('Backup importado!');
+    }catch(err){alert('Backup inválido.')}
+  };
+  r.readAsText(file);
+}
+function resetApp(){
+  if(confirm('Restaurar base inicial? Isso apaga edições salvas neste navegador.')){
+    localStorage.removeItem(LS);
+    data=loadData();
+    render();
+  }
+}
+
+render();
+</script>
 </body>
 </html>
