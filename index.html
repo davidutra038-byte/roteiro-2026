@@ -8,88 +8,344 @@
 
 <style>
 :root{
-  --bg:#07101f;--bg2:#102a4d;--card:#fff;--soft:#f3f6fb;--line:#e5e7eb;
-  --text:#111827;--muted:#667085;--blue:#143d73;--gold:#f59e0b;
-  --green:#067647;--red:#b42318;--shadow:0 12px 34px rgba(16,24,40,.10);
-  --r:22px;--safeBottom:env(safe-area-inset-bottom);--safeTop:env(safe-area-inset-top);
+  --bg:#07101f;
+  --bg2:#102a4d;
+  --bg3:#183b68;
+  --card:#ffffff;
+  --soft:#f3f6fb;
+  --line:#e5e7eb;
+  --text:#111827;
+  --muted:#667085;
+  --blue:#143d73;
+  --blue2:#2563eb;
+  --gold:#f59e0b;
+  --green:#067647;
+  --red:#b42318;
+  --shadow:0 12px 34px rgba(16,24,40,.10);
+  --r:22px;
+  --safeBottom:env(safe-area-inset-bottom);
+  --safeTop:env(safe-area-inset-top);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  margin:0;background:var(--soft);color:var(--text);
+html,body{
+  margin:0;
+  background:var(--soft);
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;
-  padding-bottom:96px;
 }
+body{padding-bottom:96px}
 button,input,select,textarea{font:inherit}
 button{border:0;cursor:pointer}
 a{color:inherit}
 .app{max-width:620px;margin:0 auto;min-height:100vh}
 .hero{
-  position:sticky;top:0;z-index:10;
-  background:radial-gradient(circle at 90% 5%,rgba(245,158,11,.25),transparent 26%),
-  linear-gradient(155deg,var(--bg),var(--bg2) 70%,#183b68);
-  color:#fff;padding:calc(18px + var(--safeTop)) 16px 18px;
-  border-radius:0 0 32px 32px;box-shadow:0 18px 50px rgba(7,16,31,.28);
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:
+    radial-gradient(circle at 90% 5%,rgba(245,158,11,.25),transparent 26%),
+    linear-gradient(155deg,var(--bg),var(--bg2) 70%,var(--bg3));
+  color:#fff;
+  padding:calc(18px + var(--safeTop)) 16px 18px;
+  border-radius:0 0 32px 32px;
+  box-shadow:0 18px 50px rgba(7,16,31,.28);
 }
 .heroTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 h1{font-size:31px;line-height:1;margin:0;letter-spacing:-.8px}
 .sub{font-size:15px;font-weight:800;color:#d6e6ff;margin:8px 0 0}
-.badge{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:950;white-space:nowrap}
+.badge{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.22);
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:950;
+  white-space:nowrap;
+}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:10px;min-height:70px}
-.stat b{font-size:20px;display:block}.stat span{font-size:10px;color:#d6e6ff;font-weight:850}
+.stat{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:18px;
+  padding:10px;
+  min-height:70px;
+}
+.stat b{font-size:20px;display:block}
+.stat span{font-size:10px;color:#d6e6ff;font-weight:850}
 .search{display:flex;gap:8px;margin-top:12px}
-.search input{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:16px;color:#fff;padding:12px;outline:0;width:100%}
+.search input{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:16px;
+  color:#fff;
+  padding:12px;
+  outline:0;
+  width:100%;
+}
 .search input::placeholder{color:#d2dced}
-.search button{background:#fff;color:var(--blue);border-radius:16px;font-weight:950;padding:0 13px}
+.search button{
+  background:#fff;
+  color:var(--blue);
+  border-radius:16px;
+  font-weight:950;
+  padding:0 13px;
+}
 main{padding:14px 12px 6px}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
-.kicker{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--muted);font-weight:950;margin-bottom:6px}
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  padding:16px;
+  margin-bottom:12px;
+}
+.kicker{
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:950;
+  margin-bottom:6px;
+}
 h2{font-size:22px;line-height:1.1;margin:0 0 10px}
 h3{font-size:17px;margin:0 0 6px}
-p{margin:8px 0}.muted{color:var(--muted)}.small{font-size:12px}
-.grid{display:grid;gap:10px}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.grid{display:grid;gap:10px}
+.two{grid-template-columns:1fr 1fr}
+.three{grid-template-columns:repeat(3,1fr)}
 .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
-.quick button{background:#fff;color:var(--blue);border-radius:18px;padding:12px 7px;font-size:12px;font-weight:950;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.quick button{
+  background:#fff;
+  color:var(--blue);
+  border-radius:18px;
+  padding:12px 7px;
+  font-size:12px;
+  font-weight:950;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
 .quick .ico{display:block;font-size:24px;margin-bottom:4px}
-.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;margin:2px;background:#eef4ff;color:#1849a9}
-.chile{background:#fff1f3;color:#a1102a}.bolivia{background:#ecfdf3;color:#067647}.peru{background:#fff6ed;color:#b93815}.gold{background:#fffaeb;color:#b54708}.green{background:#ecfdf3;color:#067647}.red{background:#fee4e2;color:#b42318}.gray{background:#f2f4f7;color:#344054}.dark{background:#111827;color:white}
-.btn{display:inline-flex;justify-content:center;align-items:center;text-decoration:none;border-radius:15px;background:var(--blue);color:white;font-weight:950;padding:11px 13px;gap:7px}
-.btn.light{background:#eef4ff;color:#1849a9}.btn.gray{background:#f2f4f7;color:#344054}.btn.red{background:#fee4e2;color:#b42318}.btn.gold{background:#fffaeb;color:#b54708}.btn.full{width:100%}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:12px;
+  font-weight:900;
+  margin:2px;
+  background:#eef4ff;
+  color:#1849a9;
+}
+.chile{background:#fff1f3;color:#a1102a}
+.bolivia{background:#ecfdf3;color:#067647}
+.peru{background:#fff6ed;color:#b93815}
+.gold{background:#fffaeb;color:#b54708}
+.green{background:#ecfdf3;color:#067647}
+.red{background:#fee4e2;color:#b42318}
+.gray{background:#f2f4f7;color:#344054}
+.dark{background:#111827;color:white}
+.btn{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration:none;
+  border-radius:15px;
+  background:var(--blue);
+  color:white;
+  font-weight:950;
+  padding:11px 13px;
+  gap:7px;
+}
+.btn.light{background:#eef4ff;color:#1849a9}
+.btn.gray{background:#f2f4f7;color:#344054}
+.btn.red{background:#fee4e2;color:#b42318}
+.btn.gold{background:#fffaeb;color:#b54708}
+.btn.green{background:#ecfdf3;color:#067647}
+.btn.full{width:100%}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:12px;background:#fff;margin-top:8px}
-.dayButton{text-align:left;width:100%;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:14px;display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center;margin-bottom:10px}
-.date{background:#f3f6fb;border:1px solid var(--line);border-radius:18px;text-align:center;padding:10px 5px;color:var(--blue);font-weight:950}
-.date span{display:block;color:#667085;font-size:11px;margin-top:2px;line-height:1.25}
+.row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+  background:#fff;
+  margin-top:8px;
+}
+.dayButton{
+  text-align:left;
+  width:100%;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  padding:14px;
+  display:grid;
+  grid-template-columns:68px 1fr auto;
+  gap:12px;
+  align-items:center;
+  margin-bottom:10px;
+}
+.date{
+  background:#f3f6fb;
+  border:1px solid var(--line);
+  border-radius:18px;
+  text-align:center;
+  padding:10px 5px;
+  color:var(--blue);
+  font-weight:950;
+}
+.date span{
+  display:block;
+  color:#667085;
+  font-size:11px;
+  margin-top:2px;
+  line-height:1.25;
+}
 .chev{font-size:24px;color:#98a2b3;font-weight:900}
 .timeline{display:grid;gap:8px;margin-top:12px}
-.event{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:17px;padding:10px;background:#fff}
+.event{
+  display:grid;
+  grid-template-columns:58px 1fr;
+  gap:10px;
+  align-items:start;
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:10px;
+  background:#fff;
+}
 .etime{font-weight:950;color:var(--blue);font-size:13px}
-.etype{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#667085;font-weight:900}
-input,select,textarea{border:1px solid #d0d5dd;background:#fff;border-radius:15px;padding:12px;width:100%;outline:0}
+.etype{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:#667085;
+  font-weight:900;
+}
+input,select,textarea{
+  border:1px solid #d0d5dd;
+  background:#fff;
+  border-radius:15px;
+  padding:12px;
+  width:100%;
+  outline:0;
+}
 textarea{min-height:90px;resize:vertical}
 .form{display:grid;gap:8px}
-.money{font-size:32px;font-weight:950;letter-spacing:-.8px}
+.money{font-size:30px;font-weight:950;letter-spacing:-.8px}
 .total{background:linear-gradient(160deg,var(--blue),var(--bg));color:white}
-.note{background:#fffaeb;border:1px solid #fedf89;color:#7a2e0e;border-radius:16px;padding:12px;font-size:13px}
+.note{
+  background:#fffaeb;
+  border:1px solid #fedf89;
+  color:#7a2e0e;
+  border-radius:16px;
+  padding:12px;
+  font-size:13px;
+}
 .empty{text-align:center;color:#667085;padding:22px}
 .progress{height:12px;background:#eef2f7;border-radius:999px;overflow:hidden}
-.progress div{height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#f59e0b)}
-.checkrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:11px;background:#fff;margin-top:8px}
+.progress div{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue2),var(--gold))}
+.checkrow{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:11px;
+  background:#fff;
+  margin-top:8px;
+}
 .checkrow input{width:22px;height:22px;accent-color:var(--blue)}
-details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:10px;box-shadow:0 6px 16px rgba(16,24,40,.05)}
+details{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+  margin-bottom:10px;
+  box-shadow:0 6px 16px rgba(16,24,40,.05);
+}
 summary{font-weight:950;cursor:pointer}
-.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 7px calc(8px + var(--safeBottom));z-index:20}
-.navInner{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
-.nav button{background:transparent;color:#667085;border-radius:15px;padding:7px 3px;font-size:10px;font-weight:950}
+.nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  padding:8px 7px calc(8px + var(--safeBottom));
+  z-index:20;
+}
+.navInner{
+  max-width:620px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
+}
+.nav button{
+  background:transparent;
+  color:#667085;
+  border-radius:15px;
+  padding:7px 3px;
+  font-size:10px;
+  font-weight:950;
+}
 .nav button.active{background:#eef4ff;color:var(--blue)}
 .nicon{display:block;font-size:20px;margin-bottom:2px}
-.modalWrap{position:fixed;inset:0;background:rgba(7,16,31,.54);display:none;align-items:flex-end;z-index:40;backdrop-filter:blur(4px)}
+.modalWrap{
+  position:fixed;
+  inset:0;
+  background:rgba(7,16,31,.54);
+  display:none;
+  align-items:flex-end;
+  z-index:40;
+  backdrop-filter:blur(4px);
+}
 .modalWrap.show{display:flex}
-.modal{background:#fff;border-radius:26px 26px 0 0;padding:16px 14px calc(16px + var(--safeBottom));width:100%;max-width:620px;margin:0 auto;max-height:88vh;overflow:auto;box-shadow:0 -20px 50px rgba(0,0,0,.18)}
+.modal{
+  background:#fff;
+  border-radius:26px 26px 0 0;
+  padding:16px 14px calc(16px + var(--safeBottom));
+  width:100%;
+  max-width:620px;
+  margin:0 auto;
+  max-height:88vh;
+  overflow:auto;
+  box-shadow:0 -20px 50px rgba(0,0,0,.18);
+}
 .modalHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
-.close{background:#f2f4f7;border-radius:50%;width:38px;height:38px;font-size:22px;color:#344054}
-.fab{position:fixed;right:18px;bottom:calc(92px + var(--safeBottom));z-index:18;background:var(--gold);color:#111827;border-radius:20px;padding:14px 16px;font-weight:950;box-shadow:0 14px 28px rgba(245,158,11,.32)}
-@media(max-width:440px){.stats{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.dayButton{grid-template-columns:62px 1fr auto}}
+.close{
+  background:#f2f4f7;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  font-size:22px;
+  color:#344054;
+}
+.fab{
+  position:fixed;
+  right:18px;
+  bottom:calc(92px + var(--safeBottom));
+  z-index:18;
+  background:var(--gold);
+  color:#111827;
+  border-radius:20px;
+  padding:14px 16px;
+  font-weight:950;
+  box-shadow:0 14px 28px rgba(245,158,11,.32);
+}
+@media(max-width:440px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .two,.three{grid-template-columns:1fr}
+  .quick{grid-template-columns:repeat(2,1fr)}
+  .dayButton{grid-template-columns:62px 1fr auto}
+}
 </style>
 </head>
 
@@ -99,7 +355,7 @@ summary{font-weight:950;cursor:pointer}
   <div class="heroTop">
     <div>
       <h1>Trip App 2026</h1>
-      <p class="sub">Chile • Bolívia • Peru<br>Agenda diária + mapas + gastos</p>
+      <p class="sub">Chile • Bolívia • Peru<br>Roteiro, gastos, comer e mala</p>
     </div>
     <div class="badge">GitHub Pages</div>
   </div>
@@ -137,7 +393,7 @@ summary{font-weight:950;cursor:pointer}
 </div>
 
 <script>
-const LS='trip_app_davi_setembro_2026_v1';
+const LS='trip_app_davi_setembro_2026_revisado_v2';
 
 let active='home';
 let currentDayId='d1';
@@ -146,17 +402,17 @@ let state={search:''};
 const tabs=[
   ['home','🏠','Início'],
   ['days','🗓️','Dias'],
-  ['flights','✈️','Voos'],
-  ['stays','🛏️','Hotéis'],
-  ['tours','🎫','Tours'],
   ['expenses','💰','Gastos'],
   ['food','🍽️','Comer'],
   ['packing','🎒','Mala'],
+  ['flights','✈️','Voos'],
+  ['stays','🛏️','Hotéis'],
+  ['tours','🎫','Tours'],
   ['maps','📍','Mapas'],
   ['backup','💾','Backup']
 ];
 
-const bottom=['home','days','flights','stays','tours'];
+const bottom=['home','days','expenses','food','packing'];
 
 function map(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
 function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
@@ -171,6 +427,10 @@ function match(o){return !state.search || JSON.stringify(o).toLowerCase().includ
 
 function makeEvent(time,type,title,place,notes,maps,ref=''){
   return {id:uid('ev'),time,type,title,place,notes,maps,ref};
+}
+
+function day(id,dayNum,date,week,city,country,sleep,weather,summary,events){
+  return {id,day:dayNum,date,week,city,country,sleep,weather,summary,events};
 }
 
 const baseData={
@@ -223,38 +483,85 @@ const baseData={
 
   expenses:[
     {id:'g1',name:'Voos principais',cat:'Voos',country:'Geral',city:'Geral',currency:'BRL',localValue:2545,brlValue:2545,status:'Previsto',paid:false,notes:'Valor informado anteriormente.'},
-    {id:'g2',name:'Machu Picchu — circuito 2/3',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1650,brlValue:1650,status:'Previsto',paid:false,notes:'Cotação da agência. Circuito 5 apareceu como alternativa de R$ 1.850.'}
+    {id:'g2',name:'Machu Picchu — circuito 2/3',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1650,brlValue:1650,status:'Previsto',paid:false,notes:'Cotação da agência. Circuito 5 apareceu como alternativa de R$ 1.850.'},
+    {id:'g3',name:'Machu Picchu — circuito 5 referência',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1850,brlValue:1850,status:'Previsto',paid:false,notes:'Valor de referência para alternativa de circuito.'},
+    {id:'g4',name:'Hospedagens',cat:'Hospedagem',country:'Geral',city:'Geral',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:'Preencher quando reservar.'},
+    {id:'g5',name:'Seguro viagem',cat:'Seguro',country:'Geral',city:'Geral',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:'Ver cobertura para Death Road, trilhas e altitude.'}
   ],
 
   food:[
-    {id:'f1',name:'Montana Gelato — Lastarria',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Montana Gelato Lastarria Santiago'),notes:''},
-    {id:'f2',name:'Emporio La Rosa',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Emporio La Rosa Santiago'),notes:''},
-    {id:'f3',name:'Wonderland Café',city:'Santiago',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Wonderland Cafe Santiago'),notes:''},
-    {id:'f4',name:'Bocanáriz',city:'Santiago',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Bocanariz Santiago'),notes:''},
-    {id:'f5',name:'La Picada Del Indio',city:'San Pedro de Atacama',country:'Chile',cat:'Barato e bom',status:'Favorito',price:'Baixo/Médio',maps:map('La Picada Del Indio San Pedro de Atacama'),notes:'Quase unanimidade entre mochileiros.'},
-    {id:'f6',name:'Memos Coffee Bistro',city:'Uyuni',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Memos Coffee Bistro Uyuni'),notes:''},
-    {id:'f7',name:'Café del Mundo',city:'La Paz',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Cafe del Mundo La Paz Bolivia'),notes:'Combina com frio de La Paz.'},
-    {id:'f8',name:'Qucharitas',city:'Cusco',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Qucharitas Cusco'),notes:''},
-    {id:'f9',name:'Organika Bakery & Coffee',city:'Cusco',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Organika Bakery Coffee Cusco'),notes:''},
-    {id:'f10',name:'Limbus Restobar',city:'Cusco',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Limbus Restobar Cusco'),notes:''},
-    {id:'f11',name:'Morena Peruvian Kitchen',city:'Cusco',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Morena Peruvian Kitchen Cusco'),notes:''},
-    {id:'f12',name:'Mercado San Pedro',city:'Cusco',country:'Peru',cat:'Barato e bom',status:'Quero ir',price:'Baixo',maps:map('Mercado San Pedro Cusco'),notes:'Menus executivos, empanadas e pollo a la brasa.'},
-    {id:'f13',name:'Blu Gelateria',city:'Lima',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Blu Gelateria Lima'),notes:''},
-    {id:'f14',name:'El Pan de la Chola',city:'Lima',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('El Pan de la Chola Lima'),notes:''},
-    {id:'f15',name:'Maido',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Alto',maps:map('Maido Lima'),notes:'Lima é o auge gastronômico.'},
-    {id:'f16',name:'La Mar',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('La Mar Lima'),notes:'Ceviche.'},
-    {id:'f17',name:'Panchita',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Panchita Lima'),notes:''},
-    {id:'f18',name:'Puerto Café',city:'Paracas',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Puerto Cafe Paracas'),notes:''},
-    {id:'f19',name:'Misk’i',city:'Paracas',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Miski Paracas'),notes:''},
-    {id:'f20',name:'Wild Olive Trattoria & Guest House',city:'Huacachina',country:'Peru',cat:'Sunset',status:'Quero ir',price:'Médio',maps:map('Wild Olive Trattoria Huacachina'),notes:'Vibe do oásis.'}
+    {id:'f1',name:'Montana Gelato — Lastarria',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Montana Gelato Lastarria Santiago'),notes:'Sorveteria forte para o primeiro dia em Santiago.'},
+    {id:'f2',name:'Emporio La Rosa',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Emporio La Rosa Santiago'),notes:'Clássica para sorvete em Santiago.'},
+    {id:'f3',name:'Gelateria Firenze',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Gelateria Firenze Santiago Chile'),notes:''},
+    {id:'f4',name:'Oggi Gelato',city:'Santiago',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Oggi Gelato Santiago Chile'),notes:''},
+    {id:'f5',name:'Wonderland Café',city:'Santiago',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Wonderland Cafe Santiago'),notes:'Boa opção para café da manhã ou pausa.'},
+    {id:'f6',name:'Colmado Coffee & Bakery',city:'Santiago',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Colmado Coffee Bakery Santiago'),notes:'Também serve para café da manhã.'},
+    {id:'f7',name:'Original Green Roasters',city:'Santiago',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Original Green Roasters Santiago'),notes:''},
+    {id:'f8',name:'EUFORIA Bar Rooftop',city:'Santiago',country:'Chile',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('EUFORIA Bar Rooftop Santiago'),notes:''},
+    {id:'f9',name:'Red2One Rooftop Bar',city:'Santiago',country:'Chile',cat:'Rooftop',status:'Quero ir',price:'Alto',maps:map('Red2One Rooftop Bar Santiago'),notes:''},
+    {id:'f10',name:'Sky Costanera Bar',city:'Santiago',country:'Chile',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Sky Costanera Santiago bar'),notes:''},
+    {id:'f11',name:'Castillo Forestal',city:'Santiago',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Castillo Forestal Santiago'),notes:''},
+    {id:'f12',name:'Liguria',city:'Santiago',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Liguria Santiago Chile'),notes:''},
+    {id:'f13',name:'Bocanáriz',city:'Santiago',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Bocanariz Santiago'),notes:'Boa opção para vinho e jantar.'},
+    {id:'f14',name:'Fuente Alemana',city:'Santiago',country:'Chile',cat:'Barato e bom',status:'Quero ir',price:'Baixo/Médio',maps:map('Fuente Alemana Santiago'),notes:'Clássico barato e bom.'},
+    {id:'f15',name:'Domino',city:'Santiago',country:'Chile',cat:'Barato e bom',status:'Quero ir',price:'Baixo',maps:map('Domino Santiago Chile'),notes:''},
+    {id:'f16',name:'La Terraza',city:'Santiago',country:'Chile',cat:'Barato e bom',status:'Quero ir',price:'Baixo/Médio',maps:map('La Terraza Santiago Chile'),notes:''},
+
+    {id:'f17',name:'Cacao Sabores',city:'San Pedro de Atacama',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Cacao Sabores San Pedro de Atacama'),notes:''},
+    {id:'f18',name:'Heladería Babalú',city:'San Pedro de Atacama',country:'Chile',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Heladeria Babalu San Pedro de Atacama'),notes:''},
+    {id:'f19',name:'El Rincón del Café',city:'San Pedro de Atacama',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('El Rincon del Cafe San Pedro de Atacama'),notes:''},
+    {id:'f20',name:'La Franchuteria',city:'San Pedro de Atacama',country:'Chile',cat:'Café',status:'Quero ir',price:'Médio',maps:map('La Franchuteria San Pedro de Atacama'),notes:'Boa para café e lanche.'},
+    {id:'f21',name:'La Picada Del Indio',city:'San Pedro de Atacama',country:'Chile',cat:'Barato e bom',status:'Favorito',price:'Baixo/Médio',maps:map('La Picada Del Indio San Pedro de Atacama'),notes:'Quase unanimidade entre mochileiros.'},
+    {id:'f22',name:'Adobe',city:'San Pedro de Atacama',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Adobe San Pedro de Atacama'),notes:''},
+    {id:'f23',name:'Baltinache',city:'San Pedro de Atacama',country:'Chile',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Baltinache San Pedro de Atacama'),notes:''},
+
+    {id:'f24',name:'Memos Coffee Bistro',city:'Uyuni',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Memos Coffee Bistro Uyuni'),notes:''},
+    {id:'f25',name:'Minuteman Pizza',city:'Uyuni',country:'Bolívia',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Minuteman Pizza Uyuni'),notes:''},
+    {id:'f26',name:'Lithium Club',city:'Uyuni',country:'Bolívia',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Lithium Club Uyuni'),notes:''},
+    {id:'f27',name:'Helado de canela',city:'Uyuni',country:'Bolívia',cat:'Doce típico',status:'Quero ir',price:'Baixo',maps:map('helado de canela Uyuni'),notes:'Em Uyuni as opções são mais simples; vale procurar sorvetes artesanais locais.'},
+
+    {id:'f28',name:'Café del Mundo',city:'La Paz',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Cafe del Mundo La Paz Bolivia'),notes:'Combina com frio de La Paz.'},
+    {id:'f29',name:'Typica Café',city:'La Paz',country:'Bolívia',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Typica Cafe La Paz'),notes:''},
+    {id:'f30',name:'Cielo Bar',city:'La Paz',country:'Bolívia',cat:'Rooftop',status:'Quero ir',price:'Médio',maps:map('Cielo Bar La Paz Bolivia'),notes:''},
+    {id:'f31',name:'YATI Restaurant Café Bar',city:'La Paz',country:'Bolívia',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('YATI Restaurant Cafe Bar La Paz'),notes:''},
+    {id:'f32',name:'Popular Cocina Boliviana',city:'La Paz',country:'Bolívia',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Popular Cocina Boliviana La Paz'),notes:''},
+
+    {id:'f33',name:'Qucharitas',city:'Cusco',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Qucharitas Cusco'),notes:''},
+    {id:'f34',name:'Voghera Gelateria',city:'Cusco',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Voghera Gelateria Cusco'),notes:''},
+    {id:'f35',name:'Organika Bakery & Coffee',city:'Cusco',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Organika Bakery Coffee Cusco'),notes:''},
+    {id:'f36',name:'Three Monkeys Coffee',city:'Cusco',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Three Monkeys Coffee Cusco'),notes:''},
+    {id:'f37',name:'Limbus Restobar',city:'Cusco',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Limbus Restobar Cusco'),notes:'Boa vista da cidade.'},
+    {id:'f38',name:'ViewHouse Restobar',city:'Cusco',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('ViewHouse Restobar Cusco'),notes:''},
+    {id:'f39',name:'Morena Peruvian Kitchen',city:'Cusco',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Morena Peruvian Kitchen Cusco'),notes:''},
+    {id:'f40',name:'Cicciolina',city:'Cusco',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Cicciolina Cusco'),notes:''},
+    {id:'f41',name:'Mercado San Pedro',city:'Cusco',country:'Peru',cat:'Barato e bom',status:'Quero ir',price:'Baixo',maps:map('Mercado San Pedro Cusco'),notes:'Menus executivos, empanadas e pollo a la brasa.'},
+
+    {id:'f42',name:'Blu Gelateria',city:'Lima',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Blu Gelateria Lima'),notes:''},
+    {id:'f43',name:'Speciale Gelato',city:'Lima',country:'Peru',cat:'Sorveteria',status:'Quero ir',price:'Médio',maps:map('Speciale Gelato Lima'),notes:''},
+    {id:'f44',name:'El Pan de la Chola',city:'Lima',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('El Pan de la Chola Lima'),notes:'Ótimo para café da manhã.'},
+    {id:'f45',name:'Neira Café Lab',city:'Lima',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Neira Cafe Lab Lima'),notes:''},
+    {id:'f46',name:'Rooftop Bar Insumo',city:'Lima',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Rooftop Bar Insumo Lima'),notes:''},
+    {id:'f47',name:'Celeste Solar Bar',city:'Lima',country:'Peru',cat:'Rooftop',status:'Quero ir',price:'Médio/Alto',maps:map('Celeste Solar Bar Lima'),notes:''},
+    {id:'f48',name:'Maido',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Alto',maps:map('Maido Lima'),notes:'Lima é o auge gastronômico da viagem.'},
+    {id:'f49',name:'La Mar',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('La Mar Lima'),notes:'Ceviche.'},
+    {id:'f50',name:'Panchita',city:'Lima',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio/Alto',maps:map('Panchita Lima'),notes:''},
+
+    {id:'f51',name:'Puerto Café',city:'Paracas',country:'Peru',cat:'Café',status:'Quero ir',price:'Médio',maps:map('Puerto Cafe Paracas'),notes:''},
+    {id:'f52',name:'Misk’i',city:'Paracas',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:map('Miski Paracas'),notes:''},
+    {id:'f53',name:'Wild Olive Trattoria & Guest House',city:'Huacachina',country:'Peru',cat:'Sunset',status:'Quero ir',price:'Médio',maps:map('Wild Olive Trattoria Huacachina'),notes:'Vibe do oásis.'}
   ],
 
   packing:[
-    {group:'Camisetas',items:['3 dry-fit pretas','1 dry-fit branca','1 bege','1 verde militar','1 preta premium']},
-    {group:'Frio e camadas',items:['2 segundas peles','1 hoodie preto','1 fleece térmico cinza','1 jaqueta impermeável leve','1 jaqueta puffer compacta','Gorro térmico','Luvas térmicas','Buff proteção solar/frio']},
+    {group:'Camisetas',items:['3 dry-fit pretas','1 dry-fit branca','1 camiseta bege','1 camiseta verde militar','1 camiseta preta premium']},
+    {group:'Frio e camadas',items:['1 segunda pele manga longa superior','1 segunda pele térmica inferior','1 hoodie preto','1 fleece térmico cinza','1 jaqueta impermeável leve','1 jaqueta puffer compacta','Gorro térmico','Luvas térmicas','Buff proteção solar/frio']},
     {group:'Calças e bermudas',items:['1 jogger preta','1 calça trekking cinza','1 jeans escura','1 bermuda preta esportiva','1 bermuda bege','1 bermuda cinza']},
-    {group:'Calçados',items:['1 tênis confortável','1 bota trekking impermeável','1 chinelo slide']},
-    {group:'Mochila do dia',items:['Passaporte/RG','Seguro viagem','Dinheiro e cartões','Power bank e cabos','Óculos de sol','Protetor solar','Hidratante labial','Garrafa de água','Remédios pessoais','Câmera/celular/fones']}
+    {group:'Roupa de banho',items:['2 sungas ou shorts de banho']},
+    {group:'Calçados',items:['1 tênis confortável','1 bota de trekking impermeável','1 chinelo slide']},
+    {group:'Acessórios',items:['Boné','Óculos de sol','Relógio','Cadeado pequeno','Saco para roupa suja','Óculos para neve/frio se necessário']},
+    {group:'Higiene e saúde',items:['Necessaire compacta','Protetor solar','Hidratante labial','Hidratante facial/corporal','Escova e pasta de dente','Desodorante','Remédios de uso pessoal','Remédio para dor de cabeça','Remédio para enjoo','Remédio intestinal','Curativos','Álcool em gel','Toalha de microfibra']},
+    {group:'Eletrônicos',items:['Celular','Carregador do celular','Power bank','Cabos extras','Adaptador universal','Fone de ouvido','Câmera ou acessórios de foto']},
+    {group:'Documentos e dinheiro',items:['Passaporte/RG','Cartões','Dinheiro em espécie','Seguro viagem','Comprovantes de voos','Comprovantes de hospedagem','Vouchers dos passeios','Ingresso de Machu Picchu','Cópia digital dos documentos']},
+    {group:'Mochila do dia',items:['Garrafa de água','Lanche rápido','Power bank','Documento','Dinheiro físico','Protetor solar','Óculos de sol','Boné','Casaco leve','Corta-vento','Remédios pessoais']}
   ],
 
   packState:{},
@@ -380,10 +687,6 @@ baseData.days=[
   ])
 ];
 
-function day(id,dayNum,date,week,city,country,sleep,weather,summary,events){
-  return {id,day:dayNum,date,week,city,country,sleep,weather,summary,events};
-}
-
 let data=loadData();
 
 function loadData(){
@@ -400,9 +703,10 @@ function save(){
 }
 
 function updateHeader(){
-  const total = data.expenses.reduce((s,e)=>s+num(e.brlValue),0)
-    + data.stays.reduce((s,h)=>s+num(h.total),0)
-    + data.tours.reduce((s,t)=>s+num(t.value),0);
+  const total =
+    data.expenses.reduce((s,e)=>s+num(e.brlValue),0) +
+    data.stays.reduce((s,h)=>s+num(h.total),0) +
+    data.tours.reduce((s,t)=>s+num(t.value),0);
 
   const keys=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i));
   const done=keys.filter(k=>data.packState[k]).length;
@@ -478,13 +782,19 @@ function quickAdd(){
 
 function renderHome(){
   const total=data.expenses.reduce((s,e)=>s+num(e.brlValue),0);
+  const paid=data.expenses.filter(e=>e.paid).reduce((s,e)=>s+num(e.brlValue),0);
+  const pending=total-paid;
+
   return `
   <div class="card">
     <div class="kicker">Projeto revisado</div>
-    <h2>Agora o app é centrado no dia da viagem</h2>
-    <p class="muted">Toque em um dia para ver tudo: voos, horários, check-in/check-out, passeios, mapas e observações.</p>
+    <h2>Central completa da viagem</h2>
+    <p class="muted">Agora o app tem acesso rápido ao roteiro diário, gastos, gastronomia, mala, voos, hotéis, passeios e mapas.</p>
     <div class="quick">
       <button onclick="setTab('days')"><span class="ico">🗓️</span>Dias</button>
+      <button onclick="setTab('expenses')"><span class="ico">💰</span>Gastos</button>
+      <button onclick="setTab('food')"><span class="ico">🍽️</span>Comer</button>
+      <button onclick="setTab('packing')"><span class="ico">🎒</span>Mala</button>
       <button onclick="setTab('flights')"><span class="ico">✈️</span>Voos</button>
       <button onclick="setTab('stays')"><span class="ico">🛏️</span>Hotéis</button>
       <button onclick="setTab('tours')"><span class="ico">🎫</span>Tours</button>
@@ -493,23 +803,34 @@ function renderHome(){
     </div>
   </div>
 
-  <div class="grid two">
+  <div class="grid three">
     <div class="card total">
-      <div class="kicker" style="color:#c7d7ef">base inicial</div>
+      <div class="kicker" style="color:#c7d7ef">Previsto</div>
       <div class="money">${money(total)}</div>
-      <p>Voos + Machu Picchu já informados.</p>
     </div>
     <div class="card">
-      <div class="kicker">passeios cadastrados</div>
-      <div class="money">${data.tours.length}</div>
-      <p class="muted">Todos com campos para complementar.</p>
+      <div class="kicker">Pago</div>
+      <div class="money">${money(paid)}</div>
+    </div>
+    <div class="card">
+      <div class="kicker">Pendente</div>
+      <div class="money">${money(pending)}</div>
     </div>
   </div>
 
   <div class="card">
-    <div class="kicker">Importante</div>
-    <h2>Horários reais</h2>
-    <p class="muted">Os horários de voo, check-in e alguns passeios estão como <b>A preencher</b>, porque ainda não foram informados. O app já tem os campos prontos para você completar.</p>
+    <div class="kicker">Roteiro inteligente</div>
+    <h2>Clique no dia e veja tudo</h2>
+    <p class="muted">Cada dia mostra voos, check-in/check-out, passeios, horários, mapas e observações.</p>
+    <div class="actions">
+      <button class="btn" onclick="setTab('days')">Abrir roteiro por dia</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="kicker">O que falta preencher</div>
+    <h2>Campos abertos para completar</h2>
+    <p class="muted">Os horários reais de voos, nomes dos hotéis, empresas dos passeios, contatos, valores e links podem ser preenchidos depois.</p>
   </div>`;
 }
 
@@ -698,9 +1019,6 @@ function deleteEvent(dayId,eventId){
   }
 }
 
-function cardActionsEditDelete(type,id,editFn){
-  return `<div class="actions"><button class="btn light" onclick="${editFn}('${id}')">Editar</button><button class="btn red" onclick="deleteItem('${type}','${id}')">Excluir</button></div>`;
-}
 function deleteItem(collection,id){
   if(confirm('Excluir este item?')){
     data[collection]=data[collection].filter(x=>x.id!==id);
@@ -829,17 +1147,76 @@ function saveTour(id){
 
 function renderExpenses(){
   const total=data.expenses.reduce((s,e)=>s+num(e.brlValue),0);
-  return `<div class="card total"><div class="kicker" style="color:#c7d7ef">gastos cadastrados</div><div class="money">${money(total)}</div></div>
-  <div class="card"><button class="btn" onclick="openExpense()">➕ Registrar gasto</button></div>
-  ${data.expenses.filter(match).map(g=>`
-    <div class="card">
-      <h3>${g.name}</h3>
-      <span class="pill">${g.cat}</span><span class="pill ${statusClass(g.status)}">${g.status}</span>${g.paid?'<span class="pill green">Pago</span>':''}
-      <p><b>${money(g.brlValue)}</b> · ${g.currency} ${g.localValue}</p>
-      ${g.notes?`<div class="note">${g.notes}</div>`:''}
-      <div class="actions"><button class="btn light" onclick="openExpense('${g.id}')">Editar</button><button class="btn red" onclick="deleteItem('expenses','${g.id}')">Excluir</button></div>
+  const paid=data.expenses.filter(e=>e.paid).reduce((s,e)=>s+num(e.brlValue),0);
+  const pending=total-paid;
+
+  const byCat={};
+  data.expenses.forEach(e=>{
+    byCat[e.cat]=(byCat[e.cat]||0)+num(e.brlValue);
+  });
+
+  const max=Math.max(...Object.values(byCat),1);
+
+  return `
+  <div class="grid three">
+    <div class="card total">
+      <div class="kicker" style="color:#c7d7ef">Previsto</div>
+      <div class="money">${money(total)}</div>
     </div>
-  `).join('')}`;
+    <div class="card">
+      <div class="kicker">Pago</div>
+      <div class="money">${money(paid)}</div>
+    </div>
+    <div class="card">
+      <div class="kicker">Pendente</div>
+      <div class="money">${money(pending)}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Controle financeiro</div>
+    <h2>Registrar e acompanhar gastos</h2>
+    <p class="muted">Cadastre gastos por categoria, moeda, cidade, status e pagamento.</p>
+    <button class="btn" onclick="openExpense()">➕ Registrar gasto</button>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Resumo por categoria</div>
+    <h2>Para onde está indo o dinheiro</h2>
+    ${Object.keys(byCat).length ? `
+      ${Object.entries(byCat).map(([cat,value])=>`
+        <div style="margin:12px 0">
+          <div class="row" style="margin:0">
+            <div><b>${cat}</b><div class="small muted">${money(value)}</div></div>
+            <span class="pill">${Math.round(value/total*100)||0}%</span>
+          </div>
+          <div class="progress" style="margin-top:8px">
+            <div style="width:${Math.round(value/max*100)}%"></div>
+          </div>
+        </div>
+      `).join('')}
+    ` : `<div class="empty">Cadastre gastos para gerar o resumo.</div>`}
+  </div>
+
+  <div class="card">
+    <div class="kicker">Lista de gastos</div>
+    <h2>Despesas cadastradas</h2>
+    ${data.expenses.filter(match).map(g=>`
+      <div class="card" style="box-shadow:none;margin-top:10px">
+        <h3>${g.name}</h3>
+        <span class="pill">${g.cat}</span>
+        <span class="pill ${statusClass(g.status)}">${g.status}</span>
+        ${g.paid?'<span class="pill green">Pago</span>':'<span class="pill gold">Pendente</span>'}
+        <p><b>${money(g.brlValue)}</b> · ${g.currency} ${g.localValue}</p>
+        <p class="small muted">${g.city||''} ${g.country?('· '+g.country):''}</p>
+        ${g.notes?`<div class="note">${g.notes}</div>`:''}
+        <div class="actions">
+          <button class="btn light" onclick="openExpense('${g.id}')">Editar</button>
+          <button class="btn red" onclick="deleteItem('expenses','${g.id}')">Excluir</button>
+        </div>
+      </div>
+    `).join('') || '<div class="empty">Nenhum gasto encontrado.</div>'}
+  </div>`;
 }
 function openExpense(id=''){
   const g=id?data.expenses.find(x=>x.id===id):{id:'',name:'',cat:'Passeios',country:'',city:'',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:''};
@@ -862,14 +1239,26 @@ function saveExpense(id){
 }
 
 function renderFood(){
-  return `<div class="card"><div class="kicker">Gastronomia</div><h2>Restaurantes, cafés e sorvetes</h2><button class="btn" onclick="openFood()">➕ Adicionar lugar</button></div>
+  return `<div class="card">
+    <div class="kicker">Gastronomia</div>
+    <h2>Sorveterias, cafés, rooftops e restaurantes</h2>
+    <p class="muted">Todos os lugares do catálogo gastronômico estão aqui com mapa e status editável.</p>
+    <button class="btn" onclick="openFood()">➕ Adicionar lugar</button>
+  </div>
   ${data.food.filter(match).map(f=>`
     <div class="card">
       <h3>🍽️ ${f.name}</h3>
-      <span class="pill ${countryClass(f.country)}">${f.country}</span><span class="pill">${f.cat}</span><span class="pill ${statusClass(f.status)}">${f.status}</span><span class="pill gray">${f.price}</span>
+      <span class="pill ${countryClass(f.country)}">${f.country}</span>
+      <span class="pill">${f.cat}</span>
+      <span class="pill ${statusClass(f.status)}">${f.status}</span>
+      <span class="pill gray">${f.price}</span>
       <p class="muted">${f.city}</p>
       ${f.notes?`<div class="note">${f.notes}</div>`:''}
-      <div class="actions"><button class="btn light" onclick="openFood('${f.id}')">Editar</button>${f.maps?`<a class="btn gray" target="_blank" href="${f.maps}">Mapa</a>`:''}<button class="btn red" onclick="deleteItem('food','${f.id}')">Excluir</button></div>
+      <div class="actions">
+        <button class="btn light" onclick="openFood('${f.id}')">Editar</button>
+        ${f.maps?`<a class="btn gray" target="_blank" href="${f.maps}">Mapa</a>`:''}
+        <button class="btn red" onclick="deleteItem('food','${f.id}')">Excluir</button>
+      </div>
     </div>
   `).join('')}`;
 }
@@ -894,13 +1283,44 @@ function saveFood(id){
 function renderPacking(){
   const keys=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i));
   const done=keys.filter(k=>data.packState[k]).length;
-  return `<div class="card"><div class="kicker">Checklist</div><h2>${done}/${keys.length} itens conferidos</h2><div class="progress"><div style="width:${Math.round(done/keys.length*100)}%"></div></div></div>
+  const percent=keys.length?Math.round(done/keys.length*100):0;
+
+  return `
+  <div class="card">
+    <div class="kicker">Gestão da mala</div>
+    <h2>${done}/${keys.length} itens conferidos</h2>
+    <div class="progress"><div style="width:${percent}%"></div></div>
+    <p class="muted">Mala de bordo + mochila, pensada para neve, deserto, altitude, trilhas e cidades.</p>
+  </div>
+
+  <div class="card">
+    <div class="kicker">O que levar em dias críticos</div>
+    <h2>Checklist por situação</h2>
+    <div class="row">
+      <div><b>Farellones / Geysers / Uyuni</b><div class="small muted">Segunda pele, puffer, luva, gorro, bota</div></div>
+      <span>❄️</span>
+    </div>
+    <div class="row">
+      <div><b>Humantay / Rainbow Mountain</b><div class="small muted">Camadas, água, lanche, protetor, remédios</div></div>
+      <span>⛰️</span>
+    </div>
+    <div class="row">
+      <div><b>Lima / Huacachina</b><div class="small muted">Roupa leve, óculos, protetor, corta-vento</div></div>
+      <span>☀️</span>
+    </div>
+  </div>
+
   ${data.packing.map(g=>`
     <details open>
       <summary>${g.group}</summary>
       ${g.items.map(i=>{
         const k=g.group+'|'+i;
-        return `<label class="checkrow"><input type="checkbox" ${data.packState[k]?'checked':''} onchange="data.packState['${esc(k)}']=this.checked;save();render()"><span>${i}</span><span class="pill gray">levar</span></label>`;
+        return `
+        <label class="checkrow">
+          <input type="checkbox" ${data.packState[k]?'checked':''} onchange="data.packState['${esc(k)}']=this.checked;save();render()">
+          <span>${i}</span>
+          <span class="pill gray">levar</span>
+        </label>`;
       }).join('')}
     </details>
   `).join('')}`;
