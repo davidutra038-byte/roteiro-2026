@@ -1,371 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Trip App Premium</title>
-    <style>
-        :root {
-            --dark-bg: #07101f;
-            --primary: #143d73;
-            --secondary: #2563eb;
-            --accent: #f59e0b;
-            --success: #067647;
-            --danger: #b42318;
-            --bg-light: #f3f6fb;
-            --text-main: #111827;
-            --text-sub: #667085;
-            --card-bg: #ffffff;
-            --border: #e4e7ec;
-            --radius: 20px;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            padding-bottom: 120px;
-        }
-        
-        .tab-content { display: none; padding: 20px 16px; max-width: 500px; margin: 0 auto; }
-        .tab-content.active { display: block; }
-        
-        .home-header {
-            background-color: var(--dark-bg);
-            color: white;
-            padding: 50px 20px 24px;
-            border-bottom-left-radius: var(--radius);
-            border-bottom-right-radius: var(--radius);
-            margin-bottom: 15px;
-        }
-        
-        .page-title { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 18px; letter-spacing: -0.5px; }
-        
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 18px;
-            margin-bottom: 14px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.015);
-        }
-        
-        label { display: block; margin: 10px 0 4px; font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; }
-        input, select {
-            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
-            background: #f9fafb; font-size: 15px; color: var(--text-main); outline: none; margin-bottom: 6px;
-        }
-        
-        button {
-            background: var(--primary); color: white; border: none; padding: 12px 16px;
-            border-radius: 12px; font-size: 15px; font-weight: 700; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-maps { background: var(--accent); font-size: 12px; padding: 6px 12px; width: auto; margin: 0; border-radius: 8px; }
-        
-        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .stat-box { background: var(--card-bg); padding: 14px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); }
-        .stat-val { font-size: 20px; font-weight: 800; color: var(--primary); }
-        .stat-lbl { font-size: 11px; color: var(--text-sub); font-weight: 600; }
-        
-        .badge { font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; text-transform: uppercase; display: inline-block; }
-        .badge-blue { background: #eff6ff; color: var(--secondary); }
-        .badge-amber { background: #fffbeb; color: var(--accent); }
-        
-        .item-meta { background: #f8fafc; padding: 12px; border-radius: 12px; margin-top: 10px; font-size: 13px; border: 1px solid #f1f5f9; }
-        .item-meta p { margin-bottom: 5px; }
-        .item-meta p:last-child { margin-bottom: 0; }
-
-        .check-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f2f4f7; }
-        .check-row input { width: 20px; height: 20px; margin: 0; }
-
-        .progress-container { background: #e4e7ec; border-radius: 10px; height: 8px; margin: 8px 0 15px 0; overflow: hidden; }
-        .progress-bar { background: var(--success); height: 100%; width: 0%; transition: width 0.3s; }
-
-        /* Bottom Nav iOS Style */
-        nav {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border); padding: 10px 0 34px 0; display: flex; justify-content: space-around; z-index: 1000;
-        }
-        .nav-btn {
-            background: none; border: none; color: var(--text-sub); font-size: 9px;
-            font-weight: 600; display: flex; flex-direction: column; align-items: center; width: 50px; cursor: pointer;
-        }
-        .nav-btn.active { color: var(--primary); }
-        .nav-icon { font-size: 18px; margin-bottom: 2px; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<title>Trip App 2026 — Davi</title>
+<style>
+:root{--bg:#07111f;--bg2:#143a68;--paper:#f5f7fb;--card:#fff;--text:#101828;--muted:#667085;--line:#e5e7eb;--blue:#123b70;--gold:#f59e0b;--green:#067647;--red:#b42318;--shadow:0 14px 34px rgba(16,24,40,.10);--r:24px;--safe:env(safe-area-inset-bottom)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--paper);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;padding-bottom:96px}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}a{color:inherit}.app{max-width:620px;margin:auto}main{padding:12px}.hero{margin:0 -12px 14px;padding:24px 16px 18px;color:#fff;border-radius:0 0 34px 34px;background:radial-gradient(circle at 88% 8%,rgba(245,158,11,.30),transparent 27%),linear-gradient(145deg,var(--bg),var(--bg2));box-shadow:0 18px 52px rgba(9,17,31,.28)}.top{display:flex;justify-content:space-between;gap:12px}.brand{font-size:36px;line-height:.95;margin:0;letter-spacing:-1px}.sub{color:#d6e6ff;font-weight:850;margin:9px 0 0}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:950;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:10px}.stat b{display:block;font-size:20px}.stat span{display:block;color:#d6e6ff;font-size:10px;font-weight:850}.head{display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px}.head h1{font-size:30px;margin:0;letter-spacing:-.8px}.homeBtn{width:42px;height:42px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 20px rgba(16,24,40,.06);font-weight:950;color:var(--blue)}.search{display:flex;gap:8px;margin-bottom:10px}.search input{background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px;width:100%;outline:0}.search button{background:#eef4ff;color:#1849a9;border-radius:16px;padding:0 12px;font-weight:950}.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}.k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:950;margin-bottom:6px}h2{font-size:22px;margin:0 0 10px;line-height:1.1}h3{margin:0 0 6px;font-size:17px}p{margin:8px 0}.muted{color:var(--muted)}.small{font-size:12px}.grid{display:grid;gap:10px}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.quick button{background:#fff;color:var(--blue);border-radius:20px;padding:13px 8px;font-size:12px;font-weight:950;box-shadow:0 10px 22px rgba(0,0,0,.10)}.ico{display:block;font-size:24px;margin-bottom:4px}.pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;margin:2px;background:#eef4ff;color:#1849a9}.chile{background:#fff1f3;color:#a1102a}.bolivia{background:#ecfdf3;color:#067647}.peru{background:#fff6ed;color:#b93815}.brasil{background:#eef4ff;color:#1849a9}.gold{background:#fffaeb;color:#b54708}.green{background:#ecfdf3;color:#067647}.red{background:#fee4e2;color:#b42318}.gray{background:#f2f4f7;color:#344054}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:16px;background:var(--blue);color:#fff;font-weight:950;padding:11px 13px;text-decoration:none}.btn.light{background:#eef4ff;color:#1849a9}.btn.gray{background:#f2f4f7;color:#344054}.btn.red{background:#fee4e2;color:#b42318}.btn.full{width:100%}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:12px;background:#fff;margin-top:8px}.day{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:14px;display:grid;grid-template-columns:66px 1fr auto;gap:12px;align-items:center;margin-bottom:10px}.date{background:#f3f6fb;border:1px solid var(--line);border-radius:18px;text-align:center;padding:10px 5px;color:var(--blue);font-weight:950}.date span{display:block;font-size:11px;color:#667085}.chev{font-size:24px;color:#98a2b3;font-weight:900}.event{display:grid;grid-template-columns:58px 1fr;gap:10px;border:1px solid var(--line);border-radius:18px;padding:11px;background:#fff;margin-top:8px}.etime{font-weight:950;color:var(--blue);font-size:13px}.etype{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#667085;font-weight:900}input,select,textarea{width:100%;border:1px solid #d0d5dd;border-radius:16px;padding:12px;background:#fff;outline:0}textarea{min-height:92px}.form{display:grid;gap:8px}.money{font-size:30px;font-weight:950}.total{background:linear-gradient(160deg,var(--blue),var(--bg));color:#fff}.note{background:#fffaeb;border:1px solid #fedf89;color:#7a2e0e;border-radius:16px;padding:12px;font-size:13px}.tip{background:#eef4ff;border:1px solid #b2ccff;color:#1849a9;border-radius:16px;padding:12px;font-size:13px}.progress{height:12px;background:#eef2f7;border-radius:999px;overflow:hidden}.progress div{height:100%;background:linear-gradient(90deg,#2563eb,#f59e0b)}.check{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:11px;background:#fff;margin-top:8px}.check input{width:22px;height:22px}details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:10px}summary{font-weight:950}.seg{display:flex;gap:7px;overflow:auto;padding-bottom:8px}.seg button{white-space:nowrap;background:#eaf0f8;color:#17375e;border-radius:999px;padding:9px 12px;font-weight:950}.seg button.on{background:var(--blue);color:#fff}.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 7px calc(8px + var(--safe));z-index:20}.navIn{max-width:620px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.nav button{background:transparent;color:#667085;border-radius:15px;padding:7px 3px;font-size:10px;font-weight:950}.nav button.on{background:#eef4ff;color:var(--blue)}.nicon{display:block;font-size:20px}.modalBg{position:fixed;inset:0;background:rgba(9,17,31,.54);display:none;align-items:flex-end;z-index:40}.modalBg.show{display:flex}.modal{background:#fff;border-radius:28px 28px 0 0;padding:16px 14px calc(16px + var(--safe));width:100%;max-width:620px;margin:auto;max-height:88vh;overflow:auto}.modalHead{display:flex;justify-content:space-between}.close{background:#f2f4f7;border-radius:50%;width:38px;height:38px;font-size:22px}.fab{position:fixed;right:18px;bottom:calc(92px + var(--safe));z-index:18;background:var(--gold);color:#111827;border-radius:22px;padding:14px 16px;font-weight:950;box-shadow:0 14px 28px rgba(245,158,11,.32)}@media(max-width:440px){.stats{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.day{grid-template-columns:62px 1fr auto}}
+</style>
 </head>
 <body>
-
-    <div id="tab-inicio" class="tab-content active" style="padding:0; max-width:100%;">
-        <div class="home-header">
-            <span style="font-size: 11px; font-weight: bold; opacity: 0.7; text-transform: uppercase;">Trip App Premium</span>
-            <h1 style="font-size: 26px; font-weight: 800; margin-top: 2px;">Expedição Sul 2026</h1>
-        </div>
-        <div style="padding: 16px; max-width: 500px; margin: 0 auto;">
-            <div class="grid-stats">
-                <div class="stat-box"><div class="stat-val" id="dash-investido">R$ 0</div><div class="stat-lbl">Orçamento Atual</div></div>
-                <div class="stat-box"><div class="stat-val" id="dash-mala">0%</div><div class="stat-lbl">Mala Pronta</div></div>
-            </div>
-            <div class="card">
-                <h3>🌤️ Status do Planejamento</h3>
-                <p style="margin-top: 6px; color: var(--text-sub);">Central de controle ativa. Gerencie custos, confira a bagagem e consulte o roteiro offline durante os trechos de altitude.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="tab-agenda" class="tab-content">
-        <h2 class="page-title">📅 Roteiro Diário</h2>
-        <div id="lista-agenda"></div>
-    </div>
-
-    <div id="tab-passeios" class="tab-content">
-        <h2 class="page-title">🚗 Catálogo de Passeios</h2>
-        <div id="lista-passeios"></div>
-    </div>
-
-    <div id="tab-gastro" class="tab-content">
-        <h2 class="page-title">🍽️ Catálogo Gastronômico</h2>
-        <div id="lista-gastro"></div>
-    </div>
-
-    <div id="tab-hoteis" class="tab-content">
-        <h2 class="page-title">🏨 Hospedagens</h2>
-        <div id="lista-hoteis"></div>
-    </div>
-
-    <div id="tab-mala" class="tab-content">
-        <h2 class="page-title">🧳 Checklist de Bagagem</h2>
-        <div class="card">
-            <h3>Progresso Geral</h3>
-            <div class="progress-container"><div class="progress-bar" id="barra-mala"></div></div>
-            <div id="lista-mala"></div>
-        </div>
-    </div>
-
-    <nav>
-        <button class="nav-btn active" id="nav-inicio" onclick="mudarAba('inicio')"><span class="nav-icon">🏠</span><span>Início</span></button>
-        <button class="nav-btn" id="nav-agenda" onclick="mudarAba('agenda')"><span class="nav-icon">📅</span><span>Roteiro</span></button>
-        <button class="nav-btn" id="nav-passeios" onclick="mudarAba('passeios')"><span class="nav-icon">🚗</span><span>Passeios</span></button>
-        <button class="nav-btn" id="nav-gastro" onclick="mudarAba('gastro')"><span class="nav-icon">🍽️</span><span>Gastro</span></button>
-        <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')"><span class="nav-icon">🏨</span><span>Hotéis</span></button>
-        <button class="nav-btn" id="nav-mala" onclick="mudarAba('mala')"><span class="nav-icon">🧳</span><span>Mala</span></button>
-    </nav>
-
-    <script>
-        // BASE DE DADOS INTEGRAL DE 21 DIAS
-        const roteiroCompleto = [
-            { dia: 1, data: "08/09 (TER)", local: "Santiago 🇨🇱", log: "✈ Carver Voo do Brasil ➔ Santiago", desc: "Chegada, transfer ao hotel, câmbio de papel-moeda e passeio leve.", look: "Camiseta Preta, Jogger, Tênis (16-22°C)", levar: "Documentos, dinheiro inicial", dicas: "Faça câmbio no centro histórico.", pais: "Chile", base: "Santiago" },
-            { dia: 2, data: "09/09 (QUA)", local: "Santiago 🇨🇱", log: "🚌 Bate-volta Farellones (~2h)", desc: "Dia na neve: Tubing, teleférico e mirantes andinos.", look: "Segunda Pele, Fleece, Anorak Impermeável", levar: "Gorro, luvas térmicas, óculos escuros", dicas: "Alugue botas se necessário.", pais: "Chile", base: "Santiago" },
-            { dia: 3, data: "10/09 (QUI)", local: "Atacama 🇨🇱", log: "✈ Voo Santiago ➔ Calama + Transfer", desc: "Aclimatização de altitude em San Pedro. À noite: Tour Astronômico.", look: "Camiseta Bege, Fleece, Jeans", levar: "Hidratante labial, água", dicas: "Evite esforço físico no primeiro dia.", pais: "Chile", base: "Atacama" },
-            { dia: 4, data: "11/09 (SEX)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Valle de la Luna", desc: "Exploração geológica no Vale da Lua e Vale da Muerte. Pôr do sol.", look: "Camiseta Branca, Bermuda, Tênis de trilha", levar: "Protetor solar, boné, 1.5L de água", dicas: "O deserto esfria rápido após o pôr do sol.", pais: "Chile", base: "Atacama" },
-            { dia: 5, data: "12/09 (SÁB)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Lagunas Altiplânicas", desc: "Miscanti, Miñiques, Piedras Rojas e Salar de Talar.", look: "Camiseta Preta, Puffer, Calça de Trekking", levar: "Casaco pesado, lanches", dicas: "Altitude elevada constante.", pais: "Chile", base: "Atacama" },
-            { dia: 6, data: "13/09 (DOM)", local: "Atacama 🇨🇱", log: "🚗 Saída 4h: Geysers del Tatio", desc: "Campos geotérmicos no amanhecer e banho termal.", look: "Segunda pele, fleece, puffer, gorro, luvas", levar: "Roupa de banho, toalha leve", dicas: "Chegada com temperatura negativa.", pais: "Chile", base: "Atacama" },
-            { dia: 7, data: "14/09 (SEG)", local: "Uyuni 🇧🇴", log: "🚌 Travessia Atacama ➔ Uyuni 3D/2N", desc: "Início do tour: Laguna Blanca, Laguna Verde e Deserto de Dalí.", look: "Camiseta Preta, Jogger, Bota", levar: "Dólares, pesos bolivianos físicos", dicas: "Imigração na fronteira desértica.", pais: "Bolívia", base: "Uyuni" },
-            { dia: 8, data: "15/09 (TER)", local: "Salar de Uyuni 🇧🇴", log: "🚗 Tour 4x4 no Salar", desc: "Deserto de sal completo, Isla Incahuasi e pôr do sol com espelho d'água.", look: "Camiseta Branca, Jogger, Óculos de sol", levar: "Carregador portátil (essencial)", dicas: "A bateria do celular descarrega rápido no frio.", pais: "Bolívia", base: "Uyuni" },
-            { dia: 9, data: "16/09 (QUA)", local: "La Paz 🇧🇴", log: "🚌 Fim do Tour + Ônibus Noturno", desc: "Manhã em Uyuni. Embarque noturno em ônibus leito para La Paz.", look: "Moletom confortável, Calça Jogger", levar: "Agasalho para o ônibus", dicas: "Trecho rodoviário longo.", pais: "Bolívia", base: "La Paz" },
-            { dia: 10, data: "17/09 (QUI)", local: "La Paz 🇧🇴", log: "🚶 Chegada e Teleféricos", desc: "Complexo de Teleféricos, Mercado das Bruxas e Mirador Killi Killi.", look: "Camiseta Verde, Jeans, Tênis", levar: "Dinheiro vivo para passagens", dicas: "Subidas íngremes constantes.", pais: "Bolívia", base: "La Paz" },
-            { dia: 11, data: "18/09 (SEX)", local: "La Paz 🇧🇴", log: "🚲 Estrada da Morte (Bike)", desc: "Descida de bike por ~60km dos Andes até a selva tropical.", look: "Segunda pele superior, corta-vento", levar: "Muda de roupas secas extras", dicas: "Foco total na pilotagem.", pais: "Bolívia", base: "La Paz" },
-            { dia: 12, data: "19/09 (SÁB)", local: "Cusco 🇵🇪", log: "🚌 Ônibus Direto Internacional", desc: "Viagem rodoviária longa contornando as margens do Lago Titicaca.", look: "Roupa confortável de viagem", levar: "Documentos de imigração do Peru", dicas: "Chegada prevista para a noite.", pais: "Peru", base: "Cusco" },
-            { dia: 13, data: "20/09 (DOM)", local: "Cusco 🇵🇪", log: "🚶 Plaza de Armas e San Blas", desc: "Aclimatização urbana tranquila e Mercado San Pedro.", look: "Camiseta Preta, Jeans, Tênis", levar: "Capa de chuva portátil", dicas: "Caminhe devagar devido à altitude.", pais: "Peru", base: "Cusco" },
-            { dia: 14, data: "21/09 (SEG)", local: "Cusco (Humantay) 🇵🇪", log: "🥾 Tour Van (4h trecho)", desc: "Trilha andina de subida íngreme até a Lagoa Humantay.", look: "Segunda pele, puffer, calça trekking", levar: "Bastão de caminhada, água abundante", dicas: "Respeite as paradas para fôlego.", pais: "Peru", base: "Cusco" },
-            { dia: 15, data: "22/09 (TER)", local: "Machu Picchu 🇵🇪", log: "🚂 Trem + Ônibus Oficial", desc: "Visita guiada oficial na espetacular Cidade Sagrada Inca.", look: "Camiseta Verde, Calça de Trekking, Bota", levar: "Ingresso impresso, passaporte original", dicas: "Proibido bastões sem proteção de borracha.", pais: "Peru", base: "Cusco" },
-            { dia: 16, data: "23/09 (QUA)", local: "Rainbow Mountain 🇵🇪", log: "🥾 Tour Van (3h trecho)", desc: "Trilha de alta altitude na Montanha Colorida (Vinicunca).", look: "Puffer pesada, luvas, gorro térmico", levar: "Chá ou balas de coca", dicas: "Ponto mais alto de toda a viagem.", pais: "Peru", base: "Cusco" },
-            { dia: 17, data: "24/09 (QUI)", local: "Vale Sagrado 🇵🇪", log: "🏛️ Pisac e Ollantaytambo", desc: "Sítios arqueológicos e mercados locais do vale.", look: "Camiseta Bege, Jeans, Bota", levar: "Boleto Turístico de Cusco", dicas: "Guarde o bilhete, será checado nas entradas.", pais: "Peru", base: "Cusco" },
-            { dia: 18, data: "25/09 (SEX)", local: "Lima 🇵🇪", log: "✈️ Voo Cusco ➔ Lima (1h20)", desc: "Chegada à capital litorânea. Tarde livre em Miraflores e Barranco.", look: "Camiseta Preta, Bermuda, Tênis", levar: "Celular carregado para fotos", dicas: "Visite o Malecón no pôr do sol.", pais: "Peru", base: "Lima" },
-            { dia: 19, data: "26/09 (SÁB)", local: "Paracas / Huacachina 🇵🇪", log: "⛵ Bate-volta Rodoviário", desc: "Navegação nas Islas Ballestas e buggies no oásis de Huacachina.", look: "Camiseta Branca, Bermuda, Tênis", levar: "Óculos de proteção contra areia", dicas: "Passe protetor solar antes de subir as dunas.", pais: "Peru", base: "Lima" },
-            { dia: 20, data: "27/09 (DOM)", local: "Lima 🇵🇪", log: "🍽️ Rota Gastronômica", desc: "Circuito Mágico das Águas e imersão nos restaurantes locais.", look: "Camiseta Cinza, Bermuda, Tênis", levar: "Casaco leve para a noite", dicas: "Reserve mesas com antecedência.", pais: "Peru", base: "Lima" },
-            { dia: 21, data: "28/09 (SEG)", local: "Retorno 🇧🇷", log: "✈️ Voo Lima ➔ Brasil", desc: "Traslado ao aeroporto e embarque de retorno internacional.", look: "Moletom confortável de avião", levar: "Bagagem de mão organizada", dicas: "Chegue 3h antes do voo.", pais: "Geral", base: "Retorno" }
-        ];
-
-        const gastroLocais = [
-            { cidade: "Santiago", cat: "Sorvete", nome: "Montana Gelato - Lastarria", query: "Montana+Gelato+Lastarria+Santiago" },
-            { cidade: "Santiago", cat: "Sorvete", nome: "Emporio La Rosa", query: "Emporio+La+Rosa+Santiago" },
-            { cidade: "Santiago", cat: "Café", nome: "Wonderland Café", query: "Wonderland+Cafe+Santiago" },
-            { cidade: "Santiago", cat: "Restaurante", nome: "Bocanáriz (Vinhos)", query: "Bocanariz+Santiago" },
-            { cidade: "Santiago", cat: "Barato e Bom", nome: "Fuente Alemana", query: "Fuente+Alemana+Santiago" },
-            { cidade: "Atacama", cat: "Barato e Bom", nome: "La Picada Del Indio", query: "La+Picada+Del+Indio+San+Pedro+Atacama" },
-            { cidade: "Atacama", cat: "Café", nome: "La Franchuteria", query: "La+Franchuteria+San+Pedro+Atacama" },
-            { cidade: "Uyuni", cat: "Restaurante", nome: "Minuteman Pizza", query: "Minuteman+Pizza+Uyuni" },
-            { cidade: "La Paz", cat: "Café", nome: "Typica Café", query: "Typica+Cafe+La+Paz" },
-            { cidade: "Cusco", cat: "Restaurante", nome: "Morena Peruvian Kitchen", query: "Morena+Peruvian+Kitchen+Cusco" },
-            { cidade: "Cusco", cat: "Rooftop", nome: "Limbus Restobar", query: "Limbus+Restobar+Cusco" },
-            { cidade: "Lima", cat: "Restaurante", nome: "Maido", query: "Maido+Lima" },
-            { cidade: "Lima", cat: "Restaurante", nome: "La Mar", query: "La+Mar+Cevicherias+Lima" }
-        ];
-
-        const passeiosIniciais = [
-            { id: 1, nome: "Farellones (Neve)", data: "09/09", base: "Santiago", valor: 280 },
-            { id: 2, nome: "Tour Astronômico", data: "10/09", base: "Atacama", valor: 190 },
-            { id: 3, nome: "Valle de la Luna", data: "11/09", base: "Atacama", valor: 130 },
-            { id: 4, nome: "Lagunas Altiplânicas", data: "12/09", base: "Atacama", valor: 390 },
-            { id: 5, nome: "Geysers del Tatio", data: "13/09", base: "Atacama", valor: 240 },
-            { id: 6, nome: "Salar de Uyuni 3D/2N", data: "14/09 a 16/09", base: "Uyuni", valor: 1250 },
-            { id: 7, nome: "Death Road (Bike)", data: "18/09", base: "La Paz", valor: 480 },
-            { id: 8, nome: "Humantay Lagoon", data: "21/09", base: "Cusco", valor: 220 },
-            { id: 9, nome: "Machu Picchu Oficial", data: "22/09", base: "Cusco", valor: 1650 },
-            { id: 10, nome: "Rainbow Mountain", data: "23/09", base: "Cusco", valor: 230 }
-        ];
-
-        const hoteisIniciais = [
-            { id: 1, cidade: "Santiago", nome: "Hotel Lastarria Premium", valor: 680 },
-            { id: 2, cidade: "Atacama", nome: "Hostal Caracoles Deserto", valor: 1150 },
-            { id: 3, cidade: "La Paz", nome: "A preencher", valor: 0 },
-            { id: 4, cidade: "Cusco", nome: "A preencher", valor: 0 },
-            { id: 5, cidade: "Lima", nome: "A preencher", valor: 0 }
-        ];
-
-        const malaItens = [
-            { id: 1, item: "3x Camisetas Dry-fit pretas + 1x Branca", cat: "Camisetas" },
-            { id: 2, item: "2x Conjuntos de segunda pele térmica", cat: "Térmicas" },
-            { id: 3, item: "Jaqueta puffer compacta + Anorak Impermeável", cat: "Jaquetas" },
-            { id: 4, item: "Bota de trekking impermeável amaciada", cat: "Calçados" },
-            { id: 5, item: "Carregador portátil (Power Bank de alta capacidade)", cat: "Eletrônicos" },
-            { id: 6, item: "Protetor solar + Hidratante labial (Atacama/Salar)", cat: "Higiene" }
-        ];
-
-        let db = JSON.parse(localStorage.getItem('trip_v7_premium')) || {
-            hoteis: hoteisIniciais,
-            passeios: passeiosIniciais,
-            gastos: [{ id: 1, desc: "Passagens Internacionais Emissão", val: 2545.00 }],
-            malaCheck: []
-        };
-
-        function mudarAba(aba) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + aba).classList.add('active');
-            document.getElementById('nav-' + aba).classList.add('active');
-        }
-
-        function toggleMala(id) {
-            if(db.malaCheck.includes(id)) {
-                db.malaCheck = db.malaCheck.filter(x => x !== id);
-            } else {
-                db.malaCheck.push(id);
-            }
-            localStorage.setItem('trip_v7_premium', JSON.stringify(db));
-            render();
-        }
-
-        function adicionarGastoAvulso() {
-            const desc = document.getElementById('g-desc').value;
-            const val = parseFloat(document.getElementById('g-val').value) || 0;
-            if(!desc || !val) return;
-            db.gastos.push({ id: Date.now(), desc, val });
-            document.getElementById('g-desc').value = '';
-            document.getElementById('g-val').value = '';
-            localStorage.setItem('trip_v7_premium', JSON.stringify(db));
-            render();
-        }
-
-        function render() {
-            // Consolidação Orçamentária Relacional
-            let orcamentoTotal = 0;
-            db.gastos.forEach(g => orcamentoTotal += g.val);
-            db.hoteis.forEach(h => orcamentoTotal += h.valor);
-            db.passeios.forEach(p => orcamentoTotal += p.valor);
-            document.getElementById('total-header').innerText = `R$ ${orcamentoTotal.toFixed(2)}`;
-            document.getElementById('dash-investido').innerText = `R$ ${orcamentoTotal.toFixed(2)}`;
-
-            // Roteiro Diário Relacional
-            const divAgenda = document.getElementById('lista-agenda');
-            divAgenda.innerHTML = '';
-            roteiroCompleto.forEach(d => {
-                const hotel = db.hoteis.find(h => h.cidade === d.base) || { nome: "Abrigos/Ônibus em trânsito" };
-                divAgenda.innerHTML += `
-                    <div class="card">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                            <span class="badge badge-blue">DIA ${d.dia} • ${d.data}</span>
-                            <span class="badge badge-amber">${d.pais}</span>
-                        </div>
-                        <h3 style="font-size:16px; margin:2px 0;">${d.local}</h3>
-                        <p style="font-weight:700; color:var(--primary); margin-bottom:4px;">${d.log}</p>
-                        <p style="margin-bottom:8px; color:var(--text-main);">${d.desc}</p>
-                        <div class="item-meta">
-                            <p>👕 <b>Look Planejado:</b> ${d.look}</p>
-                            <p>🎒 <b>Na Mochila:</b> ${d.levar}</p>
-                            <p>💡 <b>Dica Operacional:</b> ${d.dicas}</p>
-                            <p style="color:var(--success); font-weight:700; margin-top:4px;">🏨 Pernoite: ${hotel.nome}</p>
-                        </div>
-                    </div>`;
-            });
-
-            // Passeios
-            const divPasseios = document.getElementById('lista-passeios');
-            divPasseios.innerHTML = '';
-            db.passeios.forEach(p => {
-                divPasseios.innerHTML += `
-                    <div class="card">
-                        <h3>${p.nome}</h3>
-                        <p style="font-size:12px; color:var(--text-sub);">Base: ${p.base} | Data: ${p.data}</p>
-                        <label>Custo do Tour (R$)</label>
-                        <input type="number" value="${p.valor}" onchange="const x=db.passeios.find(o=>o.id===${p.id}); x.valor=parseFloat(this.value)||0; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
-                    </div>`;
-            });
-
-            // Gastronomia com Integração Google Maps
-            const divGastro = document.getElementById('lista-gastro');
-            divGastro.innerHTML = '';
-            gastroLocais.forEach(g => {
-                divGastro.innerHTML += `
-                    <div class="card" style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px;">
-                        <div>
-                            <span class="badge badge-blue" style="font-size:9px;">${g.cidade} • ${g.cat}</span>
-                            <h3 style="font-size:15px; margin-top:4px;">${g.nome}</h3>
-                        </div>
-                        <button class="btn-maps" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${g.query}')">📍 Rota</button>
-                    </div>`;
-            });
-
-            // Hotéis
-            const divHoteis = document.getElementById('lista-hoteis');
-            divHoteis.innerHTML = '';
-            db.hoteis.forEach(h => {
-                divHoteis.innerHTML += `
-                    <div class="card">
-                        <h3>Base Regional: ${h.cidade}</h3>
-                        <label>Nome do Hotel / Acomodação</label>
-                        <input type="text" value="${h.nome}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.nome=this.value; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
-                        <label>Valor Pago (R$)</label>
-                        <input type="number" value="${h.valor}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.valor=parseFloat(this.value)||0; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
-                    </div>`;
-            });
-
-            // Extrato de Finanças
-            const divGastos = document.getElementById('lista-gastos');
-            divGastos.innerHTML = '';
-            db.gastos.forEach(g => {
-                divGastos.innerHTML += `
-                    <div class="card" style="display:flex; justify-content:space-between; padding:12px 16px;">
-                        <span>${g.desc}</span><span style="font-weight:700; color:var(--danger)">R$ ${g.val.toFixed(2)}</span>
-                    </div>`;
-            });
-
-            // Checklist Mala de Bordo
-            const divMala = document.getElementById('lista-mala');
-            divMala.innerHTML = '';
-            let marcados = 0;
-            malaItens.forEach(m => {
-                const checked = db.malaCheck.includes(m.id) ? 'checked' : '';
-                if(checked) marcados++;
-                divMala.innerHTML += `
-                    <div class="check-row">
-                        <input type="checkbox" ${checked} onchange="toggleMala(${m.id})">
-                        <div>
-                            <span style="font-size:10px; font-weight:700; color:var(--text-sub); text-transform:uppercase;">${m.cat}</span>
-                            <div style="font-size:15px; font-weight:600;">${m.item}</div>
-                        </div>
-                    </div>`;
-            });
-            const pct = Math.round((marcados / malaItens.length) * 100);
-            document.getElementById('barra-mala').style.width = pct + '%';
-            document.getElementById('dash-mala').innerText = pct + '%';
-        }
-
-        window.onload = render;
-    </script>
+<div class="app"><main id="view"></main></div><button class="fab" id="fab" onclick="quickAdd()">➕</button><nav class="nav"><div class="navIn" id="nav"></div></nav><div class="modalBg" id="mbg" onclick="if(event.target.id==='mbg')closeM()"><div class="modal"><div class="modalHead"><h2 id="mt">Editar</h2><button class="close" onclick="closeM()">×</button></div><div id="mc"></div></div></div>
+<script>
+const LS='trip_app_davi_v5_completo';let active='home',currentDay='d1',state={search:'',filter:'Todos'};
+const tabs=[['home','🏠','Início'],['days','🗓️','Dias'],['expenses','💰','Gastos'],['food','🍽️','Comer'],['packing','🎒','Mala'],['flights','✈️','Voos'],['stays','🛏️','Hotéis'],['tours','🎫','Tours'],['maps','📍','Mapas'],['converter','💱','Conversor'],['backup','💾','Backup']],bottom=['home','days','expenses','food','packing'];
+const mp=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q),id=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6),brl=v=>Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),n=v=>Number(String(v||0).replace(',','.'))||0,esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])),opt=(x,v)=>`<option ${x===v?'selected':''}>${x}</option>`,val=i=>document.getElementById(i).value.trim();
+const ccls=c=>c==='Chile'?'chile':c==='Bolívia'?'bolivia':c==='Peru'?'peru':c==='Brasil'?'brasil':'gray',scls=s=>['Reservado','Pago','Agendado','Concluído','Fui','Favorito'].includes(s)?'green':['Cancelado','Descartado'].includes(s)?'red':'gold',matches=o=>!state.search||JSON.stringify(o).toLowerCase().includes(state.search.toLowerCase()),mkEv=(time,type,title,place,notes,maps,ref='')=>({id:id('ev'),time,type,title,place,notes,maps,ref}),mkDay=(idn,num,date,week,city,country,sleep,weather,summary,events)=>({id:idn,num,date,week,city,country,sleep,weather,summary,events});
+const base={rates:{CLP:0.0055,BOB:0.79,PEN:1.50,USD:5.45},
+flights:[['fl1','Brasil → Santiago','08/09','Brasil','Santiago',mp('Santiago Airport Chile'),'Preencher horário real quando tiver o bilhete.'],['fl2','Santiago → Calama','10/09','Santiago','Calama',mp('Calama Airport Chile'),'Depois transfer Calama → San Pedro de Atacama.'],['fl3','Cusco → Lima','25/09','Cusco','Lima',mp('Lima Airport Peru'),'Voo interno de aproximadamente 1h20.'],['fl4','Lima → Brasil','28/09','Lima','Brasil',mp('Jorge Chavez International Airport Lima'),'Chegar ao aeroporto com antecedência.']].map(x=>({id:x[0],title:x[1],date:x[2],airline:'A preencher',flightNo:'',from:x[3],to:x[4],depart:'A preencher',arrive:'A preencher',locator:'',status:'A preencher',maps:x[5],notes:x[6]})),
+stays:[['h1','Santiago','Chile','08/09','10/09','Lastarria / Bellavista / Centro'],['h2','San Pedro de Atacama','Chile','10/09','14/09','Centro / Caracoles'],['h3','Tour Uyuni','Bolívia','14/09','16/09','San Juan / Colchani / Uyuni'],['h4','La Paz','Bolívia','17/09','19/09','Sopocachi / Centro'],['h5','Cusco','Peru','19/09','25/09','Centro Histórico / San Blas'],['h6','Lima','Peru','25/09','28/09','Miraflores / Barranco']].map(x=>({id:x[0],city:x[1],country:x[2],name:x[0]==='h3'?'Incluso no tour':'A preencher',checkinDate:x[3],checkoutDate:x[4],checkinTime:'A preencher',checkoutTime:'A preencher',area:x[5],maps:mp('hotel '+x[5]+' '+x[1]),code:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'A preencher/confirmar.',expenseId:''})),
+tours:[
+['t1','Farellones — neve','09/09','Santiago / Farellones','Chile','Manhã cedo','Leve','Baixa','Segunda pele, puffer, gorro, luvas, bota impermeável.','Look neve: segunda pele + fleece + puffer + calça quente + bota impermeável.','Neve, tubing, teleférico e mirantes.'],
+['t2','Tour astronômico','10/09','San Pedro de Atacama','Chile','Noite','Leve','Média','Casaco, gorro, celular/câmera carregados.','Look noite no deserto: calça + fleece + puffer/corta-vento.','Fazer nos primeiros dias para ter plano B se o céu fechar.'],
+['t3','Valle de la Luna','11/09','San Pedro de Atacama','Chile','Manhã','Leve/Médio','Média','Água, óculos, protetor solar, boné.','Look deserto: camiseta dry-fit + calça/bermuda + tênis + boné.','Paisagens do deserto.'],
+['t4','Valle de la Muerte + pôr do sol','11/09','San Pedro de Atacama','Chile','Tarde / fim da tarde','Leve/Médio','Média','Corta-vento, água, óculos.','Look deserto com corta-vento para o fim da tarde.','Pôr do sol nas dunas.'],
+['t5','Lagunas Altiplânicas + Piedras Rojas','12/09','Atacama','Chile','Manhã cedo','Médio','Alta','Camadas, água, lanche, protetor, óculos.','Look altitude/frio: segunda pele + fleece + puffer + calça trekking.','Tour longo e frio.'],
+['t6','Geysers del Tatio','13/09','Atacama','Chile','Madrugada','Leve','Alta','Roupa térmica, puffer, gorro, luvas.','Look frio extremo: segunda pele + fleece + puffer + gorro + luvas.','Frio intenso ao amanhecer.'],
+['t7','Tour Atacama → Uyuni 3D/2N','14/09','San Pedro / Uyuni','Bolívia','Manhã','Médio','Alta','Óculos, protetor, camadas, dinheiro físico, power bank.','Look camadas: dry-fit + fleece + puffer + calça trekking.','Confirmar imigração, alimentação e hospedagens.'],
+['t8','Salar de Uyuni','15/09','Uyuni','Bolívia','Dia todo','Leve/Médio','Alta','Óculos, protetor, água, câmera, roupa clara/contrastante.','Look para fotos: roupa clara/contrastante + óculos + casaco para vento.','Fotos no salar.'],
+['t9','La Paz — teleféricos e centro','17/09','La Paz','Bolívia','Tarde','Leve','Alta','Casaco, água, dinheiro físico.','Look urbano frio: calça + camiseta + fleece/casaco.','Teleféricos, Mercado de las Brujas e Calle Jaén.'],
+['t10','Death Road','18/09','La Paz','Bolívia','Manhã cedo / dia todo','Alto','Alta','Seguro, documentos, roupa confortável, corta-vento.','Look esportivo: dry-fit + corta-vento + tênis firme.','Ver reputação da agência, equipamentos e seguro.'],
+['t11','Cusco leve — Plaza, San Blas e Mercado','20/09','Cusco','Peru','Tarde','Leve','Alta','Água e casaco leve.','Look urbano confortável: calça + tênis + casaco leve.','Dia leve para aclimatação.'],
+['t12','Humantay Lagoon','21/09','Cusco','Peru','Madrugada / manhã','Alto','Alta','Camadas, água, lanche, bastão opcional.','Look trilha fria: segunda pele + fleece + corta-vento/puffer + calça trekking.','Trilha em altitude.'],
+['t13','Machu Picchu','22/09','Cusco / Aguas Calientes','Peru','Manhã','Médio','Média','Passaporte/RG, ingresso, água, capa de chuva leve.','Look trilha leve/foto: camiseta confortável + calça leve + tênis bom.','Confirmar circuito, trem, ônibus, guia e horário de entrada.'],
+['t14','Rainbow Mountain / Vinicunca','23/09','Cusco','Peru','Madrugada / manhã','Alto','Muito alta','Roupa térmica, luvas, gorro, água, lanche.','Look frio extremo/trilha: segunda pele + fleece + puffer + gorro + luvas.','Palccoyo pode ser alternativa mais leve.'],
+['t15','Vale Sagrado','24/09','Cusco','Peru','Dia todo','Médio','Alta','Água, protetor, dinheiro para mercados.','Look confortável de passeio: calça/bermuda + camiseta + casaco leve.','Pisac, Ollantaytambo e Chinchero.'],
+['t16','Miraflores, Barranco e Malecón','25/09','Lima','Peru','Tarde/noite','Leve','Baixa','Casaco leve.','Look urbano arrumado: camiseta premium + calça/bermuda + tênis.','Primeiro contato com Lima.'],
+['t17','Paracas + Huacachina','26/09','Paracas / Huacachina','Peru','Dia todo','Leve/Médio','Baixa','Óculos, protetor, roupa leve, corta-vento.','Look deserto quente: dry-fit/bermuda + óculos + corta-vento.','Islas Ballestas, buggy, sandboard e pôr do sol.'],
+['t18','Lima gastronômica','27/09','Lima','Peru','Dia todo','Leve','Baixa','Apetite e reserva se necessário.','Look urbano arrumado para fotos e restaurantes.','Ceviche, Pisco Sour e sobremesas peruanas.']
+].map(x=>({id:x[0],name:x[1],date:x[2],city:x[3],country:x[4],time:x[5],agency:x[8].startsWith('Apetite')?'Livre':'A preencher',contact:'',value:x[0]==='t13'?1650:0,status:'Pendente',effort:x[6],altitude:x[7],maps:mp(x[1]+' '+x[3]),bring:x[8],look:x[9],notes:x[10],expenseId:x[0]==='t13'?'g2':''})),
+expenses:[{id:'g1',linkedType:'flight',linkedId:'all',name:'Voos principais',cat:'Voos',country:'Geral',city:'Geral',currency:'BRL',localValue:2545,brlValue:2545,status:'Previsto',paid:false,notes:'Valor informado anteriormente.'},{id:'g2',linkedType:'tour',linkedId:'t13',name:'Machu Picchu — circuito 2/3',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1650,brlValue:1650,status:'Previsto',paid:false,notes:'Cotação da agência.'},{id:'g3',linkedType:'reference',linkedId:'',name:'Machu Picchu — circuito 5 referência',cat:'Passeios',country:'Peru',city:'Cusco',currency:'BRL',localValue:1850,brlValue:1850,status:'Previsto',paid:false,notes:'Valor de referência para alternativa.'},{id:'g4',linkedType:'insurance',linkedId:'',name:'Seguro viagem',cat:'Seguro',country:'Geral',city:'Geral',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:'Ver cobertura para Death Road, trilhas e altitude.'}],
+food:[['Montana Gelato','Santiago','Chile','Sorveteria','Médio'],['Emporio La Rosa','Santiago','Chile','Sorveteria','Médio'],['Wonderland Café','Santiago','Chile','Café','Médio'],['Bocanáriz','Santiago','Chile','Restaurante','Médio/Alto'],['La Picada Del Indio','San Pedro de Atacama','Chile','Barato e bom','Baixo/Médio'],['La Franchuteria','San Pedro de Atacama','Chile','Café','Médio'],['Memos Coffee Bistro','Uyuni','Bolívia','Café','Médio'],['Minuteman Pizza','Uyuni','Bolívia','Restaurante','Médio'],['Café del Mundo','La Paz','Bolívia','Café','Médio'],['Typica Café','La Paz','Bolívia','Café','Médio'],['Cielo Bar','La Paz','Bolívia','Rooftop','Médio'],['Qucharitas','Cusco','Peru','Sorveteria','Médio'],['Organika Bakery & Coffee','Cusco','Peru','Café','Médio'],['Limbus Restobar','Cusco','Peru','Rooftop','Médio/Alto'],['Morena Peruvian Kitchen','Cusco','Peru','Restaurante','Médio/Alto'],['Mercado San Pedro','Cusco','Peru','Barato e bom','Baixo'],['Blu Gelateria','Lima','Peru','Sorveteria','Médio'],['El Pan de la Chola','Lima','Peru','Café','Médio'],['Maido','Lima','Peru','Restaurante','Alto'],['La Mar','Lima','Peru','Restaurante','Médio/Alto'],['Panchita','Lima','Peru','Restaurante','Médio/Alto'],['Puerto Café','Paracas','Peru','Café','Médio'],['Wild Olive Trattoria','Huacachina','Peru','Sunset','Médio']].map((x,i)=>({id:'f'+(i+1),name:x[0],city:x[1],country:x[2],cat:x[3],status:'Quero ir',price:x[4],maps:mp(x[0]+' '+x[1]),notes:''})),
+packing:[['Camisetas',['3 dry-fit pretas','1 dry-fit branca','1 camiseta bege','1 camiseta verde militar','1 camiseta preta premium']],['Frio e camadas',['1 segunda pele superior','1 segunda pele inferior','1 hoodie preto','1 fleece térmico cinza','1 jaqueta impermeável leve','1 jaqueta puffer compacta','Gorro térmico','Luvas térmicas','Buff proteção solar/frio']],['Calças e bermudas',['1 jogger preta','1 calça trekking cinza','1 jeans escura','1 bermuda preta esportiva','1 bermuda bege','1 bermuda cinza']],['Calçados',['1 tênis confortável','1 bota de trekking impermeável','1 chinelo slide']],['Higiene e saúde',['Necessaire','Protetor solar','Hidratante labial','Remédios pessoais','Remédio para dor de cabeça','Remédio intestinal','Curativos','Álcool em gel']],['Eletrônicos',['Celular','Carregador','Power bank','Cabos extras','Adaptador universal','Fone de ouvido']],['Documentos e dinheiro',['Passaporte/RG','Cartões','Dinheiro em espécie','Seguro viagem','Comprovantes','Vouchers','Ingresso de Machu Picchu']],['Mochila do dia',['Garrafa de água','Lanche rápido','Power bank','Documento','Dinheiro físico','Protetor solar','Óculos de sol','Boné','Casaco leve','Corta-vento']]].map(x=>({group:x[0],items:x[1]})),packState:{},notes:'Atualize horários, empresas, reservas, valores e contatos quando confirmar.'};
+base.days=[
+mkDay('d1',1,'08/09','TER','Santiago','Chile','Santiago','16–22°C','Chegada a Santiago, traslado, hotel e descanso.',[mkEv('A preencher','Voo','Voo Brasil → Santiago','Aeroporto','Preencher saída e chegada.',mp('Santiago Airport Chile'),'fl1'),mkEv('A preencher','Hospedagem','Check-in em Santiago','Hotel','Horário a preencher.',base.stays[0].maps,'h1')]),
+mkDay('d2',2,'09/09','QUA','Santiago / Farellones','Chile','Santiago','-5–6°C','Neve em Farellones.',[mkEv('Manhã cedo','Passeio','Farellones','Farellones','Neve, mirantes e atividades.',mp('Farellones Chile'),'t1')]),
+mkDay('d3',3,'10/09','QUI','San Pedro de Atacama','Chile','San Pedro de Atacama','14–24°C','Voo para Calama, transfer e tour astronômico.',[mkEv('A preencher','Hospedagem','Check-out Santiago','Hotel','Confirmar horário.',base.stays[0].maps,'h1'),mkEv('A preencher','Voo','Santiago → Calama','Aeroporto','Preencher horários.',mp('Calama Airport Chile'),'fl2'),mkEv('Noite','Passeio','Tour astronômico','Atacama','Fazer nos primeiros dias.',mp('tour astronomico San Pedro de Atacama'),'t2'),mkEv('A preencher','Hospedagem','Check-in San Pedro','Hotel','Confirmar horário.',base.stays[1].maps,'h2')]),
+mkDay('d4',4,'11/09','SEX','Atacama','Chile','San Pedro de Atacama','10–24°C','Valle de la Luna e Valle de la Muerte.',[mkEv('Manhã','Passeio','Valle de la Luna','Atacama','Água, óculos e protetor.',mp('Valle de la Luna Atacama'),'t3'),mkEv('Tarde','Passeio','Valle de la Muerte + pôr do sol','Atacama','Levar corta-vento.',mp('Valle de la Muerte Atacama'),'t4')]),
+mkDay('d5',5,'12/09','SÁB','Atacama','Chile','San Pedro de Atacama','0–15°C','Lagunas Altiplânicas e Piedras Rojas.',[mkEv('Manhã cedo','Passeio','Lagunas + Piedras Rojas','Atacama','Tour frio e longo.',mp('Piedras Rojas Lagunas Altiplanicas'),'t5')]),
+mkDay('d6',6,'13/09','DOM','Atacama','Chile','San Pedro de Atacama','-5–10°C','Geysers del Tatio e descanso.',[mkEv('Madrugada','Passeio','Geysers del Tatio','Atacama','Frio intenso.',mp('Geysers del Tatio'),'t6')]),
+mkDay('d7',7,'14/09','SEG','Uyuni — início do tour','Bolívia','Área do tour','-2–15°C','Início do tour Atacama → Uyuni.',[mkEv('A preencher','Hospedagem','Check-out San Pedro','Hotel','Confirmar horário.',base.stays[1].maps,'h2'),mkEv('Manhã','Passeio','Tour Atacama → Uyuni 3D/2N','San Pedro / Bolívia','Imigração e 4x4.',mp('San Pedro de Atacama to Uyuni'),'t7'),mkEv('Noite','Hospedagem','Noite do tour Uyuni','Bolívia','Confirmar hospedagem.',base.stays[2].maps,'h3')]),
+mkDay('d8',8,'15/09','TER','Salar de Uyuni','Bolívia','Colchani / Uyuni','0–18°C','Salar de Uyuni e pôr do sol.',[mkEv('Dia todo','Passeio','Salar de Uyuni','Salar','Fotos e pôr do sol.',mp('Salar de Uyuni'),'t8')]),
+mkDay('d9',9,'16/09','QUA','Uyuni → La Paz','Bolívia','Ônibus noturno','5–17°C','Fim do tour e ônibus para La Paz.',[mkEv('Tarde','Passeio','Fim do tour Uyuni','Uyuni','Confirmar horário.',mp('Uyuni Bolivia'),'t7'),mkEv('Noite','Transporte','Ônibus Uyuni → La Paz','Rodoviária','Comprar semi-cama/cama.',mp('Uyuni bus terminal to La Paz'))]),
+mkDay('d10',10,'17/09','QUI','La Paz','Bolívia','La Paz','5–15°C','Teleféricos, centro e check-in.',[mkEv('A preencher','Hospedagem','Check-in La Paz','Hotel','Confirmar horário.',base.stays[3].maps,'h4'),mkEv('Tarde','Passeio','La Paz — teleféricos e centro','La Paz','Caminhar devagar por causa da altitude.',mp('Mi Teleferico La Paz'),'t9')]),
+mkDay('d11',11,'18/09','SEX','La Paz — Death Road','Bolívia','La Paz','10–20°C','Death Road de bike.',[mkEv('Manhã cedo','Passeio','Death Road','La Paz','Conferir seguro e equipamentos.',mp('Death Road Bolivia'),'t10')]),
+mkDay('d12',12,'19/09','SÁB','La Paz → Cusco','Peru','Cusco','8–18°C','Ônibus direto La Paz → Cusco.',[mkEv('A preencher','Hospedagem','Check-out La Paz','Hotel','Confirmar horário.',base.stays[3].maps,'h4'),mkEv('Dia todo','Transporte','Ônibus La Paz → Cusco','Estrada','Viagem 14–16h.',mp('La Paz to Cusco bus')),mkEv('Noite','Hospedagem','Check-in Cusco','Hotel','Avisar chegada tarde.',base.stays[4].maps,'h5')]),
+mkDay('d13',13,'20/09','DOM','Cusco','Peru','Cusco','6–18°C','Dia leve de aclimatação.',[mkEv('Tarde','Passeio','Cusco leve','Cusco','Plaza, San Blas e Mercado San Pedro.',mp('Plaza de Armas Cusco'),'t11')]),
+mkDay('d14',14,'21/09','SEG','Humantay Lagoon','Peru','Cusco','0–10°C','Trilha Humantay.',[mkEv('Madrugada','Passeio','Humantay Lagoon','Cusco','Trilha em altitude.',mp('Humantay Lagoon Peru'),'t12')]),
+mkDay('d15',15,'22/09','TER','Machu Picchu','Peru','Cusco','10–20°C','Machu Picchu.',[mkEv('A preencher','Transporte','Trem / ônibus para Machu Picchu','Cusco / Aguas Calientes','Preencher horários.',mp('Ollantaytambo train station')),mkEv('Manhã','Passeio','Machu Picchu','Machu Picchu','Confirmar circuito e guia.',mp('Machu Picchu'),'t13')]),
+mkDay('d16',16,'23/09','QUA','Rainbow Mountain','Peru','Cusco','-3–8°C','Vinicunca / Rainbow Mountain.',[mkEv('Madrugada','Passeio','Rainbow Mountain','Cusco','Frio e altitude.',mp('Vinicunca Rainbow Mountain Peru'),'t14')]),
+mkDay('d17',17,'24/09','QUI','Vale Sagrado','Peru','Cusco','8–22°C','Pisac, Ollantaytambo e Chinchero.',[mkEv('Dia todo','Passeio','Vale Sagrado','Cusco','Mercados e sítios arqueológicos.',mp('Sacred Valley Peru'),'t15')]),
+mkDay('d18',18,'25/09','SEX','Lima','Peru','Lima','16–24°C','Voo Cusco → Lima e Miraflores/Barranco.',[mkEv('A preencher','Hospedagem','Check-out Cusco','Hotel','Confirmar horário.',base.stays[4].maps,'h5'),mkEv('A preencher','Voo','Cusco → Lima','Aeroporto','Preencher horário.',mp('Cusco Airport Peru'),'fl3'),mkEv('A preencher','Hospedagem','Check-in Lima','Hotel','Confirmar horário.',base.stays[5].maps,'h6'),mkEv('Tarde/noite','Passeio','Miraflores e Barranco','Lima','Jantar e descanso.',mp('Miraflores Barranco Lima'),'t16')]),
+mkDay('d19',19,'26/09','SÁB','Paracas + Huacachina','Peru','Lima','18–28°C','Islas Ballestas, buggy e sandboard.',[mkEv('Dia todo','Passeio','Paracas + Huacachina','Paracas / Huacachina','Mini Galápagos e oásis.',mp('Islas Ballestas Huacachina'),'t17')]),
+mkDay('d20',20,'27/09','DOM','Lima gastronômica','Peru','Lima','16–24°C','Dia gastronômico em Lima.',[mkEv('Dia todo','Gastronomia','Lima gastronômica','Lima','La Mar, Maido, Panchita, cafés e sorvetes.',mp('Miraflores Lima restaurants'),'t18')]),
+mkDay('d21',21,'28/09','SEG','Retorno ao Brasil','Brasil','—','—','Check-out e retorno ao Brasil.',[mkEv('A preencher','Hospedagem','Check-out Lima','Hotel','Confirmar horário.',base.stays[5].maps,'h6'),mkEv('A preencher','Voo','Lima → Brasil','Aeroporto Lima','Preencher horário.',mp('Jorge Chavez International Airport Lima'),'fl4')])];
+let data=load();function load(){try{let s=JSON.parse(localStorage.getItem(LS));if(s&&s.days)return s}catch(e){}return JSON.parse(JSON.stringify(base))}function save(){localStorage.setItem(LS,JSON.stringify(data));stats()}function stats(){let total=data.expenses.reduce((a,b)=>a+n(b.brlValue),0),ks=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i)),dn=ks.filter(k=>data.packState[k]).length;[['hTours',data.tours.length],['hTotal',brl(total).replace(',00','')],['hPack',ks.length?Math.round(dn/ks.length*100)+'%':'0%']].forEach(([i,v])=>{let e=document.getElementById(i);if(e)e.textContent=v})}
+function nav(){let items=bottom.slice();if(!items.includes(active)&&active!=='detail')items[4]=active;if(active==='detail')items[1]='days';document.getElementById('nav').innerHTML=items.map(i=>{let t=tabs.find(x=>x[0]===i);return `<button class="${(active===i||(active==='detail'&&i==='days'))?'on':''}" onclick="go('${i}')"><span class="nicon">${t[1]}</span>${t[2]}</button>`}).join('')}function go(t){active=t;render();scrollTo({top:0,behavior:'smooth'})}function header(t,s=true){return `<div class="head"><h1>${t}</h1><button class="homeBtn" onclick="go('home')">⌂</button></div>${s?`<div class="search"><input placeholder="Buscar..." value="${esc(state.search)}" oninput="state.search=this.value;render()"><button onclick="state.search='';render()">Limpar</button></div>`:''}`}function fbar(){return `<div class="seg">${['Todos','Chile','Bolívia','Peru','Brasil'].map(x=>`<button class="${state.filter===x?'on':''}" onclick="state.filter='${x}';render()">${x}</button>`).join('')}</div>`}function byCountry(a){return a.filter(matches).filter(x=>state.filter==='Todos'||x.country===state.filter)}function render(){nav();fab();document.getElementById('view').innerHTML={home,days,detail,flights,stays,tours,expenses,food,packing,maps,converter,backup}[active]();stats()}function fab(){let l={detail:'➕ Evento',flights:'➕ Voo',stays:'➕ Hotel',tours:'➕ Tour',expenses:'➕ Gasto',food:'➕ Lugar'};let f=document.getElementById('fab');f.style.display=l[active]?'block':'none';f.textContent=l[active]||'➕'}function quickAdd(){({detail:()=>openEvent(currentDay),flights:openFlight,stays:openStay,tours:openTour,expenses:openExpense,food:openFood}[active]||(()=>{}))()}
+function home(){let total=data.expenses.reduce((a,b)=>a+n(b.brlValue),0),paid=data.expenses.filter(e=>e.paid).reduce((a,b)=>a+n(b.brlValue),0),ks=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i)),dn=ks.filter(k=>data.packState[k]).length;return `<section class="hero"><div class="top"><div><h1 class="brand">Trip App 2026</h1><p class="sub">Chile • Bolívia • Peru<br>integrado, editável e pronto para usar</p></div><div class="badge">v5</div></div><div class="stats"><div class="stat"><b>21</b><span>dias</span></div><div class="stat"><b id="hTours">${data.tours.length}</b><span>passeios</span></div><div class="stat"><b id="hTotal">${brl(total).replace(',00','')}</b><span>previsto</span></div><div class="stat"><b id="hPack">${ks.length?Math.round(dn/ks.length*100):0}%</b><span>mala</span></div></div><div class="quick"><button onclick="go('days')"><span class="ico">🗓️</span>Dias</button><button onclick="go('expenses')"><span class="ico">💰</span>Gastos</button><button onclick="go('food')"><span class="ico">🍽️</span>Comer</button><button onclick="go('packing')"><span class="ico">🎒</span>Mala</button><button onclick="go('converter')"><span class="ico">💱</span>Conversor</button><button onclick="go('maps')"><span class="ico">📍</span>Mapas</button></div></section><div class="grid three"><div class="card total"><div class="k">Previsto</div><div class="money">${brl(total)}</div></div><div class="card"><div class="k">Pago</div><div class="money">${brl(paid)}</div></div><div class="card"><div class="k">Pendente</div><div class="money">${brl(total-paid)}</div></div></div><div class="card"><div class="k">Integração automática</div><h2>Hotéis e passeios conversam com roteiro e gastos</h2><p class="muted">Ao salvar hospedagem ou passeio com valor, o app cria/atualiza um gasto vinculado e adiciona eventos no roteiro do dia.</p></div><div class="card"><div class="k">Melhorias sugeridas</div><h2>Próximas evoluções</h2><p class="muted">Botão “Hoje na viagem”, exportar PDF, alertas, área de vouchers, sincronização em nuvem e Google Calendar.</p></div><div class="quick"><button onclick="go('flights')"><span class="ico">✈️</span>Voos</button><button onclick="go('stays')"><span class="ico">🛏️</span>Hotéis</button><button onclick="go('tours')"><span class="ico">🎫</span>Tours</button><button onclick="go('backup')"><span class="ico">💾</span>Backup</button><button onclick="go('converter')"><span class="ico">💱</span>Câmbio</button><button onclick="go('maps')"><span class="ico">📍</span>Mapas</button></div>`}
+function days(){return header('Roteiro')+fbar()+`<div class="card"><div class="k">Clique no dia</div><h2>Agenda detalhada</h2><p class="muted">Cada dia mostra voos, check-in/check-out, look, mala do dia, dicas, passeios e mapas.</p></div>`+byCountry(data.days).map(d=>`<button class="day" onclick="openDay('${d.id}')"><div class="date">D${d.num}<span>${d.date}<br>${d.week}</span></div><div><h3>${d.city}</h3><span class="pill ${ccls(d.country)}">${d.country}</span><span class="pill gray">🛏️ ${d.sleep}</span><span class="pill gray">${d.events.length} eventos</span><p class="small muted">${d.summary}</p></div><div class="chev">›</div></button>`).join('')}function openDay(i){currentDay=i;active='detail';render();scrollTo({top:0,behavior:'smooth'})}
+function detail(){let d=data.days.find(x=>x.id===currentDay)||data.days[0],fl=data.flights.filter(f=>d.events.some(e=>e.ref===f.id)||f.date===d.date),st=data.stays.find(h=>d.events.some(e=>e.ref===h.id)||h.city===d.sleep),ts=data.tours.filter(t=>d.events.some(e=>e.ref===t.id)||t.date===d.date),look=ts.map(t=>t.look).filter(Boolean)[0]||dailyLook(d),bring=[...new Set(ts.flatMap(t=>String(t.bring||'').split(',').map(x=>x.trim()).filter(Boolean)))].slice(0,10);return header(`Dia ${d.num}`,false)+`<div class="card"><button class="btn gray" onclick="go('days')">← Voltar</button><div style="height:10px"></div><div class="k">${d.date} · ${d.week}</div><h2>${d.city}</h2><span class="pill ${ccls(d.country)}">${d.country}</span><span class="pill gray">🛏️ ${d.sleep}</span><span class="pill gray">🌡️ ${d.weather}</span><p class="muted">${d.summary}</p><div class="actions"><button class="btn light" onclick="openDayEdit('${d.id}')">Editar resumo</button><button class="btn" onclick="openEvent('${d.id}')">Adicionar evento</button></div></div><div class="card"><div class="k">Look do dia</div><h2>👕 Sugestão</h2><div class="tip">${look}</div></div><div class="card"><div class="k">O que levar hoje</div><h2>🎒 Mochila do dia</h2>${bring.length?bring.map(i=>`<span class="pill gray">${i}</span>`).join(''):`<span class="pill gray">Água</span><span class="pill gray">Documento</span><span class="pill gray">Power bank</span><span class="pill gray">Casaco leve</span>`}<div class="note" style="margin-top:10px">${tip(d,ts)}</div></div>${fl.length?`<div class="card"><div class="k">Voos do dia</div><h2>✈️ Voos</h2>${fl.map(f=>`<div class="row"><div><b>${f.title}</b><div class="small muted">Saída: ${f.depart} · Chegada: ${f.arrive}<br>${f.airline||''} ${f.flightNo||''} · Localizador: ${f.locator||'a preencher'}</div></div><button class="btn light" onclick="openFlight('${f.id}')">Editar</button></div>`).join('')}</div>`:''}${st?`<div class="card"><div class="k">Hospedagem</div><h2>🛏️ ${st.name||st.city}</h2><p class="muted"><b>Check-in:</b> ${st.checkinDate} · ${st.checkinTime}<br><b>Check-out:</b> ${st.checkoutDate} · ${st.checkoutTime}<br><b>Área:</b> ${st.area}</p><div class="actions"><button class="btn light" onclick="openStay('${st.id}')">Editar</button><a class="btn gray" target="_blank" href="${st.maps}">Mapa</a></div></div>`:''}<div class="card"><div class="k">Programação</div><h2>Agenda por horário</h2>${d.events.map(e=>`<div class="event"><div class="etime">${e.time}</div><div><div class="etype">${e.type}</div><b>${e.title}</b><p class="small muted">${e.place||''}${e.notes?' · '+e.notes:''}</p><div class="actions"><button class="btn light" onclick="openEvent('${d.id}','${e.id}')">Editar</button>${e.maps?`<a class="btn gray" target="_blank" href="${e.maps}">Mapa</a>`:''}<button class="btn red" onclick="delEvent('${d.id}','${e.id}')">Excluir</button></div></div></div>`).join('')}</div>`}
+function dailyLook(d){return d.country==='Peru'||d.country==='Bolívia'?'Look em camadas: dry-fit + fleece/casaco + calça confortável + tênis. Leve corta-vento.':d.country==='Chile'?'Look confortável com camada extra. No Atacama: óculos, protetor e corta-vento.':'Look confortável para deslocamento.'}function tip(d,t){if(t.some(x=>x.altitude==='Muito alta'||x.altitude==='Alta'))return 'Dica: hidrate-se, coma leve, caminhe devagar e respeite a altitude.';if(t.some(x=>/neve|Geysers/i.test(x.name)))return 'Dica: o frio é mais forte cedo. Use camadas, luvas e gorro.';if(t.some(x=>/Huacachina|Salar|Atacama|deserto/i.test(x.name)))return 'Dica: óculos e protetor são obrigatórios. Proteja celular/câmera da areia.';return 'Dica: deixe documento, dinheiro físico e power bank sempre na mochila.'}
+function flights(){return header('Voos')+`<div class="card"><h2>Voos da viagem</h2><button class="btn" onclick="openFlight()">➕ Adicionar voo</button></div>`+data.flights.filter(matches).map(f=>`<div class="card"><h3>✈️ ${f.title}</h3><span class="pill gold">${f.date}</span><span class="pill ${scls(f.status)}">${f.status}</span><div class="grid two"><div class="row"><div><b>Saída</b><div class="small muted">${f.from}<br>${f.depart}</div></div></div><div class="row"><div><b>Chegada</b><div class="small muted">${f.to}<br>${f.arrive}</div></div></div></div><p class="muted"><b>Companhia:</b> ${f.airline||'-'} · <b>Voo:</b> ${f.flightNo||'-'}<br><b>Localizador:</b> ${f.locator||'a preencher'}</p><div class="actions"><button class="btn light" onclick="openFlight('${f.id}')">Editar</button><a class="btn gray" target="_blank" href="${f.maps}">Mapa</a><button class="btn red" onclick="del('flights','${f.id}')">Excluir</button></div></div>`).join('')}
+function stays(){return header('Hotéis')+fbar()+`<div class="card"><div class="k">Integrado</div><h2>Hospedagens</h2><p class="muted">Salvar hospedagem com valor atualiza gastos e roteiro.</p><button class="btn" onclick="openStay()">➕ Adicionar hospedagem</button></div>`+byCountry(data.stays).map(h=>`<div class="card"><h3>🛏️ ${h.name||h.city}</h3><span class="pill ${ccls(h.country)}">${h.country}</span><span class="pill ${scls(h.status)}">${h.status}</span><p><b>${h.city}</b> · ${h.area}</p><div class="grid two"><div class="row"><div><b>Check-in</b><div class="small muted">${h.checkinDate}<br>${h.checkinTime}</div></div></div><div class="row"><div><b>Check-out</b><div class="small muted">${h.checkoutDate}<br>${h.checkoutTime}</div></div></div></div><p class="muted"><b>Total:</b> ${brl(h.total)} · <b>Pago:</b> ${brl(h.paid)}</p><div class="actions"><button class="btn light" onclick="openStay('${h.id}')">Editar</button><a class="btn gray" target="_blank" href="${h.maps}">Mapa</a><button class="btn red" onclick="del('stays','${h.id}')">Excluir</button></div></div>`).join('')}
+function tours(){return header('Tours')+fbar()+`<div class="card"><div class="k">Integrado</div><h2>Passeios</h2><p class="muted">Salvar passeio com valor/horário atualiza roteiro e gastos.</p><button class="btn" onclick="openTour()">➕ Adicionar passeio</button></div>`+byCountry(data.tours).map(t=>`<div class="card"><h3>🎫 ${t.name}</h3><span class="pill ${ccls(t.country)}">${t.country}</span><span class="pill ${scls(t.status)}">${t.status}</span><span class="pill gray">${t.date}</span><span class="pill gold">${t.time}</span><p class="muted"><b>Empresa:</b> ${t.agency||'A preencher'} · <b>Valor:</b> ${t.value?brl(t.value):'A preencher'}<br><b>Altitude:</b> ${t.altitude}</p><div class="note"><b>Look:</b> ${t.look}<br><b>Levar:</b> ${t.bring}</div><div class="actions"><button class="btn light" onclick="openTour('${t.id}')">Editar</button><a class="btn gray" target="_blank" href="${t.maps}">Mapa</a><button class="btn red" onclick="del('tours','${t.id}')">Excluir</button></div></div>`).join('')}
+function expenses(){let all=byCountry(data.expenses),total=data.expenses.reduce((a,b)=>a+n(b.brlValue),0),paid=data.expenses.filter(e=>e.paid).reduce((a,b)=>a+n(b.brlValue),0),cat={};all.forEach(e=>cat[e.cat]=(cat[e.cat]||0)+n(e.brlValue));let max=Math.max(...Object.values(cat),1);return header('Gastos')+fbar()+`<div class="grid three"><div class="card total"><div class="k">Previsto</div><div class="money">${brl(total)}</div></div><div class="card"><div class="k">Pago</div><div class="money">${brl(paid)}</div></div><div class="card"><div class="k">Pendente</div><div class="money">${brl(total-paid)}</div></div></div><div class="card"><h2>Registrar gastos</h2><button class="btn" onclick="openExpense()">➕ Registrar gasto</button></div><div class="card"><h2>Por categoria</h2>${Object.entries(cat).map(([c,vv])=>`<div style="margin:12px 0"><div class="row" style="margin:0"><div><b>${c}</b><div class="small muted">${brl(vv)}</div></div><span class="pill">${Math.round(vv/total*100)||0}%</span></div><div class="progress" style="margin-top:8px"><div style="width:${Math.round(vv/max*100)}%"></div></div></div>`).join('')||'<div class="empty">Cadastre gastos.</div>'}</div>`+all.map(g=>`<div class="card"><h3>${g.name}</h3><span class="pill">${g.cat}</span><span class="pill ${scls(g.status)}">${g.status}</span>${g.paid?'<span class="pill green">Pago</span>':'<span class="pill gold">Pendente</span>'}<p><b>${brl(g.brlValue)}</b> · ${g.currency} ${g.localValue}</p><p class="small muted">${g.city||''} ${g.country?('· '+g.country):''}</p><div class="actions"><button class="btn light" onclick="openExpense('${g.id}')">Editar</button><button class="btn red" onclick="del('expenses','${g.id}')">Excluir</button></div></div>`).join('')}
+function food(){return header('Comer')+fbar()+`<div class="card"><h2>Sorveterias, cafés, rooftops e restaurantes</h2><button class="btn" onclick="openFood()">➕ Adicionar lugar</button></div>`+byCountry(data.food).map(f=>`<div class="card"><h3>🍽️ ${f.name}</h3><span class="pill ${ccls(f.country)}">${f.country}</span><span class="pill">${f.cat}</span><span class="pill ${scls(f.status)}">${f.status}</span><span class="pill gray">${f.price}</span><p class="muted">${f.city}</p><div class="actions"><button class="btn light" onclick="openFood('${f.id}')">Editar</button><a class="btn gray" target="_blank" href="${f.maps}">Mapa</a><button class="btn red" onclick="del('food','${f.id}')">Excluir</button></div></div>`).join('')}
+function packing(){let ks=data.packing.flatMap(g=>g.items.map(i=>g.group+'|'+i)),dn=ks.filter(k=>data.packState[k]).length,p=ks.length?Math.round(dn/ks.length*100):0;return header('Mala',false)+`<div class="card"><div class="k">Gestão da mala</div><h2>${dn}/${ks.length} itens conferidos</h2><div class="progress"><div style="width:${p}%"></div></div><p class="muted">Mala de bordo + mochila para neve, deserto, altitude, trilhas e cidades.</p></div><div class="card"><h2>O que não pode esquecer</h2><div class="row"><div><b>Frio/neve</b><div class="small muted">Segunda pele, puffer, luva, gorro, bota</div></div><span>❄️</span></div><div class="row"><div><b>Trilha/altitude</b><div class="small muted">Camadas, água, lanche, protetor, remédios</div></div><span>⛰️</span></div><div class="row"><div><b>Deserto/praia</b><div class="small muted">Óculos, protetor, roupa leve, corta-vento</div></div><span>☀️</span></div></div>`+data.packing.map(g=>`<details open><summary>${g.group}</summary>${g.items.map(i=>{let k=g.group+'|'+i;return `<label class="check"><input type="checkbox" ${data.packState[k]?'checked':''} onchange="data.packState['${esc(k)}']=this.checked;save();render()"><span>${i}</span><span class="pill gray">levar</span></label>`}).join('')}</details>`).join('')}
+function maps(){let places=[...data.stays.map(h=>({name:h.name||h.city,city:h.city,country:h.country,type:'Hospedagem',maps:h.maps})),...data.tours.map(t=>({name:t.name,city:t.city,country:t.country,type:'Passeio',maps:t.maps})),...data.food.map(f=>({name:f.name,city:f.city,country:f.country,type:f.cat,maps:f.maps})),...data.flights.map(f=>({name:f.title,city:f.to,country:'',type:'Voo',maps:f.maps}))].filter(matches).filter(p=>state.filter==='Todos'||p.country===state.filter);return header('Mapas')+fbar()+`<div class="card"><h2>Mapas de tudo</h2><p class="muted">Hotéis, voos/aeroportos, passeios e restaurantes.</p></div>`+places.map(p=>`<a class="row" style="text-decoration:none;color:inherit" target="_blank" href="${p.maps}"><div><b>📍 ${p.name}</b><div class="small muted">${p.type} · ${p.city} ${p.country?('· '+p.country):''}</div></div><span class="pill">Abrir</span></a>`).join('')}
+function converter(){return header('Conversor',false)+`<div class="card"><h2>Conversor manual</h2><p class="muted">Ajuste as taxas conforme o câmbio do dia. Não depende de internet.</p><div class="form"><div class="two grid"><input id="ca" inputmode="decimal" placeholder="Valor" oninput="conv()"><select id="cc" onchange="conv()"><option>CLP</option><option>BOB</option><option>PEN</option><option>USD</option></select></div><div class="row"><div><b>Resultado em reais</b><div id="cr" class="money">R$ 0</div></div></div></div></div><div class="card"><h2>Taxas usadas</h2><div class="form">${['CLP','BOB','PEN','USD'].map(c=>`<div class="row"><div><b>1 ${c} em R$</b><input id="r_${c}" inputmode="decimal" value="${data.rates[c]}" oninput="data.rates['${c}']=n(this.value);save();conv()"></div></div>`).join('')}</div></div>`}function conv(){let a=document.getElementById('ca'),c=document.getElementById('cc'),r=document.getElementById('cr');if(a&&c&&r)r.textContent=brl(n(a.value)*n(data.rates[c.value]))}
+function backup(){return header('Backup',false)+`<div class="card"><h2>Backup</h2><p class="muted">O app salva automaticamente no navegador. Exporte um JSON para não perder suas informações.</p><div class="actions"><button class="btn" onclick="exportB()">Exportar JSON</button><label class="btn light">Importar JSON<input type="file" accept=".json" style="display:none" onchange="importB(event)"></label><button class="btn red" onclick="reset()">Restaurar base</button></div></div><div class="card"><h2>Anotações gerais</h2><textarea oninput="data.notes=this.value;save()">${esc(data.notes)}</textarea></div>`}
+function M(t,b){document.getElementById('mt').textContent=t;document.getElementById('mc').innerHTML=b;document.getElementById('mbg').classList.add('show')}function closeM(){document.getElementById('mbg').classList.remove('show')}function openDayEdit(i){let d=data.days.find(x=>x.id===i);M('Editar dia',`<div class="form"><input id="dy_city" value="${esc(d.city)}"><input id="dy_sleep" value="${esc(d.sleep)}"><input id="dy_weather" value="${esc(d.weather)}"><textarea id="dy_summary">${esc(d.summary)}</textarea><button class="btn full" onclick="saveDay('${i}')">Salvar</button></div>`)}function saveDay(i){let d=data.days.find(x=>x.id===i);d.city=val('dy_city');d.sleep=val('dy_sleep');d.weather=val('dy_weather');d.summary=val('dy_summary');save();closeM();render()}function dayOpts(s=''){return data.days.map(d=>`<option value="${d.id}" ${d.id===s?'selected':''}>Dia ${d.num} — ${d.date} — ${d.city}</option>`).join('')}function openEvent(di='',ei=''){let d=di?data.days.find(x=>x.id===di):data.days[0],e=ei?d.events.find(x=>x.id===ei):{time:'',type:'Passeio',title:'',place:'',notes:'',maps:''};M(ei?'Editar evento':'Adicionar evento',`<div class="form"><select id="ev_day">${dayOpts(di||d.id)}</select><input id="ev_time" placeholder="Horário" value="${esc(e.time)}"><select id="ev_type">${['Voo','Transporte','Hospedagem','Passeio','Gastronomia','Livre','Documento','Outro'].map(x=>opt(x,e.type)).join('')}</select><input id="ev_title" placeholder="Título" value="${esc(e.title)}"><input id="ev_place" placeholder="Local" value="${esc(e.place)}"><input id="ev_maps" placeholder="Mapa" value="${esc(e.maps)}"><textarea id="ev_notes" placeholder="Obs">${esc(e.notes)}</textarea><button class="btn full" onclick="saveEvent('${di}','${ei}')">Salvar</button></div>`)}function saveEvent(od,ei){let nd=data.days.find(d=>d.id===val('ev_day')),o={id:ei||id('ev'),time:val('ev_time'),type:val('ev_type'),title:val('ev_title'),place:val('ev_place'),maps:val('ev_maps'),notes:val('ev_notes'),ref:''};if(!o.title)return alert('Digite o título.');if(ei&&od){let old=data.days.find(d=>d.id===od);old.events=old.events.filter(e=>e.id!==ei)}nd.events.push(o);currentDay=nd.id;save();closeM();render()}function delEvent(di,ei){if(confirm('Excluir evento?')){let d=data.days.find(x=>x.id===di);d.events=d.events.filter(e=>e.id!==ei);save();render()}}
+function openFlight(i=''){let f=i?data.flights.find(x=>x.id===i):{title:'',date:'',airline:'',flightNo:'',from:'',to:'',depart:'',arrive:'',locator:'',status:'A preencher',maps:'',notes:''};M(i?'Editar voo':'Adicionar voo',`<div class="form"><input id="fl_title" placeholder="Trecho" value="${esc(f.title)}"><input id="fl_date" placeholder="Data" value="${esc(f.date)}"><div class="grid two"><input id="fl_from" placeholder="Origem" value="${esc(f.from)}"><input id="fl_to" placeholder="Destino" value="${esc(f.to)}"></div><div class="grid two"><input id="fl_depart" placeholder="Saída" value="${esc(f.depart)}"><input id="fl_arrive" placeholder="Chegada" value="${esc(f.arrive)}"></div><div class="grid two"><input id="fl_air" placeholder="Companhia" value="${esc(f.airline)}"><input id="fl_no" placeholder="Voo" value="${esc(f.flightNo)}"></div><input id="fl_loc" placeholder="Localizador" value="${esc(f.locator)}"><select id="fl_status">${['A preencher','Comprado','Check-in aberto','Check-in feito','Concluído','Cancelado'].map(x=>opt(x,f.status)).join('')}</select><input id="fl_maps" placeholder="Mapa" value="${esc(f.maps)}"><textarea id="fl_notes">${esc(f.notes)}</textarea><button class="btn full" onclick="saveFlight('${i}')">Salvar</button></div>`)}function saveFlight(i){upsert('flights',{id:i||id('fl'),title:val('fl_title'),date:val('fl_date'),from:val('fl_from'),to:val('fl_to'),depart:val('fl_depart'),arrive:val('fl_arrive'),airline:val('fl_air'),flightNo:val('fl_no'),locator:val('fl_loc'),status:val('fl_status'),maps:val('fl_maps'),notes:val('fl_notes')});save();closeM();render()}
+function openStay(i=''){let h=i?data.stays.find(x=>x.id===i):{city:'',country:'Chile',name:'',checkinDate:'',checkoutDate:'',checkinTime:'',checkoutTime:'',area:'',maps:'',code:'',contact:'',total:0,paid:0,status:'Pesquisando',notes:'',expenseId:''};M(i?'Editar hospedagem':'Adicionar hospedagem',`<div class="form"><input id="h_name" placeholder="Nome do hotel" value="${esc(h.name)}"><div class="grid two"><input id="h_city" placeholder="Cidade" value="${esc(h.city)}"><select id="h_country">${['Chile','Bolívia','Peru','Brasil','Geral'].map(x=>opt(x,h.country)).join('')}</select></div><input id="h_area" placeholder="Área" value="${esc(h.area)}"><div class="grid two"><input id="h_inD" placeholder="Data check-in" value="${esc(h.checkinDate)}"><input id="h_inT" placeholder="Hora" value="${esc(h.checkinTime)}"></div><div class="grid two"><input id="h_outD" placeholder="Data check-out" value="${esc(h.checkoutDate)}"><input id="h_outT" placeholder="Hora" value="${esc(h.checkoutTime)}"></div><input id="h_maps" placeholder="Mapa" value="${esc(h.maps)}"><input id="h_code" placeholder="Código reserva" value="${esc(h.code)}"><input id="h_contact" placeholder="Contato" value="${esc(h.contact)}"><div class="grid two"><input id="h_total" inputmode="decimal" placeholder="Total R$" value="${h.total||''}"><input id="h_paid" inputmode="decimal" placeholder="Pago R$" value="${h.paid||''}"></div><select id="h_status">${['Pesquisando','Pendente','Reservado','Pago','Cancelado'].map(x=>opt(x,h.status)).join('')}</select><textarea id="h_notes">${esc(h.notes)}</textarea><button class="btn full" onclick="saveStay('${i}')">Salvar</button></div>`)}function saveStay(i){let old=i?data.stays.find(x=>x.id===i):null,o={id:i||id('h'),name:val('h_name'),city:val('h_city'),country:val('h_country'),area:val('h_area'),checkinDate:val('h_inD'),checkinTime:val('h_inT'),checkoutDate:val('h_outD'),checkoutTime:val('h_outT'),maps:val('h_maps'),code:val('h_code'),contact:val('h_contact'),total:n(val('h_total')),paid:n(val('h_paid')),status:val('h_status'),notes:val('h_notes'),expenseId:old?.expenseId||''};upsert('stays',o);syncStay(o);save();closeM();render()}function syncStay(h){if(h.total>0){let eid=h.expenseId||id('g');h.expenseId=eid;upsert('expenses',{id:eid,linkedType:'stay',linkedId:h.id,name:'Hospedagem — '+(h.name||h.city),cat:'Hospedagem',country:h.country,city:h.city,currency:'BRL',localValue:h.total,brlValue:h.total,status:h.status==='Pago'?'Pago':'Previsto',paid:h.paid>=h.total&&h.total>0,notes:'Criado automaticamente pela hospedagem.'})}data.days.forEach(d=>d.events=d.events.filter(e=>e.ref!==h.id));let din=data.days.find(d=>d.date===h.checkinDate);if(din)din.events.push(mkEv(h.checkinTime||'A preencher','Hospedagem','Check-in — '+(h.name||h.city),h.city,h.area,h.maps,h.id));let dout=data.days.find(d=>d.date===h.checkoutDate);if(dout)dout.events.push(mkEv(h.checkoutTime||'A preencher','Hospedagem','Check-out — '+(h.name||h.city),h.city,h.area,h.maps,h.id))}
+function openTour(i=''){let t=i?data.tours.find(x=>x.id===i):{name:'',date:'',city:'',country:'Peru',time:'',agency:'A preencher',contact:'',value:0,status:'Pendente',effort:'Médio',altitude:'Média',maps:'',bring:'',look:'',notes:'',expenseId:''};M(i?'Editar passeio':'Adicionar passeio',`<div class="form"><input id="t_name" placeholder="Nome" value="${esc(t.name)}"><div class="grid two"><input id="t_date" placeholder="Data" value="${esc(t.date)}"><input id="t_time" placeholder="Horário" value="${esc(t.time)}"></div><div class="grid two"><input id="t_city" placeholder="Cidade" value="${esc(t.city)}"><select id="t_country">${['Chile','Bolívia','Peru','Geral'].map(x=>opt(x,t.country)).join('')}</select></div><input id="t_agency" placeholder="Agência" value="${esc(t.agency)}"><input id="t_contact" placeholder="Contato/link" value="${esc(t.contact)}"><input id="t_value" inputmode="decimal" placeholder="Valor R$" value="${t.value||''}"><div class="grid two"><select id="t_status">${['Pendente','Agendado','Pago','Concluído','Cancelado'].map(x=>opt(x,t.status)).join('')}</select><select id="t_effort">${['Leve','Leve/Médio','Médio','Alto'].map(x=>opt(x,t.effort)).join('')}</select></div><select id="t_altitude">${['Baixa','Média','Alta','Muito alta'].map(x=>opt(x,t.altitude)).join('')}</select><input id="t_maps" placeholder="Mapa" value="${esc(t.maps)}"><textarea id="t_bring" placeholder="O que levar">${esc(t.bring)}</textarea><textarea id="t_look" placeholder="Look">${esc(t.look)}</textarea><textarea id="t_notes" placeholder="Obs">${esc(t.notes)}</textarea><button class="btn full" onclick="saveTour('${i}')">Salvar</button></div>`)}function saveTour(i){let old=i?data.tours.find(x=>x.id===i):null,o={id:i||id('t'),name:val('t_name'),date:val('t_date'),time:val('t_time'),city:val('t_city'),country:val('t_country'),agency:val('t_agency'),contact:val('t_contact'),value:n(val('t_value')),status:val('t_status'),effort:val('t_effort'),altitude:val('t_altitude'),maps:val('t_maps'),bring:val('t_bring'),look:val('t_look'),notes:val('t_notes'),expenseId:old?.expenseId||''};upsert('tours',o);syncTour(o);save();closeM();render()}function syncTour(t){if(t.value>0){let eid=t.expenseId||id('g');t.expenseId=eid;upsert('expenses',{id:eid,linkedType:'tour',linkedId:t.id,name:'Passeio — '+t.name,cat:'Passeios',country:t.country,city:t.city,currency:'BRL',localValue:t.value,brlValue:t.value,status:t.status==='Pago'?'Pago':'Previsto',paid:t.status==='Pago',notes:'Criado automaticamente pelo passeio.'})}data.days.forEach(d=>d.events=d.events.filter(e=>e.ref!==t.id));let d=data.days.find(x=>x.date===String(t.date).slice(0,5));if(d)d.events.push(mkEv(t.time||'A preencher','Passeio',t.name,t.city,`Agência: ${t.agency}. ${t.notes}`,t.maps,t.id))}
+function openExpense(i=''){let g=i?data.expenses.find(x=>x.id===i):{name:'',cat:'Passeios',country:'Geral',city:'',currency:'BRL',localValue:0,brlValue:0,status:'Previsto',paid:false,notes:''};M(i?'Editar gasto':'Adicionar gasto',`<div class="form"><input id="g_name" placeholder="Nome" value="${esc(g.name)}"><select id="g_cat">${['Voos','Hospedagem','Passeios','Transporte','Alimentação','Seguro','Compras','Emergência','Outros'].map(x=>opt(x,g.cat)).join('')}</select><div class="grid two"><input id="g_country" placeholder="País" value="${esc(g.country)}"><input id="g_city" placeholder="Cidade" value="${esc(g.city)}"></div><div class="grid two"><select id="g_cur">${['BRL','CLP','BOB','PEN','USD'].map(x=>opt(x,g.currency)).join('')}</select><input id="g_local" inputmode="decimal" placeholder="Valor local" value="${g.localValue||''}"></div><input id="g_brl" inputmode="decimal" placeholder="Valor em R$" value="${g.brlValue||''}"><select id="g_status">${['Previsto','Reservado','Pago','Cancelado'].map(x=>opt(x,g.status)).join('')}</select><label class="check"><input id="g_paid" type="checkbox" ${g.paid?'checked':''}><span>Já foi pago?</span><span class="pill gray">status</span></label><textarea id="g_notes">${esc(g.notes)}</textarea><button class="btn full" onclick="saveExpense('${i}')">Salvar</button></div>`)}function saveExpense(i){upsert('expenses',{id:i||id('g'),name:val('g_name'),cat:val('g_cat'),country:val('g_country'),city:val('g_city'),currency:val('g_cur'),localValue:n(val('g_local')),brlValue:n(val('g_brl')),status:val('g_status'),paid:document.getElementById('g_paid').checked,notes:val('g_notes')});save();closeM();render()}function openFood(i=''){let f=i?data.food.find(x=>x.id===i):{name:'',city:'',country:'Peru',cat:'Restaurante',status:'Quero ir',price:'Médio',maps:'',notes:''};M(i?'Editar lugar':'Adicionar lugar',`<div class="form"><input id="f_name" placeholder="Nome" value="${esc(f.name)}"><div class="grid two"><input id="f_city" placeholder="Cidade" value="${esc(f.city)}"><select id="f_country">${['Chile','Bolívia','Peru','Geral'].map(x=>opt(x,f.country)).join('')}</select></div><select id="f_cat">${['Restaurante','Café','Sorveteria','Rooftop','Barato e bom','Sunset','Doce típico','Outro'].map(x=>opt(x,f.cat)).join('')}</select><div class="grid two"><select id="f_status">${['Quero ir','Favorito','Fui','Descartado'].map(x=>opt(x,f.status)).join('')}</select><select id="f_price">${['Baixo','Baixo/Médio','Médio','Médio/Alto','Alto'].map(x=>opt(x,f.price)).join('')}</select></div><input id="f_maps" placeholder="Mapa" value="${esc(f.maps)}"><textarea id="f_notes">${esc(f.notes)}</textarea><button class="btn full" onclick="saveFood('${i}')">Salvar</button></div>`)}function saveFood(i){upsert('food',{id:i||id('f'),name:val('f_name'),city:val('f_city'),country:val('f_country'),cat:val('f_cat'),status:val('f_status'),price:val('f_price'),maps:val('f_maps'),notes:val('f_notes')});save();closeM();render()}
+function upsert(c,o){let i=data[c].findIndex(x=>x.id===o.id);if(i>=0)data[c][i]=o;else data[c].push(o)}function del(c,i){if(confirm('Excluir?')){data[c]=data[c].filter(x=>x.id!==i);if(c==='stays'||c==='tours')data.days.forEach(d=>d.events=d.events.filter(e=>e.ref!==i));save();render()}}function exportB(){let b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='backup-trip-app-2026.json';a.click()}function importB(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();render();alert('Backup importado!')}catch(err){alert('Backup inválido.')}};r.readAsText(f)}function reset(){if(confirm('Restaurar base inicial?')){localStorage.removeItem(LS);data=load();render()}}render();
+</script>
 </body>
 </html>
