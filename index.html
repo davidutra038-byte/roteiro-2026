@@ -59,9 +59,10 @@
         }
         
         button {
-            background: var(--primary); color: white; border: none; padding: 14px;
-            border-radius: 14px; font-size: 16px; font-weight: 700; width: 100%; cursor: pointer;
+            background: var(--primary); color: white; border: none; padding: 12px 16px;
+            border-radius: 12px; font-size: 15px; font-weight: 700; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
+        .btn-maps { background: var(--accent); font-size: 12px; padding: 6px 12px; width: auto; margin: 0; border-radius: 8px; }
         
         .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .stat-box { background: var(--card-bg); padding: 14px; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); }
@@ -90,15 +91,14 @@
         }
         .nav-btn {
             background: none; border: none; color: var(--text-sub); font-size: 9px;
-            font-weight: 600; display: flex; flex-direction: column; align-items: center; width: 55px; cursor: pointer;
+            font-weight: 600; display: flex; flex-direction: column; align-items: center; width: 50px; cursor: pointer;
         }
         .nav-btn.active { color: var(--primary); }
-        .nav-icon { font-size: 20px; margin-bottom: 2px; }
+        .nav-icon { font-size: 18px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-    <!-- INÍCIO -->
     <div id="tab-inicio" class="tab-content active" style="padding:0; max-width:100%;">
         <div class="home-header">
             <span style="font-size: 11px; font-weight: bold; opacity: 0.7; text-transform: uppercase;">Trip App Premium</span>
@@ -106,135 +106,130 @@
         </div>
         <div style="padding: 16px; max-width: 500px; margin: 0 auto;">
             <div class="grid-stats">
-                <div class="stat-box"><div class="stat-val" id="dash-investido">R$ 0</div><div class="stat-lbl">Investimento Total</div></div>
+                <div class="stat-box"><div class="stat-val" id="dash-investido">R$ 0</div><div class="stat-lbl">Orçamento Atual</div></div>
                 <div class="stat-box"><div class="stat-val" id="dash-mala">0%</div><div class="stat-lbl">Mala Pronta</div></div>
             </div>
             <div class="card">
-                <h3>🌤️ Status do Destino</h3>
-                <p style="margin-top: 6px; color: var(--text-sub);">Setembro marca o início da temporada de seca nos Andes, excelente para o céu limpo no Atacama e Uyuni[span_7](start_span)[span_7](end_span). Prepare-se para frio rigoroso à noite[span_8](start_span)[span_8](end_span).</p>
+                <h3>🌤️ Status do Planejamento</h3>
+                <p style="margin-top: 6px; color: var(--text-sub);">Central de controle ativa. Gerencie custos, confira a bagagem e consulte o roteiro offline durante os trechos de altitude.</p>
             </div>
         </div>
     </div>
 
-    <!-- ROTEIRO DIÁRIO COMPLETO -->
     <div id="tab-agenda" class="tab-content">
         <h2 class="page-title">📅 Roteiro Diário</h2>
         <div id="lista-agenda"></div>
     </div>
 
-    <!-- PASSEIOS -->
     <div id="tab-passeios" class="tab-content">
-        <h2 class="page-title">🚗 Meus Passeios</h2>
+        <h2 class="page-title">🚗 Catálogo de Passeios</h2>
         <div id="lista-passeios"></div>
     </div>
 
-    <!-- HOSPEDAGENS -->
+    <div id="tab-gastro" class="tab-content">
+        <h2 class="page-title">🍽️ Catálogo Gastronômico</h2>
+        <div id="lista-gastro"></div>
+    </div>
+
     <div id="tab-hoteis" class="tab-content">
         <h2 class="page-title">🏨 Hospedagens</h2>
         <div id="lista-hoteis"></div>
     </div>
 
-    <!-- CUSTOS -->
-    <div id="tab-gastos" class="tab-content">
-        <h2 class="page-title">💰 Gestão de Finanças</h2>
-        <div class="card" style="background: linear-gradient(135deg, #143d73, #07101f); color: white; border: none;">
-            <h3 style="color: white; font-size:15px; margin-bottom:10px;">⚡ Conversor Rápido</h3>
-            <div style="display: flex; gap: 8px;">
-                <input type="number" id="conv-val" placeholder="Valor Local" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;" oninput="calcularConversao()">
-                <select id="conv-moeda" style="width: 120px; background: #07101f; color: white; border: 1px solid rgba(255,255,255,0.2);" onchange="calcularConversao()">
-                    <option value="0.0062">CLP (Chile)</option>
-                    <option value="0.78">BOB (Bolívia)</option>
-                    <option value="1.48">PEN (Peru)</option>
-                    <option value="5.50">USD (Dólar)</option>
-                </select>
-            </div>
-            <div id="conv-resultado" style="margin-top: 12px; font-weight: 800; font-size: 18px; color: #34d399;">R$ 0,00</div>
-        </div>
-        <div class="card">
-            <h3>Despesas Extras</h3>
-            <label>Item</label><input type="text" id="g-desc" placeholder="Ex: Câmbio Emergencial">
-            <label>Valor (R$)</label><input type="number" id="g-val" placeholder="0.00">
-            <button onclick="adicionarGastoAvulso()">Inserir Gasto</button>
-        </div>
-        <div id="lista-gastos"></div>
-    </div>
-
-    <!-- MALA / GESTÃO DE BAGAGEM -->
     <div id="tab-mala" class="tab-content">
-        <h2 class="page-title">🧳 Gestão de Bagagem</h2>
+        <h2 class="page-title">🧳 Checklist de Bagagem</h2>
         <div class="card">
-            <h3>Progresso de Itens Conferidos</h3>
+            <h3>Progresso Geral</h3>
             <div class="progress-container"><div class="progress-bar" id="barra-mala"></div></div>
             <div id="lista-mala"></div>
         </div>
     </div>
 
-    <!-- BARRA FIXA DESIGN PREMIUM -->
     <nav>
         <button class="nav-btn active" id="nav-inicio" onclick="mudarAba('inicio')"><span class="nav-icon">🏠</span><span>Início</span></button>
         <button class="nav-btn" id="nav-agenda" onclick="mudarAba('agenda')"><span class="nav-icon">📅</span><span>Roteiro</span></button>
         <button class="nav-btn" id="nav-passeios" onclick="mudarAba('passeios')"><span class="nav-icon">🚗</span><span>Passeios</span></button>
+        <button class="nav-btn" id="nav-gastro" onclick="mudarAba('gastro')"><span class="nav-icon">🍽️</span><span>Gastro</span></button>
         <button class="nav-btn" id="nav-hoteis" onclick="mudarAba('hoteis')"><span class="nav-icon">🏨</span><span>Hotéis</span></button>
-        <button class="nav-btn" id="nav-gastos" onclick="mudarAba('gastos')"><span class="nav-icon">💰</span><span>Custos</span></button>
         <button class="nav-btn" id="nav-mala" onclick="mudarAba('mala')"><span class="nav-icon">🧳</span><span>Mala</span></button>
     </nav>
 
     <script>
-        // BANCO DE DADOS COMPLETO - TODOS OS 21 DIAS DA EXPEDIÇÃO
+        // BASE DE DADOS INTEGRAL DE 21 DIAS
         const roteiroCompleto = [
-            { dia: 1, data: "08/09 (TER)", local: "Santiago 🇨🇱", log: "✈️ Voo do Brasil ➔ Santiago", desc: "Chegada, transfer ao hotel, câmbio de papel-moeda e passeio leve.", look: "Camiseta Preta, Jogger, Tênis (16-22°C)", levar: "Documentos, dinheiro inicial", dicas: "Faça o câmbio no centro de Santiago.", pais: "Chile" },
-            { dia: 2, data: "09/09 (QUA)", local: "Santiago 🇨🇱", log: "🚌 Bate-volta Farellones (~2h)", desc: "Dia completo na neve, tubing e teleféricos.", look: "Segunda Pele, Fleece, Anorak Impermeável", levar: "Luvas térmicas, gorro, óculos de sol", dicas: "Mantenha o casaco corta-vento fechado.", pais: "Chile" },
-            { dia: 3, data: "10/09 (QUI)", local: "Atacama 🇨🇱", log: "✈️ Voo Santiago ➔ Calama + Transfer", desc: "Check-in em San Pedro e aclimatação. À noite: Tour Astronômico.", look: "Camiseta Bege, Fleece, Jeans", levar: "Sorojchi Pills, hidratante labial", dicas: "Beba muita água para evitar o mal de altitude.", pais: "Chile" },
-            { dia: 4, data: "11/09 (SEX)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Valle de la Luna", desc: "Exploração geológica no Vale da Lua e Vale da Muerte. Pôr do sol.", look: "Camiseta Branca, Bermuda, Tênis de trilha", levar: "Protetor solar, boné, água", dicas: "O vento do deserto resseca muito a pele.", pais: "Chile" },
-            { dia: 5, data: "12/09 (SÁB)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Lagunas Altiplânicas", desc: "Lagoas Miscanti e Miñiques, Piedras Rojas e Salar de Talar.", look: "Camiseta Preta, Puffer, Calça Cinza", levar: "Corta-vento, lanches leves", dicas: "Localização com altitude elevada.", pais: "Chile" },
-            { dia: 6, data: "13/09 (DOM)", local: "Atacama 🇨🇱", log: "🚗 Saída 4h: Geysers del Tatio", desc: "Campos geotérmicos no amanhecer e banho termal.", look: "Camadas pesadas de inverno, luvas, gorro", levar: "Toalha, roupa de banho por baixo", dicas: "Temperatura negativa na chegada.", pais: "Chile" },
-            { dia: 7, data: "14/09 (SEG)", local: "Uyuni 🇧🇴", log: "🚌 Travessia Atacama ➔ Uyuni 3D/2N", desc: "Laguna Blanca, Laguna Verde e Deserto de Dalí.", look: "Camiseta Preta, Jogger, Bota", levar: "Passaporte, papel-moeda boliviano", dicas: "Imigração no meio do deserto.", pais: "Bolívia" },
-            { dia: 8, data: "15/09 (TER)", local: "Salar de Uyuni 🇧🇴", log: "🚗 Tour 4x4 no Salar", desc: "Deserto de sal completo, Isla Incahuasi e fotos com perspectiva.", look: "Camiseta Branca, Jogger, Óculos escuros", levar: "Carregador portátil (crítico!)", dicas: "Não há tomadas durante o dia no salar.", pais: "Bolívia" },
-            { dia: 9, data: "16/09 (QUA)", local: "La Paz 🇧🇴", log: "🚌 Tour Uyuni + Ônibus Noturno", desc: "Feiras em Uyuni e embarque noturno em ônibus leito.", look: "Moletom confortável, calça jogger", levar: "Lanches para o ônibus", dicas: "O trecho rodoviário balanceia bastante.", pais: "Bolívia" },
-            { dia: 10, data: "17/09 (QUI)", local: "La Paz 🇧🇴", log: "🚶 Chegada e Teleféricos", desc: "Mercado das Bruxas, Mirador Killi Killi e linhas de teleférico.", look: "Camiseta Verde, Jeans, Tênis", levar: "Dinheiro físico para os bilhetes", dicas: "A cidade é um vale inclinado.", pais: "Bolívia" },
-            { dia: 11, data: "18/09 (SEX)", local: "La Paz 🇧🇴", log: "🚲 Estrada da Morte (Bike)", desc: "Descida de mais de 60km de bicicleta até a selva.", look: "Segunda pele superior, moletom leve", levar: "Troca de roupa seca para o fim", dicas: "Siga rigorosamente as instruções do guia.", pais: "Bolívia" },
-            { dia: 12, data: "19/09 (SÁB)", local: "Cusco 🇵🇪", log: "🚌 Ônibus Direto Internacional", desc: "Viagem panorâmica contornando as margens do Lago Titicaca.", look: "Roupa confortável de viagem", levar: "Documentos de imigração do Peru", dicas: "A viagem demora entre 14h e 16h.", pais: "Peru" },
-            { dia: 13, data: "20/09 (DOM)", local: "Cusco 🇵🇪", log: "🚶 Plaza de Armas e San Blas", desc: "Dia leve focado em descanso urbano e Mercado San Pedro.", look: "Camiseta Preta, Jeans, Tênis", levar: "Capa de chuva leve na mochila", dicas: "Cusco tem o clima imprevisível.", pais: "Peru" },
-            { dia: 14, data: "21/09 (SEG)", local: "Cusco (Humantay) 🇵🇪", log: "🥾 Tour Van (4h trecho)", desc: "Trilha andina pesada de subida até a belíssima lagoa turquesa.", look: "Segunda pele, puffer, calça de trekking", levar: "Bastão de caminhada, água", dicas: "Suba devagar respeitando seu ritmo.", pais: "Peru" },
-            { dia: 15, data: "22/09 (TER)", local: "Machu Picchu 🇵🇪", log: "🚂 Trem + Ônibus de Subida", desc: "Visita guiada oficial no sítio arqueológico Inca.", look: "Camiseta Verde, Calça de Trekking, Bota", levar: "Ingresso impresso, passaporte", dicas: "O circuito possui sentido único.", pais: "Peru" },
-            { dia: 16, data: "23/09 (QUA)", local: "Rainbow Mountain 🇵🇪", log: "🥾 Tour Van (3h trecho)", desc: "Montanha Colorida (Vinicunca) acima de 5.000 metros.", look: "Casaco pesado, luvas, gorro térmico", levar: "Folhas de coca ou balas", dicas: "Frio extremo e ar rarefeito no topo.", pais: "Peru" },
-            { dia: 17, data: "24/09 (QUI)", local: "Vale Sagrado 🇵🇪", log: "🏛️ Pisac e Ollantaytambo", desc: "Tour completo pelas ruínas históricas do vale.", look: "Camiseta Bege, Jeans, Bota", levar: "Boleto Turístico de Cusco", dicas: "Excelente dia para entender a engenharia Inca.", pais: "Peru" },
-            { dia: 18, data: "25/09 (SEX)", local: "Lima 🇵🇪", log: "✈️ Voo Cusco ➔ Lima", desc: "Voo interno e tarde livre em Miraflores e Barranco.", look: "Camiseta Preta, Bermuda, Tênis", levar: "Câmera ou celular carregado", dicas: "Aproveite a brisa do oceano pacífico.", pais: "Peru" },
-            { dia: 19, data: "26/09 (SÁB)", local: "Paracas / Huacachina 🇵🇪", log: "⛵ Bate-volta Rodoviário", desc: "Islas Ballestas e sandboard no oásis no deserto.", look: "Camiseta Branca, Bermuda, Tênis", levar: "Troca de roupa para o sandboard", dicas: "Proteja os eletrônicos contra a areia.", pais: "Peru" },
-            { dia: 20, data: "27/09 (DOM)", local: "Lima 🇵🇪", log: "🍽️ Circuito das Águas", desc: "Dia dedicado à gastronomia e show das fontes luminosas.", look: "Camiseta Cinza, Bermuda, Tênis", levar: "Dinheiro para os restaurantes", dicas: "Reserve o jantar com antecedência.", pais: "Peru" },
-            { dia: 21, data: "28/09 (SEG)", local: "Retorno 🇧🇷", log: "✈️ Voo Lima ➔ Brasil", desc: "Check-out do hotel e embarque internacional para o Brasil.", look: "Moletom confortável de avião", levar: "Mala despachada ou de bordo organizada", dicas: "Chegue com 3h de antecedência.", pais: "Geral" }
+            { dia: 1, data: "08/09 (TER)", local: "Santiago 🇨🇱", log: "✈ Carver Voo do Brasil ➔ Santiago", desc: "Chegada, transfer ao hotel, câmbio de papel-moeda e passeio leve.", look: "Camiseta Preta, Jogger, Tênis (16-22°C)", levar: "Documentos, dinheiro inicial", dicas: "Faça câmbio no centro histórico.", pais: "Chile", base: "Santiago" },
+            { dia: 2, data: "09/09 (QUA)", local: "Santiago 🇨🇱", log: "🚌 Bate-volta Farellones (~2h)", desc: "Dia na neve: Tubing, teleférico e mirantes andinos.", look: "Segunda Pele, Fleece, Anorak Impermeável", levar: "Gorro, luvas térmicas, óculos escuros", dicas: "Alugue botas se necessário.", pais: "Chile", base: "Santiago" },
+            { dia: 3, data: "10/09 (QUI)", local: "Atacama 🇨🇱", log: "✈ Voo Santiago ➔ Calama + Transfer", desc: "Aclimatização de altitude em San Pedro. À noite: Tour Astronômico.", look: "Camiseta Bege, Fleece, Jeans", levar: "Hidratante labial, água", dicas: "Evite esforço físico no primeiro dia.", pais: "Chile", base: "Atacama" },
+            { dia: 4, data: "11/09 (SEX)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Valle de la Luna", desc: "Exploração geológica no Vale da Lua e Vale da Muerte. Pôr do sol.", look: "Camiseta Branca, Bermuda, Tênis de trilha", levar: "Protetor solar, boné, 1.5L de água", dicas: "O deserto esfria rápido após o pôr do sol.", pais: "Chile", base: "Atacama" },
+            { dia: 5, data: "12/09 (SÁB)", local: "Atacama 🇨🇱", log: "🚗 Tour 4x4 Lagunas Altiplânicas", desc: "Miscanti, Miñiques, Piedras Rojas e Salar de Talar.", look: "Camiseta Preta, Puffer, Calça de Trekking", levar: "Casaco pesado, lanches", dicas: "Altitude elevada constante.", pais: "Chile", base: "Atacama" },
+            { dia: 6, data: "13/09 (DOM)", local: "Atacama 🇨🇱", log: "🚗 Saída 4h: Geysers del Tatio", desc: "Campos geotérmicos no amanhecer e banho termal.", look: "Segunda pele, fleece, puffer, gorro, luvas", levar: "Roupa de banho, toalha leve", dicas: "Chegada com temperatura negativa.", pais: "Chile", base: "Atacama" },
+            { dia: 7, data: "14/09 (SEG)", local: "Uyuni 🇧🇴", log: "🚌 Travessia Atacama ➔ Uyuni 3D/2N", desc: "Início do tour: Laguna Blanca, Laguna Verde e Deserto de Dalí.", look: "Camiseta Preta, Jogger, Bota", levar: "Dólares, pesos bolivianos físicos", dicas: "Imigração na fronteira desértica.", pais: "Bolívia", base: "Uyuni" },
+            { dia: 8, data: "15/09 (TER)", local: "Salar de Uyuni 🇧🇴", log: "🚗 Tour 4x4 no Salar", desc: "Deserto de sal completo, Isla Incahuasi e pôr do sol com espelho d'água.", look: "Camiseta Branca, Jogger, Óculos de sol", levar: "Carregador portátil (essencial)", dicas: "A bateria do celular descarrega rápido no frio.", pais: "Bolívia", base: "Uyuni" },
+            { dia: 9, data: "16/09 (QUA)", local: "La Paz 🇧🇴", log: "🚌 Fim do Tour + Ônibus Noturno", desc: "Manhã em Uyuni. Embarque noturno em ônibus leito para La Paz.", look: "Moletom confortável, Calça Jogger", levar: "Agasalho para o ônibus", dicas: "Trecho rodoviário longo.", pais: "Bolívia", base: "La Paz" },
+            { dia: 10, data: "17/09 (QUI)", local: "La Paz 🇧🇴", log: "🚶 Chegada e Teleféricos", desc: "Complexo de Teleféricos, Mercado das Bruxas e Mirador Killi Killi.", look: "Camiseta Verde, Jeans, Tênis", levar: "Dinheiro vivo para passagens", dicas: "Subidas íngremes constantes.", pais: "Bolívia", base: "La Paz" },
+            { dia: 11, data: "18/09 (SEX)", local: "La Paz 🇧🇴", log: "🚲 Estrada da Morte (Bike)", desc: "Descida de bike por ~60km dos Andes até a selva tropical.", look: "Segunda pele superior, corta-vento", levar: "Muda de roupas secas extras", dicas: "Foco total na pilotagem.", pais: "Bolívia", base: "La Paz" },
+            { dia: 12, data: "19/09 (SÁB)", local: "Cusco 🇵🇪", log: "🚌 Ônibus Direto Internacional", desc: "Viagem rodoviária longa contornando as margens do Lago Titicaca.", look: "Roupa confortável de viagem", levar: "Documentos de imigração do Peru", dicas: "Chegada prevista para a noite.", pais: "Peru", base: "Cusco" },
+            { dia: 13, data: "20/09 (DOM)", local: "Cusco 🇵🇪", log: "🚶 Plaza de Armas e San Blas", desc: "Aclimatização urbana tranquila e Mercado San Pedro.", look: "Camiseta Preta, Jeans, Tênis", levar: "Capa de chuva portátil", dicas: "Caminhe devagar devido à altitude.", pais: "Peru", base: "Cusco" },
+            { dia: 14, data: "21/09 (SEG)", local: "Cusco (Humantay) 🇵🇪", log: "🥾 Tour Van (4h trecho)", desc: "Trilha andina de subida íngreme até a Lagoa Humantay.", look: "Segunda pele, puffer, calça trekking", levar: "Bastão de caminhada, água abundante", dicas: "Respeite as paradas para fôlego.", pais: "Peru", base: "Cusco" },
+            { dia: 15, data: "22/09 (TER)", local: "Machu Picchu 🇵🇪", log: "🚂 Trem + Ônibus Oficial", desc: "Visita guiada oficial na espetacular Cidade Sagrada Inca.", look: "Camiseta Verde, Calça de Trekking, Bota", levar: "Ingresso impresso, passaporte original", dicas: "Proibido bastões sem proteção de borracha.", pais: "Peru", base: "Cusco" },
+            { dia: 16, data: "23/09 (QUA)", local: "Rainbow Mountain 🇵🇪", log: "🥾 Tour Van (3h trecho)", desc: "Trilha de alta altitude na Montanha Colorida (Vinicunca).", look: "Puffer pesada, luvas, gorro térmico", levar: "Chá ou balas de coca", dicas: "Ponto mais alto de toda a viagem.", pais: "Peru", base: "Cusco" },
+            { dia: 17, data: "24/09 (QUI)", local: "Vale Sagrado 🇵🇪", log: "🏛️ Pisac e Ollantaytambo", desc: "Sítios arqueológicos e mercados locais do vale.", look: "Camiseta Bege, Jeans, Bota", levar: "Boleto Turístico de Cusco", dicas: "Guarde o bilhete, será checado nas entradas.", pais: "Peru", base: "Cusco" },
+            { dia: 18, data: "25/09 (SEX)", local: "Lima 🇵🇪", log: "✈️ Voo Cusco ➔ Lima (1h20)", desc: "Chegada à capital litorânea. Tarde livre em Miraflores e Barranco.", look: "Camiseta Preta, Bermuda, Tênis", levar: "Celular carregado para fotos", dicas: "Visite o Malecón no pôr do sol.", pais: "Peru", base: "Lima" },
+            { dia: 19, data: "26/09 (SÁB)", local: "Paracas / Huacachina 🇵🇪", log: "⛵ Bate-volta Rodoviário", desc: "Navegação nas Islas Ballestas e buggies no oásis de Huacachina.", look: "Camiseta Branca, Bermuda, Tênis", levar: "Óculos de proteção contra areia", dicas: "Passe protetor solar antes de subir as dunas.", pais: "Peru", base: "Lima" },
+            { dia: 20, data: "27/09 (DOM)", local: "Lima 🇵🇪", log: "🍽️ Rota Gastronômica", desc: "Circuito Mágico das Águas e imersão nos restaurantes locais.", look: "Camiseta Cinza, Bermuda, Tênis", levar: "Casaco leve para a noite", dicas: "Reserve mesas com antecedência.", pais: "Peru", base: "Lima" },
+            { dia: 21, data: "28/09 (SEG)", local: "Retorno 🇧🇷", log: "✈️ Voo Lima ➔ Brasil", desc: "Traslado ao aeroporto e embarque de retorno internacional.", look: "Moletom confortável de avião", levar: "Bagagem de mão organizada", dicas: "Chegue 3h antes do voo.", pais: "Geral", base: "Retorno" }
+        ];
+
+        const gastroLocais = [
+            { cidade: "Santiago", cat: "Sorvete", nome: "Montana Gelato - Lastarria", query: "Montana+Gelato+Lastarria+Santiago" },
+            { cidade: "Santiago", cat: "Sorvete", nome: "Emporio La Rosa", query: "Emporio+La+Rosa+Santiago" },
+            { cidade: "Santiago", cat: "Café", nome: "Wonderland Café", query: "Wonderland+Cafe+Santiago" },
+            { cidade: "Santiago", cat: "Restaurante", nome: "Bocanáriz (Vinhos)", query: "Bocanariz+Santiago" },
+            { cidade: "Santiago", cat: "Barato e Bom", nome: "Fuente Alemana", query: "Fuente+Alemana+Santiago" },
+            { cidade: "Atacama", cat: "Barato e Bom", nome: "La Picada Del Indio", query: "La+Picada+Del+Indio+San+Pedro+Atacama" },
+            { cidade: "Atacama", cat: "Café", nome: "La Franchuteria", query: "La+Franchuteria+San+Pedro+Atacama" },
+            { cidade: "Uyuni", cat: "Restaurante", nome: "Minuteman Pizza", query: "Minuteman+Pizza+Uyuni" },
+            { cidade: "La Paz", cat: "Café", nome: "Typica Café", query: "Typica+Cafe+La+Paz" },
+            { cidade: "Cusco", cat: "Restaurante", nome: "Morena Peruvian Kitchen", query: "Morena+Peruvian+Kitchen+Cusco" },
+            { cidade: "Cusco", cat: "Rooftop", nome: "Limbus Restobar", query: "Limbus+Restobar+Cusco" },
+            { cidade: "Lima", cat: "Restaurante", nome: "Maido", query: "Maido+Lima" },
+            { cidade: "Lima", cat: "Restaurante", nome: "La Mar", query: "La+Mar+Cevicherias+Lima" }
+        ];
+
+        const passeiosIniciais = [
+            { id: 1, nome: "Farellones (Neve)", data: "09/09", base: "Santiago", valor: 280 },
+            { id: 2, nome: "Tour Astronômico", data: "10/09", base: "Atacama", valor: 190 },
+            { id: 3, nome: "Valle de la Luna", data: "11/09", base: "Atacama", valor: 130 },
+            { id: 4, nome: "Lagunas Altiplânicas", data: "12/09", base: "Atacama", valor: 390 },
+            { id: 5, nome: "Geysers del Tatio", data: "13/09", base: "Atacama", valor: 240 },
+            { id: 6, nome: "Salar de Uyuni 3D/2N", data: "14/09 a 16/09", base: "Uyuni", valor: 1250 },
+            { id: 7, nome: "Death Road (Bike)", data: "18/09", base: "La Paz", valor: 480 },
+            { id: 8, nome: "Humantay Lagoon", data: "21/09", base: "Cusco", valor: 220 },
+            { id: 9, nome: "Machu Picchu Oficial", data: "22/09", base: "Cusco", valor: 1650 },
+            { id: 10, nome: "Rainbow Mountain", data: "23/09", base: "Cusco", valor: 230 }
+        ];
+
+        const hoteisIniciais = [
+            { id: 1, cidade: "Santiago", nome: "Hotel Lastarria Premium", valor: 680 },
+            { id: 2, cidade: "Atacama", nome: "Hostal Caracoles Deserto", valor: 1150 },
+            { id: 3, cidade: "La Paz", nome: "A preencher", valor: 0 },
+            { id: 4, cidade: "Cusco", nome: "A preencher", valor: 0 },
+            { id: 5, cidade: "Lima", nome: "A preencher", valor: 0 }
         ];
 
         const malaItens = [
-            { id: 1, item: "3x Camisetas Dry-fit pretas", cat: "Roupas" },
-            { id: 2, item: "1x Camiseta Branca / 1x Bege / 1x Verde", cat: "Roupas" },
-            { id: 3, item: "2x Roupas de segunda pele térmicas", cat: "Térmicas" },
-            { id: 4, item: "1x Jaqueta puffer compacta", cat: "Inverno" },
-            { id: 5, item: "1x Jaqueta impermeável (Anorak)", cat: "Inverno" },
-            { id: 6, item: "Bota de trekking impermeável amaciada", cat: "Calçados" },
-            { id: 7, item: "Carregador portátil (Power Bank)", cat: "Eletrônicos" },
-            { id: 8, item: "Protetor solar e Hidratante labial", cat: "Higiene" }
+            { id: 1, item: "3x Camisetas Dry-fit pretas + 1x Branca", cat: "Camisetas" },
+            { id: 2, item: "2x Conjuntos de segunda pele térmica", cat: "Térmicas" },
+            { id: 3, item: "Jaqueta puffer compacta + Anorak Impermeável", cat: "Jaquetas" },
+            { id: 4, item: "Bota de trekking impermeável amaciada", cat: "Calçados" },
+            { id: 5, item: "Carregador portátil (Power Bank de alta capacidade)", cat: "Eletrônicos" },
+            { id: 6, item: "Protetor solar + Hidratante labial (Atacama/Salar)", cat: "Higiene" }
         ];
 
-        let db = JSON.parse(localStorage.getItem('trip_v6_data')) || {
-            gastos: [{ id: 1, desc: "Passagens Aéreas Principais", val: 2545.00 }],
-            hoteis: [
-                { id: 1, cidade: "Santiago", nome: "Hotel Aubrey Lastarria", valor: 650 },
-                { id: 2, cidade: "Atacama", nome: "Hostel Caracoles Centro", valor: 1200 },
-                { id: 3, cidade: "La Paz", nome: "A preencher", valor: 0 },
-                { id: 4, cidade: "Cusco", nome: "A preencher", valor: 0 },
-                { id: 5, cidade: "Lima", nome: "A preencher", valor: 0 }
-            ],
-            passeios: [
-                { id: 1, nome: "Farellones (Neve)", valor: 250 },
-                { id: 2, nome: "Tour Astronômico", valor: 180 },
-                { id: 3, nome: "Valle de la Luna", valor: 120 },
-                { id: 4, nome: "Lagunas Altiplânicas", valor: 380 },
-                { id: 5, nome: "Geysers del Tatio", valor: 220 },
-                { id: 6, nome: "Salar de Uyuni 3D/2N", valor: 1200 },
-                { id: 7, nome: "Death Road Bike", valor: 450 },
-                { id: 8, nome: "Machu Picchu Ingressos", valor: 1650 }
-            ],
+        let db = JSON.parse(localStorage.getItem('trip_v7_premium')) || {
+            hoteis: hoteisIniciais,
+            passeios: passeiosIniciais,
+            gastos: [{ id: 1, desc: "Passagens Internacionais Emissão", val: 2545.00 }],
             malaCheck: []
         };
 
@@ -245,15 +240,14 @@
             document.getElementById('nav-' + aba).classList.add('active');
         }
 
-        function salvar() {
-            localStorage.setItem('trip_v6_data', JSON.stringify(db));
+        function toggleMala(id) {
+            if(db.malaCheck.includes(id)) {
+                db.malaCheck = db.malaCheck.filter(x => x !== id);
+            } else {
+                db.malaCheck.push(id);
+            }
+            localStorage.setItem('trip_v7_premium', JSON.stringify(db));
             render();
-        }
-
-        function calcularConversao() {
-            const val = parseFloat(document.getElementById('conv-val').value) || 0;
-            const cot = parseFloat(document.getElementById('conv-moeda').value);
-            document.getElementById('conv-resultado').innerText = `R$ ${(val * cot).toFixed(2)}`;
         }
 
         function adicionarGastoAvulso() {
@@ -263,78 +257,94 @@
             db.gastos.push({ id: Date.now(), desc, val });
             document.getElementById('g-desc').value = '';
             document.getElementById('g-val').value = '';
-            salvar();
+            localStorage.setItem('trip_v7_premium', JSON.stringify(db));
+            render();
         }
 
         function render() {
-            // Cálculos Dinâmicos Financeiros
-            let totalGeral = 0;
-            db.gastos.forEach(g => totalGeral += g.val);
-            db.hoteis.forEach(h => totalGeral += h.valor);
-            db.passeios.forEach(p => totalGeral += p.valor);
-            document.getElementById('total-header').innerText = `R$ ${totalGeral.toFixed(2)}`;
-            document.getElementById('dash-investido').innerText = `R$ ${totalGeral.toFixed(2)}`;
+            // Consolidação Orçamentária Relacional
+            let orcamentoTotal = 0;
+            db.gastos.forEach(g => orcamentoTotal += g.val);
+            db.hoteis.forEach(h => orcamentoTotal += h.valor);
+            db.passeios.forEach(p => orcamentoTotal += p.valor);
+            document.getElementById('total-header').innerText = `R$ ${orcamentoTotal.toFixed(2)}`;
+            document.getElementById('dash-investido').innerText = `R$ ${orcamentoTotal.toFixed(2)}`;
 
-            // Render Roteiro
+            // Roteiro Diário Relacional
             const divAgenda = document.getElementById('lista-agenda');
             divAgenda.innerHTML = '';
             roteiroCompleto.forEach(d => {
-                const hotel = db.hoteis.find(h => d.local.includes(h.cidade)) || { nome: "Abrigos / Outros" };
+                const hotel = db.hoteis.find(h => h.cidade === d.base) || { nome: "Abrigos/Ônibus em trânsito" };
                 divAgenda.innerHTML += `
-                    <div class="card" onclick="verDetalhesDia(${d.dia})">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                             <span class="badge badge-blue">DIA ${d.dia} • ${d.data}</span>
                             <span class="badge badge-amber">${d.pais}</span>
                         </div>
-                        <h3 style="margin:2px 0;">${d.local}</h3>
-                        <p style="font-weight:600; color:var(--text-main); margin-bottom:4px;">${d.log}</p>
-                        <p style="margin-bottom:8px;">${d.desc}</p>
+                        <h3 style="font-size:16px; margin:2px 0;">${d.local}</h3>
+                        <p style="font-weight:700; color:var(--primary); margin-bottom:4px;">${d.log}</p>
+                        <p style="margin-bottom:8px; color:var(--text-main);">${d.desc}</p>
                         <div class="item-meta">
-                            <p>👕 <b>Look do Dia:</b> ${d.look}</p>
-                            <p>🎒 <b>O que levar:</b> ${d.levar}</p>
-                            <p>💡 <b>Dica:</b> ${d.dicas}</p>
-                            <p style="color:var(--primary); font-weight:700; margin-top:4px;">🏨 Pernoite: ${hotel.nome}</p>
+                            <p>👕 <b>Look Planejado:</b> ${d.look}</p>
+                            <p>🎒 <b>Na Mochila:</b> ${d.levar}</p>
+                            <p>💡 <b>Dica Operacional:</b> ${d.dicas}</p>
+                            <p style="color:var(--success); font-weight:700; margin-top:4px;">🏨 Pernoite: ${hotel.nome}</p>
                         </div>
                     </div>`;
             });
 
-            // Render Passeios
+            // Passeios
             const divPasseios = document.getElementById('lista-passeios');
             divPasseios.innerHTML = '';
             db.passeios.forEach(p => {
                 divPasseios.innerHTML += `
                     <div class="card">
                         <h3>${p.nome}</h3>
-                        <label>Preço Pago / Previsto (R$)</label>
-                        <input type="number" value="${p.valor}" onchange="const x=db.passeios.find(o=>o.id===${p.id}); x.valor=parseFloat(this.value)||0; salvar();">
+                        <p style="font-size:12px; color:var(--text-sub);">Base: ${p.base} | Data: ${p.data}</p>
+                        <label>Custo do Tour (R$)</label>
+                        <input type="number" value="${p.valor}" onchange="const x=db.passeios.find(o=>o.id===${p.id}); x.valor=parseFloat(this.value)||0; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
                     </div>`;
             });
 
-            // Render Hotéis
+            // Gastronomia com Integração Google Maps
+            const divGastro = document.getElementById('lista-gastro');
+            divGastro.innerHTML = '';
+            gastroLocais.forEach(g => {
+                divGastro.innerHTML += `
+                    <div class="card" style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px;">
+                        <div>
+                            <span class="badge badge-blue" style="font-size:9px;">${g.cidade} • ${g.cat}</span>
+                            <h3 style="font-size:15px; margin-top:4px;">${g.nome}</h3>
+                        </div>
+                        <button class="btn-maps" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${g.query}')">📍 Rota</button>
+                    </div>`;
+            });
+
+            // Hotéis
             const divHoteis = document.getElementById('lista-hoteis');
             divHoteis.innerHTML = '';
             db.hoteis.forEach(h => {
                 divHoteis.innerHTML += `
                     <div class="card">
-                        <h3>Base: ${h.cidade}</h3>
-                        <label>Nome do Hotel / Hostel</label>
-                        <input type="text" value="${h.nome}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.nome=this.value; salvar();">
+                        <h3>Base Regional: ${h.cidade}</h3>
+                        <label>Nome do Hotel / Acomodação</label>
+                        <input type="text" value="${h.nome}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.nome=this.value; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
                         <label>Valor Pago (R$)</label>
-                        <input type="number" value="${h.valor}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.valor=parseFloat(this.value)||0; salvar();">
+                        <input type="number" value="${h.valor}" onchange="const x=db.hoteis.find(o=>o.id===${h.id}); x.valor=parseFloat(this.value)||0; localStorage.setItem('trip_v7_premium', JSON.stringify(db)); render();">
                     </div>`;
             });
 
-            // Render Extrato
+            // Extrato de Finanças
             const divGastos = document.getElementById('lista-gastos');
             divGastos.innerHTML = '';
             db.gastos.forEach(g => {
                 divGastos.innerHTML += `
-                    <div class="list-item" style="display:flex; justify-content:space-between; padding:8px 0;">
+                    <div class="card" style="display:flex; justify-content:space-between; padding:12px 16px;">
                         <span>${g.desc}</span><span style="font-weight:700; color:var(--danger)">R$ ${g.val.toFixed(2)}</span>
                     </div>`;
             });
 
-            // Render Mala
+            // Checklist Mala de Bordo
             const divMala = document.getElementById('lista-mala');
             divMala.innerHTML = '';
             let marcados = 0;
@@ -345,27 +355,14 @@
                     <div class="check-row">
                         <input type="checkbox" ${checked} onchange="toggleMala(${m.id})">
                         <div>
-                            <span style="font-size:11px; font-weight:bold; color:var(--text-sub); text-transform:uppercase;">${m.cat}</span>
+                            <span style="font-size:10px; font-weight:700; color:var(--text-sub); text-transform:uppercase;">${m.cat}</span>
                             <div style="font-size:15px; font-weight:600;">${m.item}</div>
                         </div>
                     </div>`;
             });
-            const pct = malaItens.length ? Math.round((marcados / malaItens.length) * 100) : 0;
+            const pct = Math.round((marcados / malaItens.length) * 100);
             document.getElementById('barra-mala').style.width = pct + '%';
             document.getElementById('dash-mala').innerText = pct + '%';
-        }
-
-        function toggleMala(id) {
-            if(db.malaCheck.includes(id)) {
-                db.malaCheck = db.malaCheck.filter(x => x !== id);
-            } else {
-                db.malaCheck.push(id);
-            }
-            salvar();
-        }
-
-        function resetarBase() {
-            if(confirm("Resetar banco local?")) { localStorage.removeItem('trip_v6_data'); location.reload(); }
         }
 
         window.onload = render;
